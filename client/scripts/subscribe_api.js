@@ -79,10 +79,10 @@ function getUrlParams(key) {
     if (paraArr && paraArr.length > 0) {
         var arr = [];
         for (var i = 0, len = paraArr.length; i < len; i++) {
-            if (paraArr[i].indexOf(key) > -1) {
+            if (paraArr[i].toLocaleLowerCase().indexOf(key.toLocaleLowerCase()) > -1) {
                 arr = paraArr[i].split('=');
-                if (arr.length > 1 && arr[0] === key) {
-                    value = arr[1];
+                if (arr.length > 1 && arr[0].toLocaleLowerCase() === key.toLocaleLowerCase()) {
+                    value = arr[1].toLocaleLowerCase();
                 }
             }
         }

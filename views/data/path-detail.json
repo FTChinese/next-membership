@@ -7,12 +7,6 @@
             "js":["main.js","key.js"]
         },
         {
-            "name": "subscriptionTest",
-            "data": "views/data/data.json",
-            "template": "subscriptionTest.html",
-            "js":["main.js"]
-        },
-        {
             "name": "subscribenotice",
             "data": "views/data/data.json",
             "template": "subscribenotice.html",
@@ -23,12 +17,6 @@
             "data": "views/data/data.json",
             "template": "binding.html",
             "js":["exchange.js"]
-        },
-        {
-            "name": "gameagreement",
-            "data": "views/data/data.json",
-            "template": "gameagreement.html",
-            "js":[]
         },
         {
             "name": "QandA",

@@ -5,6 +5,8 @@ import {GetCookie,getUrlParams} from './subscribe_api';
     }, i[r].l = 1 * new Date(); a = s.createElement(o),
         m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m); a.onload = function () { if (typeof clearEvents === 'function') { clearEvents() } }
 })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+// -- https://www.google-analytics.com/analytics.js
+// -- https://www.ftacademy.cn/analytics.js -- [./analytics.js]
 
 var userIdForGA = GetCookie('U') || GetCookie('USER_ID') || '';
 var clientId;

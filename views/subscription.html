@@ -14,14 +14,59 @@
 
   <script>
     var today = new Date();
-    var startDate=new Date('2020-11-09 12:00:00'.replace(/-/g, "\/"));
-    var endDate=new Date('2020-11-11  23:59:59'.replace(/-/g, "\/"));
-    if (today.getTime() >= startDate.getTime() && today.getTime() < endDate.getTime() && (window.location.href.search("ft_big_sale") < 0 && window.location.href.search("ft_win_back") < 0)) {
-        //window.location = 'https://www.ftacademy.cn/subscription.html?from=ft_win_back';
-        console.log('FT_PROMO');
-    } else {
-        console.log('FT_SUBS');
+
+    /*
+    var switchtTime = new Date('2021/02/18 00:00:00');
+    if (today.getTime() < switchtTime.getTime()) {
+        var price = {'standard': 258, 'premium': 1998, 'monthly': 28};
+        //console.log('Old Price');
     }
+    */
+
+    var href = window.location.href.toLocaleLowerCase();
+    if (href.indexOf('ft_win_back') > 0) {
+        var price = {'standard': 148, 'premium': 998, 'monthly': 35};
+        //console.log('[WinBack]');
+    } else if (href.indexOf('ft_renewal') > 0) {
+        var price = {'standard': 218, 'premium': 1498, 'monthly': 35};
+        //console.log('[Renewal]');
+    } else if (href.indexOf('ft_discount') > 0) {
+        var price = {'standard': 258, 'premium': 1698, 'monthly': 35};
+        //console.log('[Discount]');
+    } else if (href.indexOf('uibe') > 0 || href.indexOf('bimba') > 0) {
+        var price = {'standard': 148, 'premium': 998, 'monthly': 35};
+    } else {
+        var price = {'standard': 298, 'premium': 1998, 'monthly': 35};
+        //console.log('[Default]');
+    }
+
+    // @@@@@@@@@@
+    // -- Set Promo -- [subscription.html]
+    // -- Set Policy -- [main.js]
+    // @@@@@@@@@@
+    var promoName = '';
+    var promoStart = promoEnd = 0;
+    var promo = [];
+    promo.push({'name': 'FuNiuYingChun', 'start': '2021/02/01 12:00:00', 'end': '2021/02/07 23:59:59', 'standard': 218, 'premium': 1698, 'monthly': 28});
+    promo.push({'name': '2021-08-31_Preview', 'start': '2021/08/09 00:00:00', 'end': '2021/08/22 23:59:59', 'standard': 218, 'premium': 1498, 'monthly': 35});
+    // -- Default Page Shows Default Prices -- 2021-08-23 [Alanna]
+    //promo.push({'name': '2021-08-31', 'start': '2021/08/23 00:00:00', 'end': '2021/09/02 23:59:59', 'standard': 148, 'premium': 998, 'monthly': 35});
+    for (i = 0; i < promo.length; i++) {
+        promoStart = new Date(promo[i]['start']).getTime();
+        promoEnd = new Date(promo[i]['end']).getTime();
+        if (today.getTime() >= promoStart && today.getTime() <= promoEnd) {
+            promoName = promo[i]['name'];
+            price = {'standard': promo[i]['standard'], 'premium': promo[i]['premium'], 'monthly': promo[i]['monthly']};
+            //console.log('['+ price['monthly'] +'][' + price['standard'] + ']['+ price['premium'] +']');
+            Status = 'Promo';
+            break;
+        } else {
+            Status = 'Default';
+        }
+    }
+    console.log(Status);
+
+    var priceAvg = {'standard': Math.round((price['standard']/365)*10)/10, 'premium': Math.round((price['premium']/365)*10)/10, 'monthly': Math.round((price['monthly']/31)*10)/10};
   </script>
 
   <script inline src="scripts/key.js"></script>
@@ -31,9 +76,11 @@
   <style>
       #standard_price_origin, #standard_price_monthly_origin, #premium_price_origin {
           display: none;
-          text-decoration: line-through;
           color: #CCC;
           font-size: .6em;
+      }
+      #standard_price_origin, #premium_price_origin {
+          text-decoration: line-through;
       }
   </style>
 
@@ -91,22 +138,24 @@
             <h2 class="o-member__title">{{products[0].title}}</h2>
             <div class="o-member__border"></div>
             <ul class="o-member__benefits">
+              <li id="benefits_standard"></li>
               {% for benefit in products[0].benefits %}
-                {% if loop.index == 1 %}
-                <li id="benefits_standard"> {{benefit}}</li>
-                {% else %}
-                <li> {{benefit}}</li>
-                {% endif %}{% endfor %}
+              <li>{{benefit}}</li>
+              {% endfor %}
             </ul>
             <div class="o-member__subscribe">
               <a data-key="{{products[0].key}}"><button class="openSub" id="standard-btn">{{products[0].openBtn}}</button></a>
               <p class="data-price" id="standard_price">{{products[0].price}}</p>
               <span id="standard_price_origin">原价{{products[0].price}}</span>
-              <input type="text" value="¥258/年" hidden id="regular-member">
+              <input type="text" value="" hidden id="price_standard">
             </div>
           </div>
         </div>
       </div>
+      <script>
+          document.getElementById('price_standard').value = '¥' + price['standard'] + '元/年';
+          document.getElementById('benefits_standard').innerHTML = '专享订阅内容每日仅需' + priceAvg['standard'] + '元';
+      </script>
 
       <div class="o-member-outer">
         <div class="o-member o-member__premium">
@@ -114,23 +163,25 @@
             <h2 class="o-member__title">{{products[2].title}}</h2>
             <div class="o-member__border"></div>
             <ul class="o-member__benefits">
+              <li id="benefits_premium"></li>
               {% for benefit in products[2].benefits %}
-                {% if loop.index == 1 %}
-                <li id="benefits_premium"> {{benefit}}</li>
-                {% else %}
-                <li>{{benefit}}</li>
-                {% endif %}{% endfor %}
+              <li>{{benefit}}</li>
+              {% endfor %}
             </ul>
             <p style="padding: 0.5em 1em 0em 1.5em; font-size: .8em">{{products[2].note}}</p>
             <div class="o-member__subscribe">
               <a data-key="{{products[2].key}}"><button class="openSub" id="premium-btn">{{products[2].openBtn}}</button></a>
               <p class="data-price" id="premium_price">{{products[2].price}}</p>
               <span id="premium_price_origin">原价{{products[2].price}}</span>
-              <input type="text" value="¥1998/年" hidden>
+              <input type="text" value="" hidden id="price_premium">
             </div>
           </div>
         </div>
       </div>
+      <script>
+          document.getElementById('price_premium').value = '¥' + price['premium'] + '元/年';
+          document.getElementById('benefits_premium').innerHTML = '专享订阅内容每日仅需' + priceAvg['premium'] + '元';
+      </script>
 
       <div class="o-member-outer">
         <div class="o-member o-member__standard__monthly">
@@ -138,34 +189,35 @@
             <h2 class="o-member__title">{{products[1].title}}</h2>
             <div class="o-member__border"></div>
             <ul class="o-member__benefits">
+              <li id="benefits_monthly"></li>
               {% for benefit in products[1].benefits %}
-              <li> {{benefit}}</li>
+              <li>{{benefit}}</li>
               {% endfor %}
             </ul>
             <div class="o-member__subscribe">
               <a data-key="{{products[1].key}}"><button class="openSub" id="standard-btn-monthly">{{products[1].openBtn}}</button></a>
               <p class="data-price" id="standard_price_monthly">{{products[1].price}}</p>
-              <span id="standard_price_monthly_origin">&nbsp;</span>
-              <input type="text" value="¥28/月" hidden id="regular-member-monthly">
+              <span id="standard_price_monthly_origin">&nbsp;<!--原价{{products[1].price}}--></span>
+              <input type="text" value="" hidden id="price_monthly">
             </div>
           </div>
         </div>
       </div>
+      <script>
+          document.getElementById('price_monthly').value = '¥' + price['monthly'] + '元/年';
+          document.getElementById('benefits_monthly').innerHTML = '专享订阅内容每日仅需' + priceAvg['monthly'] + '元';
+      </script>
 
     <script>
-        if (today.getTime() >= startDate.getTime() && today.getTime() < endDate.getTime() && (window.location.href.search("ft_big_sale") > 0 || window.location.href.search("ft_win_back") > 0)) {
-            //document.getElementById("benefits_standard").innerHTML = "至9月2日24时五折周年庆价，专享权益每日仅需0.35元";
-            //document.getElementById("benefits_premium").innerHTML = "至9月2日24时五折周年庆价，专享权益每日仅需2.75元";
-            //var PriceDesc = '（FT中文网 十五周年）';
-            var PriceDesc = '';
-        } else if (today.getTime() >= startDate.getTime() && today.getTime() < endDate.getTime()) {
-            /*
-            document.getElementsByClassName('firstStrong')[0].innerHTML = 'FT中文网会员订阅<br>双11限时85折，还送财经词汇！';
-            document.getElementsByClassName('second')[0].innerHTML = '前1000名年度标准会员送价值69元的《英国<金融时报>财经词汇》简装版，高端会员送价值199元的精装版。<br><br>未来365天，在原汁原味英文+资深团队译文中，取得语言能力的进步。在国际视野与多元言论里，让你站在高海拔的地方俯瞰世界，深入思考！<br><br>活动截止：2020年11月11日24点（北京时间）<br>现有会员（含升级/续订）、实体订阅卡、企业机构会员和Stripe支付会员均不参加本次活动<br>赠品配送地址仅限中国大陆，海外及港澳台地区订户可请大陆好友代收<br>本次活动的最终解释权归FT中文网所有<br><br>';
+        if (today.getTime() >= promoStart && today.getTime() <= promoEnd) {
+            //document.getElementById("benefits_standard").innerHTML = '';
+            //document.getElementById("benefits_premium").innerHTML = '';
+            //document.getElementsByClassName('firstStrong')[0].innerHTML = '';
+            //document.getElementsByClassName('second')[0].innerHTML = '';
             document.getElementById('standard_price_origin').style.display = 'block';
             document.getElementById('premium_price_origin').style.display = 'block';
             document.getElementById('standard_price_monthly_origin').style.display = 'block';
-            */
+            //var PriceDesc = '（福牛迎春）';
             var PriceDesc = '';
         } else {
             var PriceDesc = '';
@@ -180,11 +232,15 @@
 
   <script inline src="scripts/main.js"></script>
 
-  <!--
   <script>
+    //var today = new Date();
+    // [./js/log.js] -> [Domain + PHP] -> [200] -- [Enabled]
+    // [./js/log.js] -> [Only PHP] -> [404] -- [Disable]
+    /*
     var y = today.getFullYear();
     var m = zeroFix(today.getMonth() + 1);
     var d = zeroFix(today.getDate());
+    var logDomain = 'https://dhgxl8qk9zgzr.cloudfront.net';
 
     function zeroFix(n) {
       return (n < 10) ? '0' + n : n;
@@ -192,15 +248,14 @@
 
     if (window.gAutoStart === undefined) {
       (function (d, s, u, j, x) {
-        j = d.createElement(s),
-          x = d.getElementsByTagName(s)[0];
+        j = d.createElement(s), x = d.getElementsByTagName(s)[0];
         j.async = true;
         j.src = u;
         x.parentNode.insertBefore(j, x);
-      })(document, 'script', 'https://static.ftacademy.cn/js/log.js?' + y + m + d);
+      })(document, 'script', logDomain + '/js/log.js?' + y + m + d);
     }
+    */
   </script>
-  -->
 
 </body>
 

@@ -12,10 +12,14 @@
         <A href="http://www.ftchinese.com/m/marketing/ftc.html">最新动态</A>
       </DIV>
       <P>
-        <SPAN class="copyright"><B>© The Financial Times Ltd <script>date=new Date;document.write(date.getFullYear());</script></B></SPAN>
+        <SPAN class="copyright"><B>© The Financial Times Ltd <SPAN id="FullYear"></SPAN></B></SPAN>
         <SPAN><ACRONYM title="Financial Times">FT</ACRONYM> and
 'Financial Times' are trademarks of The Financial Times
 Ltd.</SPAN>
       </P>
+      <script>
+          date=new Date;
+          document.getElementById("FullYear").innerHTML = date.getFullYear();
+      </script>
     </DIV>
   </DIV>
