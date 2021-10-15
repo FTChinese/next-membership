@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>会员订阅 - FT中文网</title>
+  <title>FT中文网 - 会员订阅</title>
   <meta http-equiv="Content-Language" content="zh-CN" />
   <meta content="会员订阅" name="description" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
@@ -36,7 +36,8 @@
     } else if (href.indexOf('uibe') > 0 || href.indexOf('bimba') > 0) {
         var price = {'standard': 148, 'premium': 998, 'monthly': 35};
     } else {
-        var price = {'standard': 298, 'premium': 1998, 'monthly': 35};
+        var mothlyPrice = (href.indexOf('intro') > 0) ? 1 : 35;
+        var price = {'standard': 298, 'premium': 1998, 'monthly': mothlyPrice};
         //console.log('[Default]');
     }
 
@@ -74,7 +75,7 @@
   <link inline rel="stylesheet" type="text/css" href="styles/main.css">
 
   <style>
-      #standard_price_origin, #standard_price_monthly_origin, #premium_price_origin {
+      #standard_price_origin, #standard_monthly_price_origin, #premium_price_origin {
           display: none;
           color: #CCC;
           font-size: .6em;
@@ -143,6 +144,7 @@
               <li>{{benefit}}</li>
               {% endfor %}
             </ul>
+            <p id="note_standard">{{products[0].note}}</p>
             <div class="o-member__subscribe">
               <a data-key="{{products[0].key}}"><button class="openSub" id="standard-btn">{{products[0].openBtn}}</button></a>
               <p class="data-price" id="standard_price">{{products[0].price}}</p>
@@ -154,7 +156,7 @@
       </div>
       <script>
           document.getElementById('price_standard').value = '¥' + price['standard'] + '元/年';
-          document.getElementById('benefits_standard').innerHTML = '专享订阅内容每日仅需' + priceAvg['standard'] + '元';
+          document.getElementById('benefits_standard').innerHTML = '专享订阅内容每日仅需¥' + priceAvg['standard'] + '元';
       </script>
 
       <div class="o-member-outer">
@@ -167,8 +169,9 @@
               {% for benefit in products[2].benefits %}
               <li>{{benefit}}</li>
               {% endfor %}
+              <li id="ticket">FT中文网<!--year-->年度论坛门票2张</li>
             </ul>
-            <p style="padding: 0.5em 1em 0em 1.5em; font-size: .8em">{{products[2].note}}</p>
+            <p id="note_premium">{{products[2].note}}</p>
             <div class="o-member__subscribe">
               <a data-key="{{products[2].key}}"><button class="openSub" id="premium-btn">{{products[2].openBtn}}</button></a>
               <p class="data-price" id="premium_price">{{products[2].price}}</p>
@@ -180,7 +183,7 @@
       </div>
       <script>
           document.getElementById('price_premium').value = '¥' + price['premium'] + '元/年';
-          document.getElementById('benefits_premium').innerHTML = '专享订阅内容每日仅需' + priceAvg['premium'] + '元';
+          document.getElementById('benefits_premium').innerHTML = '专享订阅内容每日仅需¥' + priceAvg['premium'] + '元';
       </script>
 
       <div class="o-member-outer">
@@ -189,23 +192,24 @@
             <h2 class="o-member__title">{{products[1].title}}</h2>
             <div class="o-member__border"></div>
             <ul class="o-member__benefits">
-              <li id="benefits_monthly"></li>
+              <li id="benefits_standard_monthly"></li>
               {% for benefit in products[1].benefits %}
               <li>{{benefit}}</li>
               {% endfor %}
             </ul>
+            <p id="note_standard_monthly">{{products[1].note}}</p>
             <div class="o-member__subscribe">
-              <a data-key="{{products[1].key}}"><button class="openSub" id="standard-btn-monthly">{{products[1].openBtn}}</button></a>
-              <p class="data-price" id="standard_price_monthly">{{products[1].price}}</p>
-              <span id="standard_price_monthly_origin">&nbsp;<!--原价{{products[1].price}}--></span>
-              <input type="text" value="" hidden id="price_monthly">
+              <a data-key="{{products[1].key}}"><button class="openSub" id="standard-monthly-btn">{{products[1].openBtn}}</button></a>
+              <p class="data-price" id="standard_monthly_price">{{products[1].price}}</p>
+              <span id="standard_monthly_price_origin">&nbsp;<!--原价{{products[1].price}}--></span>
+              <input type="text" value="" hidden id="price_standard_monthly">
             </div>
           </div>
         </div>
       </div>
       <script>
-          document.getElementById('price_monthly').value = '¥' + price['monthly'] + '元/年';
-          document.getElementById('benefits_monthly').innerHTML = '专享订阅内容每日仅需' + priceAvg['monthly'] + '元';
+          document.getElementById('price_standard_monthly').value = '¥' + price['monthly'] + '元/年';
+          document.getElementById('benefits_standard_monthly').innerHTML = (priceAvg['monthly']) ? '专享订阅内容每日仅需¥' + priceAvg['monthly'] + '元' : '专享订阅内容每月仅需¥1元';
       </script>
 
     <script>
@@ -216,7 +220,7 @@
             //document.getElementsByClassName('second')[0].innerHTML = '';
             document.getElementById('standard_price_origin').style.display = 'block';
             document.getElementById('premium_price_origin').style.display = 'block';
-            document.getElementById('standard_price_monthly_origin').style.display = 'block';
+            document.getElementById('standard_monthly_price_origin').style.display = 'block';
             //var PriceDesc = '（福牛迎春）';
             var PriceDesc = '';
         } else {

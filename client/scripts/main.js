@@ -35,19 +35,34 @@ let dataObj = {};
 let isStandard = false;
 let isPremium = false;
 
-// ----- Prices displayed on the website.
+if (typeof(today) !== 'undefined') {
+    var ticket = document.getElementById("ticket");
+    if (today.getMonth() >= 8) {
+        ticket.innerHTML = ticket.innerHTML.replace("<!--year-->", today.getFullYear() + 1);
+    } else {
+        ticket.innerHTML = ticket.innerHTML.replace("<!--year-->", today.getFullYear());
+    }
+}
+
+// ----- Prices displayed on the website. -- [BEGIN]
 //let upgradePrice = '';
 
 var standardMonthlyPriceValue = []
+standardMonthlyPriceValue['intro'] = '¥1/月';
 standardMonthlyPriceValue['100%'] = '¥35/月';
+standardMonthlyPriceValue['85%'] = '¥35/月';
+standardMonthlyPriceValue['75%'] = '¥35/月';
+standardMonthlyPriceValue['50%'] = '¥35/月';
 
 var standardPriceValue = [];
+standardPriceValue['intro'] = '¥298/年';
 standardPriceValue['100%'] = '¥298/年';
 standardPriceValue['85%'] = '¥258/年';
 standardPriceValue['75%'] = '¥218/年';
 standardPriceValue['50%'] = '¥148/年';
 
 var premiumPriceValue = [];
+premiumPriceValue['intro'] = '¥1,998/年';
 premiumPriceValue['100%'] = '¥1,998/年';
 premiumPriceValue['85%'] = '¥1,698/年';
 premiumPriceValue['75%'] = '¥1,498/年';
@@ -56,6 +71,7 @@ premiumPriceValue['50%'] = '¥998/年';
 var policy;
 
 // -- Different parameters use different pricing policies.
+// ---------- FROM
 if (getUrlParams('from') === 'ft_win_back') {
     policy = '50%';
 } else if (getUrlParams('from') === 'ft_renewal') {
@@ -64,8 +80,12 @@ if (getUrlParams('from') === 'ft_win_back') {
     policy = '85%';
 } else if (getUrlParams('from') === 'uibe' || getUrlParams('from') === 'bimba') {
     policy = '50%';
+} else if (getUrlParams('from') === 'intro') {
+    policy = 'intro';
+// ---------- CCODE
 } else if (getUrlParams('ccode') === '2C2021anniversarystage2renewEDM') {
     policy = '50%';
+// ---------- DEFAULT
 } else {
     policy = '100%';
 }
@@ -74,13 +94,15 @@ if (GetCookie('sponsor') === '2554c6451503936545c625666555c63425658397d4449487d4
     policy = '50%';
 }
 
-console.log(policy);
+//console.log(policy);
 
 var pricePolicy = {
     'standard': standardPriceValue[policy],
     'premium': premiumPriceValue[policy],
-    'monthly': standardMonthlyPriceValue['100%'],
+    'monthly': standardMonthlyPriceValue[policy],
 };
+
+//console.log(pricePolicy);
 
 /*
 // -- Old Price
@@ -98,7 +120,7 @@ if (new Date().getTime() >= switchtTime.getTime()) {
     var premiumPriceValue['50%'] = '¥998/年';
 }
 */
-// ----- Prices displayed on the website.
+// ----- Prices displayed on the website. -- [END]
 
 // ----- Promo Policy
 if (typeof(promo) !== 'undefined' && typeof(today) !== 'undefined') {
@@ -178,7 +200,7 @@ if (typeof(promo) !== 'undefined' && typeof(today) !== 'undefined') {
 var isInApp = (window.location.href.indexOf('webview=ftcapp') >= 0);
 
 const setCookieVal = () => {
-    // Mark:check ccode
+    // Mark: check ccode
     var para = location.search.substring(1);
     var pattern = /ccode/g;
     if (pattern.test(para)) {
@@ -236,11 +258,16 @@ var openPayment = function(event) {
     }
     var position = '';
     var attribute = this.getAttribute('id');
-    var childNodes = this.parentNode.parentNode.children;
-    price = childNodes[2].value;
-    var parentsNode = this.parentNode.parentNode.parentNode.children;
-    memberType = parentsNode[0].innerHTML;
     var newAttribute = '';
+
+    // @@@@@@@@@@
+    // -- Get [memberType] and [price] from webpage.
+    // @@@@@@@@@@
+    var memberTypeNode = this.parentNode.parentNode.parentNode.children;
+    memberType = memberTypeNode[0].innerText;
+    var priceNodes = this.parentNode.parentNode.children;
+    price = priceNodes[1].innerText;
+    //console.log('[[[ ' + memberType + ' - ' + price + ' ]]]');
 
     // -- Unlimited Renewal -- //
     isStandard = isPremium = false;
@@ -254,13 +281,18 @@ var openPayment = function(event) {
         //price = upgradePrice;
     }
 
+    // @@@@@@@@@@
+    // -- <Comments> -- Use [memberType] and [price] from webpage.
+    // -- <No Comments> -- Use [memberType] and [price] from policy.
+    // @@@@@@@@@@
+    /*
     let fPara = getUrlParams('from');
     let sponsorCookie = GetCookie('sponsor');
     // ----- PriceParameters ----- //
     let PriceParameters = false;
     if (fPara === 'ft_discount' || fPara === 'ft_renewal' || fPara === 'ft_win_back') {
         PriceParameters = true;
-    } else if (fPara === 'ft_big_sale' || fPara === 'uibe' || fPara === 'bimba') {
+    } else if (fPara === 'ft_big_sale' || fPara === 'uibe' || fPara === 'bimba' || fPara === 'intro') {
         PriceParameters = true;
     } else if (getUrlParams('ccode') === '2C2021anniversarystage2renewEDM') {
         PriceParameters = true;
@@ -268,6 +300,7 @@ var openPayment = function(event) {
         PriceParameters = true;
     }
     // ----- PriceParameters ----- //
+
     if (PriceParameters) {
         // ----- Price of pop-up window after clicking button. [With Parameters]
         // Button Pop-up [With Parameters] [FINAL]
@@ -276,7 +309,7 @@ var openPayment = function(event) {
         } else if (attribute === 'premium-btn') {
             //price = upgradePrice;
             price = pricePolicy['premium']; // ##[Button] [Premium] [With Parameters]
-        } else if (attribute === 'standard-btn-monthly') {
+        } else if (attribute === 'standard-monthly-btn') {
             price = pricePolicy['monthly']; // ##[Button] [Standard Monthly] [With Parameters]
         }
     } else {
@@ -296,10 +329,11 @@ var openPayment = function(event) {
             } else {
                 price = pricePolicy['premium']; // ##[Button] [Premium] [No Parameters]
             }
-        } else if (attribute === 'standard-btn-monthly') {
+        } else if (attribute === 'standard-monthly-btn') {
             price = pricePolicy['monthly']; // ##[Button] [Standard Monthly] [No Parameters]
         }
     }
+    */
 
     if (isWeiXin()) {
         selectPayWay(memberType);
@@ -320,7 +354,7 @@ var openPayment = function(event) {
     if (attribute === 'standard-btn') {
         newAttribute = 'Standard';
         position = 1;
-    } else if (attribute === 'standard-btn-monthly') {
+    } else if (attribute === 'standard-monthly-btn') {
         newAttribute = 'StandardMonthly';
         position = 2
     } else if (attribute === 'premium-btn') {
@@ -331,7 +365,7 @@ var openPayment = function(event) {
     var SELabel = GetCookie('SELabel') || 'Direct';
     var eventAction = 'Buy: ' + newAttribute;
 
-    // Mark:ios付费跟踪
+    // Mark: ios付费跟踪
     let cPara = isFromIos();
     if (cPara) {
         if (SELabel.indexOf('/IOSCL/') > -1) {
@@ -449,6 +483,7 @@ const postUE = (url) => {
                 var data = xhrpw.responseText;
                 dataObj = JSON.parse(data);
                 isReqSuccess = true;
+                //console.log('UI - 1');
                 updateUI(dataObj);
                 fromUpdate();
             } else {
@@ -469,21 +504,21 @@ let headingHint = document.getElementById('heading-hint');
 
 let premiumBtn = document.getElementById('premium-btn');
 let standardBtn = document.getElementById('standard-btn');
-let standardBtnMonthly = document.getElementById('standard-btn-monthly');
+let standardMonthlyBtn = document.getElementById('standard-monthly-btn');
 
 let premiumPrice = document.getElementById('premium_price');
 let standardPrice = document.getElementById('standard_price');
-let standardPriceMonthly = document.getElementById('standard_price_monthly');
+let standardMonthlyPrice = document.getElementById('standard_monthly_price');
 
 function updateUI(dataObj) {
     let fPara = getUrlParams('from');
     let sponsorCookie = GetCookie('sponsor');
 
-    let standardBtnMonthlyInnerText = '';
+    let standardMonthlyBtnInnerText = '';
     let standardBtnInnerText = '';
     let premiumBtnInnerText = '';
     /*
-    let standardPriceMonthlyInnerText = '';
+    let standardMonthlyPriceInnerText = '';
     let standardPriceInnerText = '';
     let premiumPriceInnerText = '';
     */
@@ -508,12 +543,12 @@ function updateUI(dataObj) {
 
     if ((dataObj.standard === 1 && dataObj.premium === 0)) {
         isStandard = true;
-        standardBtnMonthlyInnerText = '已订阅';
+        standardMonthlyBtnInnerText = '已订阅';
         standardBtnInnerText = '已订阅';
         premiumBtnInnerText = '现在升级';
         /*
         if (fPara === 'ft_exchange') {
-            EventObject.addHandler(standardBtnMonthly, "click", openExchange);
+            EventObject.addHandler(standardMonthlyBtn, "click", openExchange);
             EventObject.addHandler(standardBtn, "click", openExchange);
             EventObject.addHandler(premiumBtn, "click", openExchange);
         } else {
@@ -522,44 +557,47 @@ function updateUI(dataObj) {
         */
     } else if (dataObj.standard === 1 && dataObj.premium === 1) {
         isPremium = true;
-        standardBtnMonthlyInnerText = '已订阅';
+        standardMonthlyBtnInnerText = '已订阅';
         standardBtnInnerText = '已订阅';
         premiumBtnInnerText = '已订阅';
     } else {
         isStandard = false;
         isPremium = false;
-        standardBtnMonthlyInnerText = '立即订阅';
+        standardMonthlyBtnInnerText = '立即订阅';
         standardBtnInnerText = '立即订阅';
         premiumBtnInnerText = '立即订阅';
         /*
         if (fPara === 'ft_exchange') {
-            EventObject.addHandler(standardBtnMonthly, "click", openExchange);
+            EventObject.addHandler(standardMonthlyBtn, "click", openExchange);
             EventObject.addHandler(standardBtn, "click", openExchange);
             EventObject.addHandler(premiumBtn, "click", openExchange);
         } else {
-            EventObject.addHandler(standardBtnMonthly, "click", openPayment);
+            EventObject.addHandler(standardMonthlyBtn, "click", openPayment);
             EventObject.addHandler(standardBtn, "click", openPayment);
             EventObject.addHandler(premiumBtn, "click", openPayment);
         }
         */
     }
     if (fPara === 'ft_exchange') {
-        EventObject.addHandler(standardBtnMonthly, "click", openExchange);
+        EventObject.addHandler(standardMonthlyBtn, "click", openExchange);
         EventObject.addHandler(standardBtn, "click", openExchange);
         EventObject.addHandler(premiumBtn, "click", openExchange);
     } else {
-        EventObject.addHandler(standardBtnMonthly, "click", openPayment);
+        EventObject.addHandler(standardMonthlyBtn, "click", openPayment);
         EventObject.addHandler(standardBtn, "click", openPayment);
         EventObject.addHandler(premiumBtn, "click", openPayment);
     }
 
-    // Mark:不写在dataObj条件下，是因为显示默认价格
-    // MARK: dataObj format: {paywall: 1, premium: 0, standard: 0}
+    // @@@@@@@@@@
+    // -- Prices displayed on the webpage.
+    // @@@@@@@@@@
+    // Mark: 不写在dataObj条件下，是因为显示默认价格
+    // Mark: dataObj format: {paywall: 1, premium: 0, standard: 0}
     if (typeof(PriceDesc) == 'undefined'){
         PriceDesc = '';
     }
     if (fPara === 'ft_renewal') {
-        // MARK: When there's from=ft_renewal in the url
+        // Mark: When there's from=ft_renewal in the url
         if ((dataObj.standard === 1 && dataObj.premium === 0)) {
             //console.log('-----[1]' + standardPriceValue + '-----');
             //console.log('-----[1]' + premiumPriceValue + '-----');
@@ -580,7 +618,7 @@ function updateUI(dataObj) {
         standardPrice.innerHTML = standardPriceShow + PriceDesc;
         premiumPrice.innerHTML = premiumPriceShow + PriceDesc;
     } else if (fPara === 'ft_discount') {
-        // MARK: When there's from=ft_discount in the url
+        // Mark: When there's from=ft_discount in the url
         if ((dataObj.standard === 1 && dataObj.premium === 0)) {
             //upgradePrice = '¥' + dataObj.v + '/年';
             // -- [85]
@@ -616,6 +654,15 @@ function updateUI(dataObj) {
         }
         standardPrice.innerHTML = standardPriceShow + PriceDesc;
         premiumPrice.innerHTML = premiumPriceShow + PriceDesc;
+    } else if (fPara === 'intro') {
+        //console.log('updateUI - intro');
+        if ((dataObj.standard === 1 || dataObj.premium === 1)) {
+            standardMonthlyPriceShow = standardMonthlyPriceValue['100%'];
+        } else {
+            standardMonthlyPriceShow = standardMonthlyPriceValue['intro'];
+            document.getElementById('note_standard_monthly').style.display = 'block';
+        }
+        standardMonthlyPrice.innerHTML = standardMonthlyPriceShow + PriceDesc;
     } else if (typeof(SD) !== 'undefined' && typeof(ED) !== 'undefined' && today.getTime() >= SD.getTime() && today.getTime() <= ED.getTime()) {
         if ((dataObj.standard === 1 && dataObj.premium === 0)) {
             //upgradePrice = '¥' + dataObj.v + '/年';
@@ -641,14 +688,13 @@ function updateUI(dataObj) {
             premiumPrice.innerHTML = premiumPriceShow + PriceDesc;
         }
     }
-    standardPriceMonthly.innerHTML = standardMonthlyPriceShow;
 
     // 点击之后跟其它的行为也不一样
     if (fPara === 'ft_exchange') {
-        standardBtnMonthlyInnerText = '输入兑换码';
+        standardMonthlyBtnInnerText = '输入兑换码';
         standardBtnInnerText = '输入兑换码';
         premiumBtnInnerText = '输入兑换码';
-        standardPriceMonthly.style.display = 'none';
+        standardMonthlyPrice.style.display = 'none';
         standardPrice.style.display = 'none';
         premiumPrice.style.display = 'none';
         headingHint.innerHTML = '';
@@ -665,7 +711,7 @@ function updateUI(dataObj) {
         document.getElementsByClassName('o-member-outer')[2].style.display = 'none';
     }
 
-    standardBtnMonthly.innerText = standardBtnMonthlyInnerText;
+    standardMonthlyBtn.innerText = standardMonthlyBtnInnerText;
     standardBtn.innerText = standardBtnInnerText;
     premiumBtn.innerText = premiumBtnInnerText;
 
@@ -674,7 +720,7 @@ function updateUI(dataObj) {
         var ccodeValue = getUrlParams('ccode');
         for (var buyLink of buyLinks) {
             var key = buyLink.getAttribute('data-key');
-            // MARK: The process of getting the ft_discount is quite convoluted. I can only get the price from its result.
+            // Mark: The process of getting the ft_discount is quite convoluted. I can only get the price from its result.
             var priceEle = buyLink.parentNode.querySelector('.data-price');
             var price = '';
             if (priceEle) {
@@ -696,24 +742,28 @@ window.onunload = function closeWindow() {
     DeleteCookie('R');
 };
 
-if (window.location.hostname === 'localhost' || window.location.hostname.indexOf('192.168') === 0 || window.location.hostname.indexOf('10.113') === 0 || window.location.hostname.indexOf('127.0') === 0) {
+if (window.location.hostname === 'localhost' || window.location.hostname.indexOf('127.0') === 0 || window.location.hostname.indexOf('192.168') === 0) {
+    // [1] UI - 3 ------ [2] UI - 2
     var xhrpw1 = new XMLHttpRequest();
     xhrpw1.open('get', 'api/paywall.json');
     xhrpw1.onload = function() {
         if (xhrpw1.status == 200) {
             var data = xhrpw1.responseText;
             dataObj = JSON.parse(data);
+            //console.log('UI - 2');
             updateUI(dataObj);
             fromUpdate();
         }
     };
     xhrpw1.send(null);
     if (isEmptyObj(dataObj)) {
+        //console.log('UI - 3');
         updateUI(dataObj);
     }
 } else {
     postUE('/index.php/jsapi/paywall');
     if (isEmptyObj(dataObj)) {
+        //console.log('UI - 4');
         updateUI(dataObj);
     }
 }
@@ -807,7 +857,7 @@ function iosTrack() {
 }
 iosTrack();
 
-// Mark:url参数中带有ccode和utm_code，设置cookie，因为这是从活动中直接链接过来的，所以在此页面设置来源。暂时不使用document.referrer
+// Mark: url参数中带有ccode和utm_code，设置cookie，因为这是从活动中直接链接过来的，所以在此页面设置来源。暂时不使用document.referrer
 function ccodeTrack() {
     let ccodePara = getUrlParams('ccode') || getUrlParams('utm_code') || getUrlParams('utm_campaign') || getUrlParams('campaign_code');
     if (ccodePara) {
@@ -818,10 +868,9 @@ function ccodeTrack() {
         });
     }
 }
-
 ccodeTrack();
 
-// Mark：从升级高端会员进入，url中带有tap参数，当购买成功之后跳转来源并附加上参数buy=success
+// Mark: 从升级高端会员进入，url中带有tap参数，当购买成功之后跳转来源并附加上参数buy=success
 // 第一次打开执行这里，当再次点击的时候，memberType为空
 function fromUpdate() {
     //var today = new Date();
@@ -859,6 +908,8 @@ function fromUpdate() {
                 standardPriceShow = standardPriceValue['75%']; // ##[Tap] [Standard] [Renewal]
             } else if (fPara === 'ft_discount') {
                 standardPriceShow = standardPriceValue['85%']; // ##[Tap] [Standard] [Discount]
+            } else if (fPara === 'intro') {
+                standardPriceShow = standardPriceValue['intro']; // ##[Tap] [Standard] [Intro]
             } else if (today.getTime() >= StartDate.getTime() && today.getTime() <= EndDate.getTime()) {
                 standardPriceShow = standardPriceValue['85%']; // ##[Tap] [Standard] [Time Limit]
             } else {
@@ -878,6 +929,8 @@ function fromUpdate() {
                     premiumPriceShow = premiumPriceValue['75%']; // ##[Tap] [Premium] [Renewal]
                 } else if (fPara === 'ft_discount') {
                     premiumPriceShow = premiumPriceValue['85%']; // ##[Tap] [Premium] [Discount]
+                } else if (fPara === 'intro') {
+                    premiumPriceShow = premiumPriceValue['intro']; // ##[Tap] [Premium] [Intro]
                 } else if (today.getTime() >= StartDate.getTime() && today.getTime() <= EndDate.getTime()) {
                     premiumPriceShow = premiumPriceValue['85%']; // ##[Tap] [Premium] [Time Limit]
                 } else {
@@ -893,7 +946,7 @@ function fromUpdate() {
         paymentPage.style.display = 'block';
     }
 
-    // Mark:如果没有R cookie，则在此页面设置，成功页面获取带有tap的cookie
+    // Mark: 如果没有R cookie，则在此页面设置，成功页面获取带有tap的cookie
     let rCookie = GetCookie('R') || '';
     let referrer = document.referrer;
 
@@ -920,7 +973,7 @@ function getMemberTypeFromUpdate() {
 }
 
 /**
- * Mark:加强版电子商务跟踪
+ * Mark: 加强版电子商务跟踪
  */
 function trackEC() {
     let SELabel = GetCookie('SELabel') || 'Other';

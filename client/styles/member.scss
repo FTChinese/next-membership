@@ -63,6 +63,7 @@ $text-background: #26747a;
 
         .o-member__benefits {
             margin-top: 20px;
+            height: 14em;
 
             li {
                 background-image: url("https://www.ftacademy.cn/fticon-v1_tick.svg");
@@ -93,6 +94,19 @@ $text-background: #26747a;
                 padding: 0px 20px;
             }
         }
+    }
+
+    #note_standard, #note_premium, #note_standard_monthly {
+        color: #4d4845;
+        padding: 0 1.5em;
+        font-size: .8em;
+    }
+
+    #note_standard_monthly {
+        margin: 0 3.5em;
+        background-color: #1aebff;
+        text-align: center;
+        display: none;
     }
 }
 

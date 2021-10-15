@@ -37,7 +37,7 @@ const GetCookie = (name) => {
 
 const DeleteCookie = (name) => {
     var exp = new Date(),
-        cval = GetCookie1(name);
+        cval = GetCookie(name);
     exp.setTime(exp.getTime() - 1);
     document.cookie = name + '=' + cval + '; expires=' + exp.toGMTString();
 };
