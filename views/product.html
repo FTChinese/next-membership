@@ -50,18 +50,18 @@
   </div>
 
   <div id="payment-page">
-    <div id="payment-shadow" class="o-overlay-shadow fadeIn"></div>
-    <div id="payment-box" class="rightanswer show o-overlay__arrow-top fadeInRight">
-      <div class="payment-title">欢迎订阅FT会员服务</div>
-      <div class="payment-way">
-        <div class="payment-name"><span>会员类型：</span><span class="payment-type"><strong id="memberType"></strong></span></div>
-        <div class="payment-method"><span>支付方式：</span><label class="mode"><input name="pay" type="radio" value="ali" checked /><span id="pay-ali"></span> </label>
-          <label
-            class="wxpay-mode" style="display:inline-block"><input name="pay" type="radio" value="wxpay" /><span id="pay-wxpay"></span></label>
-        </div>
+      <div id="payment-shadow" class="o-overlay-shadow fadeIn"></div>
+      <div id="payment-box" class="rightanswer show o-overlay__arrow-top fadeInRight">
+          <div class="payment-title">欢迎订阅FT会员服务</div>
+          <div class="payment-way">
+              <div class="payment-name"><span>会员类型：</span><span class="payment-type"><strong id="memberType"></strong></span></div>
+              <div class="payment-method"><span>支付方式：</span>
+                  <label class="alipay-mode"><input name="pay" type="radio" value="alipay" checked /><span id="pay-alipay"></span> </label>
+                  <label class="wxpay-mode"><input name="pay" type="radio" value="wxpay" /><span id="pay-wxpay"></span></label>
+              </div>
+          </div>
+          <div class="pay-action"><label>支付金额 <label id="price"></label></label><button class="to-pay" id="to-pay">确定支付</button></div>
       </div>
-      <div class="pay-action"><label>支付金额 <label id="price"></label></label><button class="to-pay" id="to-pay">确定支付</button></div>
-    </div>
   </div>
 
   <div class="o-member-container">

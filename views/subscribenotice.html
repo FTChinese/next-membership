@@ -77,27 +77,6 @@
     </div>
 </div>
 
-<script>
-var today = new Date();
-var y = today.getFullYear();
-var m = zeroFix(today.getMonth() + 1);
-var d = zeroFix(today.getDate());
-
-function zeroFix(n) {
-    return (n < 10) ? '0' + n : n;
-}
-
-if (window.gAutoStart === undefined) {
-    (function(d, s, u, j, x) {
-        j = d.createElement(s),
-            x = d.getElementsByTagName(s)[0];
-        j.async = true;
-        j.src = u;
-        x.parentNode.insertBefore(j, x)
-    })(document, 'script', 'https://dhgxl8qk9zgzr.cloudfront.net/js/log.js?' + y + m + d);
-}
-</script>
-
 <script inline src="scripts/notice.js"></script>
 
 </body>

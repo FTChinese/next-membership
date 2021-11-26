@@ -4,7 +4,6 @@
  * 1.从json中读取数据，当点击更新当前问题，显示当前问题，目前需要解决是需要获取当前元素
  * 2.tab就直接放在一个div中，当点击哪个div显示里面的内容，这个容易
  */
-
 import {
     EventObject
 } from './subscribe_api';

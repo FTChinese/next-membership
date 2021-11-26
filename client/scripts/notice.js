@@ -1,4 +1,8 @@
 /*jshint esversion: 6 */
+
+// --------------------------------------------------
+// IMPORT
+// --------------------------------------------------
 import {
     EventObject,
     GetCookie,
@@ -8,6 +12,7 @@ import {
 import {
     addTransaction
 } from './track';
+// ##################################################
 
 // var eventAction = '';
 // var paraArr = parseUrlSearch();
@@ -231,3 +236,38 @@ addTransaction(tradeNo, eventAction, price, affiliation);
 
 document.getElementById('vip_url').href = 'http://user.chineseft.com/?uide=' + paravalue(window.location.href, "uide");
 console.log(paravalue(window.location.href, "uide"));
+// ##################################################
+
+// --------------------------------------------------
+// LOG
+// --------------------------------------------------
+
+// [./js/log.js] -> [Domain + PHP] -> [200] -- [Enabled]
+// [./js/log.js] -> [Only PHP] -> [404] -- [Disable]
+/*
+var today = new Date();
+var y = today.getFullYear();
+var m = zeroFix(today.getMonth() + 1);
+var d = zeroFix(today.getDate());
+var logDomain = 'https://dhgxl8qk9zgzr.cloudfront.net';
+
+function zeroFix(n) {
+  return (n < 10) ? '0' + n : n;
+}
+
+if (window.gAutoStart === undefined) {
+  (function (d, s, u, j, x) {
+    j = d.createElement(s), x = d.getElementsByTagName(s)[0];
+    j.async = true;
+    j.src = u;
+    x.parentNode.insertBefore(j, x);
+  })(document, 'script', logDomain + '/js/log.js?' + y + m + d);
+}
+*/
+
+// --------------------------------------------------
+// FIX
+// --------------------------------------------------
+
+document.getElementsByClassName('note')[0].innerText = '';
+document.getElementsByClassName("product-container Premium")[0].children[1].innerHTML += '<li>FT中文网' + (new Date().getFullYear() + 1) + '年度论坛门票2张</li>'
