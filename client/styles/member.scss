@@ -8,6 +8,7 @@ $text-background: #26747a;
 }
 
 .o-member-row {
+    padding-bottom: 20px;
     zoom: 1;
 }
 
@@ -21,7 +22,7 @@ $text-background: #26747a;
 
 .o-member-container {
     /*width:60%;*/
-    padding-bottom: 20px;
+    /*padding-bottom: 20px;*/
     margin: 0 auto;
 
     .o-member__heading {
@@ -139,11 +140,12 @@ $text-background: #26747a;
 
     .words {
         .first {
-            padding: 30px 0 10px 0;
+            padding-top: 50px;
         }
 
         .second {
             line-height: 160%;
+            margin-top: 10px;
         }
     }
 
@@ -345,7 +347,8 @@ $text-background: #26747a;
     }
 
     .welcome-guide {
-    background-size: 300px auto;
+        min-height: 300px;
+        background-size: 300px auto;
 
         .words {
             width: 65%;
@@ -392,10 +395,15 @@ $text-background: #26747a;
     }
 
     .welcome-guide {
-    background-size: 300px auto;
+        min-height: 300px;
+        background-size: 300px auto;
 
         .words {
             width: 55%;
+
+            .first {
+                padding-top: 10px;
+            }
         }
 
         /*
@@ -454,7 +462,7 @@ $text-background: #26747a;
             padding-bottom: 10px;
 
             .first {
-                padding: 10px 0;
+                padding-top: 10px;
             }
         }
 
@@ -593,8 +601,8 @@ $text-background: #26747a;
     color: #9a2f3e;
     font-weight: bold;
     opacity: 0;
-    height: 30px;
-    transition: height .5s, opacity 1s;
+    max-height: 30px;
+    transition: max-height 1s, opacity 2s;
 }
 
 .words .content_headline blockquote::before {

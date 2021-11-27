@@ -55,11 +55,16 @@ const ShowHeadline = (data) => {
     //console.log(data);
     var headline = document.getElementsByClassName('content_headline')[0];
     var br = (data.cHeadline && data.eHeadline) ? '<br>' : '';
-    var cHeight = Math.ceil(data.cHeadline.length / 30);
-    var eHeight = Math.ceil(data.eHeadline.length / 40);
-    var lineHeight = (document.body.offsetWidth <= 980) ? 50 : 30;
     headline.children[1].innerHTML = data.cHeadline + br + data.eHeadline;
+
+    /*
+    var cHeight = Math.ceil(data.cHeadline.length / 25);
+    var eHeight = Math.ceil(data.eHeadline.length / 35);
+    var lineHeight = 30;
     headline.children[1].style.height = (cHeight + eHeight) * lineHeight + 'px';
+    */
+    headline.children[1].style.maxHeight = '300px';
+
     headline.children[1].style.opacity = 1;
 }
 
@@ -143,13 +148,16 @@ const postData = (url, f = '', retry = 0) => {
 };
 
 // -- Content Title
-let headline;
+let headline, domain = '';
 const storyId = getUrlParams('story');
 const interactiveId = getUrlParams('interactive');
 const contentId = (storyId) ? storyId : ((interactiveId) ? interactiveId : '');
 if (contentId) {
     document.getElementsByClassName('content_headline')[0].style.display = 'block';
-    getData('index.php/jsapi/headline/' + contentId, ShowHeadline);
+    if (window.location.hostname === 'localhost' || window.location.hostname.indexOf('127.0') === 0 || window.location.hostname.indexOf('192.168') === 0) {
+        domain = 'https://www.ftacademy.cn/';
+    }
+    getData(domain + 'index.php/jsapi/headline/' + contentId, ShowHeadline);
 }
 
 // ####################
