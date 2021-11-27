@@ -2,10 +2,6 @@ $text-color: white;
 $text-highlight: #f2e0d0;
 $text-background: #26747a;
 
-.centerClass {
-    text-align: center;
-}
-
 .o-member__heading {
     margin: 0 auto;
     text-align: center;
@@ -127,22 +123,6 @@ $text-background: #26747a;
 
 }
 
-.highlight {
-    color: #9e2f50;
-    font-weight: bold;
-    text-align: center;
-}
-
-.normal-text {
-    text-align: center;
-}
-
-.undertone {
-    color: #505050;
-    font-size: 0.9em;
-    font-style: italic;
-}
-
 .container {
     background-color: $text-highlight;
     /*padding-top: 10px;*/
@@ -193,12 +173,14 @@ $text-background: #26747a;
 #payment-box {
     /*position: absolute;*/
     position: fixed;
-    top: 35%;
 
+    top: 0;
+    bottom: 0;
     left: 0;
     right: 0;
-    margin: 0 auto;
+    margin: auto;
     width: 450px;
+    height: 220px;
 
     overflow: visible;
     z-index: 60;
@@ -221,6 +203,10 @@ $text-background: #26747a;
         }
 
         .payment-method {
+            .wxpay-mode {
+                margin-left: -20px;
+            }
+
             #pay-alipay,
             #pay-wxpay {
                 width: 100px;
@@ -295,53 +281,6 @@ $text-background: #26747a;
 }
 */
 
-.hint {
-    float: right;
-    margin-top: 3px;
-    width: 60%;
-    display: none;
-    margin-right: 5px;
-}
-
-.hint img {
-    height: 27px;
-}
-
-.hint-text {
-    /*width:350px; */
-    height: 35px;
-    line-height: 35px;
-    position: relative;
-    background-color: #FFF;
-    border-radius: 20px;
-    border: 1px solid #0d7680;
-    background-color: #fff;
-    font-size: 13px;
-    text-align: center;
-}
-
-.triangle-down {
-    width: 0;
-    height: 0;
-    border-left: 10px solid transparent;
-    border-right: 10px solid transparent;
-    border-bottom: 12px solid #0d7680;
-    position: absolute;
-    right: 23px;
-    top: -12px;
-}
-
-.triangle-up {
-    width: 0;
-    height: 0;
-    border-left: 9px solid transparent;
-    border-right: 9px solid transparent;
-    border-bottom: 11px solid white;
-    position: absolute;
-    right: 24px;
-    top: -11px;
-}
-
 #wxImg {
     margin-top: 20px;
     background-image: url(https://www.ftacademy.cn/wxpay/native.php?standard);
@@ -393,10 +332,6 @@ $text-background: #26747a;
 
     #payment-box {
         .payment-method {
-            .wxpay-mode {
-                margin-left: -20px;
-            }
-
             img {
                 margin: 0 10px;
             }
@@ -556,19 +491,20 @@ $text-background: #26747a;
         left: 10%;
         right: 10%;
         width: 80%;
+        height: 280px;
 
-        .payment-method {
-            .wxpay-mode {
-                margin-left: -20px;
-            }
+        .payment-way {
+            .payment-method {
+                .alipay-mode,
+                .wxpay-mode {
+                    display: block;
+                    margin: 0;
+                    padding: 5px 30px;
+                }
 
-            .alipay-mode,
-            .wxpay-mode {
-                display: table-cell;
-            }
-
-            img {
-                margin: 0 10px;
+                img {
+                    margin: 0 10px;
+                }
             }
         }
     }
@@ -590,6 +526,11 @@ $text-background: #26747a;
             .payment-name,
             .payment-method {
                 padding: 10px;
+
+                .alipay-mode,
+                .wxpay-mode {
+                    padding: 5px 15px;
+                }
             }
         }
     }

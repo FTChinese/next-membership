@@ -63,21 +63,22 @@ const ShowHeadline = (data) => {
     headline.children[1].style.opacity = 1;
 }
 
+let isReqSuccess = false;
+
 // -- Ajax -- Get
-const getData = (url, FUN = '') => {
+const getData = (url, f = '', retry = 0) => {
     let dataObj = {};
-    let isReqSuccess = false;
-    let i = 0;
-    if (!isReqSuccess && i < 3) {
+    if (!isReqSuccess && retry < 3) {
         let xmlHttp = new XMLHttpRequest();
         xmlHttp.open('get', url);
         xmlHttp.onload = function() {
             if (xmlHttp.status == 200) {
+                isReqSuccess = true;
                 var data = xmlHttp.responseText;
                 dataObj = JSON.parse(data);
-                if (FUN) {
-                    //console.log(dataObj);
-                    FUN(dataObj);
+                //console.log(dataObj);
+                if (f) {
+                    f(dataObj);
                 } else {
                     if (url.indexOf('paywall') > 0) {
                         updateUI(dataObj);
@@ -86,34 +87,36 @@ const getData = (url, FUN = '') => {
                         OriginPrice();
                     }
                 }
-                isReqSuccess = true;
                 //console.log('Get');
             } else {
                 isReqSuccess = false;
-                i++;
+                retry++;
                 setTimeout(function() {
-                    getData();
+                    getData(url, f, retry);
                 }, 500);
             }
         };
         xmlHttp.send(null);
     }
+    isReqSuccess = false;
     return dataObj;
 };
 
 // -- Ajax -- Post
-const postData = (url) => {
+const postData = (url, f = '', retry = 0) => {
     let dataObj = {};
-    let isReqSuccess = false;
-    let i = 0;
-    if (!isReqSuccess && i < 3) {
+    if (!isReqSuccess && retry < 3) {
         let xmlHttp = new XMLHttpRequest();
         xmlHttp.open('post', url);
         xmlHttp.onload = function() {
             if (xmlHttp.status == 200) {
+                isReqSuccess = true;
                 var data = xmlHttp.responseText;
                 dataObj = JSON.parse(data);
-                isReqSuccess = true;
+                //console.log(dataObj);
+                if (f) {
+                    f(dataObj);
+                }
                 //console.log('Post');
                 if (url.indexOf('paywall') > 0) {
                     updateUI(dataObj);
@@ -123,9 +126,9 @@ const postData = (url) => {
                 }
             } else {
                 isReqSuccess = false;
-                i++;
+                retry++;
                 setTimeout(function() {
-                    postData();
+                    postData(url, f, retry);
                 }, 500);
             }
         };
@@ -135,6 +138,7 @@ const postData = (url) => {
         };
         xmlHttp.send(JSON.stringify(cookieVal));
     }
+    isReqSuccess = false;
     return dataObj;
 };
 
@@ -302,14 +306,14 @@ PROMO.push(Object.assign(promoName, promoDate, promoPrice));
 
 var promoStart = 0;
 var promoEnd = 0;
-for (var i = 0; i < PROMO.length; i++) {
-    promoStart = new Date(PROMO[i]['start']).getTime();
-    promoEnd = new Date(PROMO[i]['end']).getTime();
+for (var x = 0; x < PROMO.length; x++) {
+    promoStart = new Date(PROMO[x]['start']).getTime();
+    promoEnd = new Date(PROMO[x]['end']).getTime();
     if (today.getTime() >= promoStart && today.getTime() <= promoEnd && !SP) {
         PRICE = {
-            'standard': PROMO[i]['standard'],
-            'premium': PROMO[i]['premium'],
-            'monthly': PROMO[i]['monthly']
+            'standard': PROMO[x]['standard'],
+            'premium': PROMO[x]['premium'],
+            'monthly': PROMO[x]['monthly']
         };
         //console.log('['+ PRICE['monthly'] +'][' + PRICE['standard'] + ']['+ PRICE['premium'] +']');
         var Status = 'Promo';
@@ -515,6 +519,7 @@ var openPayment = function(event) {
         paymentPage.style.display = 'block';
     }
 
+    /*
     // 使支付窗口除于页面正中央
     var winheight = window.innerHeight;
     var paymentBox = document.getElementById('payment-box');
@@ -523,6 +528,7 @@ var openPayment = function(event) {
         var top = (winheight - eleHeight) / 2;
         paymentBox.style.top = top + "px";
     }
+    */
 
     if (attribute === 'standard-btn') {
         newAttribute = 'Standard';
@@ -832,7 +838,7 @@ function PriceShow(p) {
     return result;
 }
 
-var dataObj = {};
+let dataObj = {};
 if (window.location.hostname === 'localhost' || window.location.hostname.indexOf('127.0') === 0 || window.location.hostname.indexOf('192.168') === 0) {
     dataObj = getData('api/paywall.json');
 } else {
