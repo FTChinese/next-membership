@@ -73,7 +73,7 @@ function parseUrlSearch() {
     return undefined;
 }
 
-function getUrlParams(key) {
+function getUrlParams(key = '') {
     var value = '';
     var paraArr = parseUrlSearch();
     if (paraArr && paraArr.length > 0) {

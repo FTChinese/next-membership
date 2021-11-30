@@ -56,15 +56,15 @@ const ShowHeadline = (data) => {
     var headline = document.getElementsByClassName('content_headline')[0];
     var br = (data.cHeadline && data.eHeadline) ? '<br>' : '';
     headline.children[1].innerHTML = data.cHeadline + br + data.eHeadline;
-
+    // -- [HEIGHT]
     /*
     var cHeight = Math.ceil(data.cHeadline.length / 25);
     var eHeight = Math.ceil(data.eHeadline.length / 35);
     var lineHeight = 30;
     headline.children[1].style.height = (cHeight + eHeight) * lineHeight + 'px';
     */
-    headline.children[1].style.maxHeight = '300px';
-
+    headline.children[1].style.maxHeight = '800px';
+    // -- [OPACITY]
     headline.children[1].style.opacity = 1;
 }
 
@@ -204,6 +204,7 @@ var rangeEnd = 0;
 
 // ########## PRICE -- [Parameters] ########## //
 let fromPara = getUrlParams('from');
+let ccodePara = getUrlParams('ccode');
 // -- [Parameters -- Default]
 if (fromPara === 'ft_win_back') {
     PRICE['standard'] = standardPrice['50%'];
@@ -254,7 +255,7 @@ if (fromPara === 'pbcsf' && today.getTime() >= rangeStart && today.getTime() <= 
     PRICE['premium'] = premiumPrice['50%'];
 }
 // -- [Parameters -- Special]
-if (getUrlParams('ccode') === '2C2021anniversarystage2renewEDM') {
+if (ccodePara === '2C2021anniversarystage2renewEDM') {
     PRICE['standard'] = standardPrice['50%'];
     PRICE['premium'] = premiumPrice['50%'];
 }
@@ -391,7 +392,7 @@ var ElementsType = 0;
 if (fromPara === 'ft_intro') {
     ElementsType = 1;
     document.getElementsByClassName('o-member__benefits')[0].children[1].outerHTML='<li>精选深度分析</li><li>每日一词</li>';
-    document.getElementsByClassName('o-member__benefits')[2].children[1].outerHTML='<li>精选深度分析</li><li>每日一词</li>'
+    document.getElementsByClassName('o-member__benefits')[2].children[1].outerHTML='<li>精选深度分析</li><li>每日一词</li>';
 } else if (fromPara === 'pbcsf' && SP === 2) {
     ElementsType = 2;
 } else if (PRICE['monthly'] === 1) {
@@ -401,13 +402,13 @@ monthlyElements(ElementsType);
 
 function monthlyElements(ElementsType = 0) {
     if (ElementsType) {
-        document.getElementsByClassName('o-member__title')[2].innerText = (ElementsType === 1) ? introType : trialType;
+        document.getElementsByClassName('o-member_standard_monthly')[0].childNodes[1].childNodes[1].innerText = (ElementsType === 1) ? introType : trialType;
         document.getElementById('benefits_standard_monthly').innerHTML = (ElementsType === 1) ? '新会员首月仅¥1元，原价续订¥35元' : '新会员试读仅¥1元，原价续订¥35元';
         document.getElementById('note_standard_monthly').style.display = 'block';
         document.getElementById('note_more_standard_monthly').style.display = 'block';
         document.getElementById('note_more_standard_monthly').innerHTML = '注意事项：<br>1. 新会员即未曾购买过FT中文网订阅产品的用户；<br>2. 登录后，如发现支付金额与促销金额不符，请确认您的登录账号是否正确或与客服联系；<br>3. 本次活动的最终解释权归FT中文网所有。';
     } else {
-        document.getElementsByClassName('o-member__title')[2].innerText = standardMonthlyType;
+        document.getElementsByClassName('o-member_standard_monthly')[0].childNodes[1].childNodes[1].innerText = standardMonthlyType;
         document.getElementById('benefits_standard_monthly').innerHTML = '专享订阅内容每日仅需¥' + priceAvg['monthly'] + '元';
         document.getElementById('note_standard_monthly').style.display = 'none';
         document.getElementById('note_more_standard_monthly').style.display = 'none';
@@ -422,10 +423,21 @@ function monthlyElements(ElementsType = 0) {
     }
 }
 
-// -- Set Special Price Cookie For B2B
+// -- Cookie - Special Price [B2B]
 // ftcEncrypt('PBCSF') - 550395d35554a444
 if (fromPara === 'pbcsf' && SP) {
     SetCookie('SP', '550395d35554a444', 3600, null, null, false);
+}
+
+// -- Cookie - Source [Campaign]
+// ftcEncrypt('ft_intro') - 1675530336d683d3a5e62566
+if (fromPara === 'ft_intro') {
+    SetCookie('source', '1675530336d683d3a5e62566', 3600, null, null, false);
+}
+
+// -- Cookie - Campaign Code
+if (ccodePara) {
+    SetCookie('ccode', ccodePara, 3600, null, null, false);
 }
 
 // ####################
@@ -473,17 +485,25 @@ function relevantDataInPayment(memberType, price) {
     //console.log('Payment-Box - ' + memberType + ' - ' + price);
 }
 
-function selectPayWay(memberType) {
-    var FROM, URL;
-    FROM = (fromPara) ? '&from=' + fromPara : '';
+function wxPayAction(memberType) {
+    var URL;
     if (memberType === standardType) {
-        URL = 'https://www.ftacademy.cn/index.php/pay?offerId=eb6d8ae6f20283755b339c0dc273988b&platform=2' + FROM;
+        URL = 'https://www.ftacademy.cn/index.php/pay?offerId=eb6d8ae6f20283755b339c0dc273988b&platform=2';
     } else if (memberType === standardMonthlyType || memberType === introType || memberType === trialType) {
-        URL = 'https://www.ftacademy.cn/index.php/pay?offerId=eb6d8ae6f20283755b339c0dc273988b&platform=2&offerType=monthly' + FROM;
+        URL = 'https://www.ftacademy.cn/index.php/pay?offerId=eb6d8ae6f20283755b339c0dc273988b&platform=2&offerType=monthly';
     } else if (memberType === premiumType) {
-        URL = 'https://www.ftacademy.cn/index.php/pay?offerId=8d5e7e72f12067991186cdf3cb7d5d9d&platform=2' + FROM;
+        URL = 'https://www.ftacademy.cn/index.php/pay?offerId=8d5e7e72f12067991186cdf3cb7d5d9d&platform=2';
     }
-    window.location = URL;
+
+    var FROM, CCODE;
+    FROM = (fromPara) ? '&from=' + fromPara : '';
+    CCODE = (ccodePara) ? '&ccode=' + ccodePara : '';
+
+    var CID, CONTENT;
+    CID = (getUrlParams('story')) ? getUrlParams('story') : ((getUrlParams('interactive')) ? getUrlParams('interactive') : '');
+    CONTENT = (CID) ? '&content=' + CID : '';
+
+    window.location = URL + FROM + CCODE + CONTENT;
 }
 
 var isInApp = (window.location.href.indexOf('webview=ftcapp') >= 0);
@@ -520,7 +540,7 @@ var openPayment = function(event) {
     }
 
     if (isWeiXin()) {
-        selectPayWay(memberType);
+        wxPayAction(memberType);
     } else {
         //console.log('openPayment - relevantDataInPayment');
         relevantDataInPayment(memberType, price);
@@ -610,8 +630,9 @@ const toPayAction = function(event) {
     var offerId = (memberType === premiumType) ? '8d5e7e72f12067991186cdf3cb7d5d9d' : 'eb6d8ae6f20283755b339c0dc273988b';
     var offerType = (memberType === standardMonthlyType || memberType === introType || memberType === trialType) ? '&offerType=monthly' : '';
     var offerFrom = (fromPara) ? '&from=' + fromPara : '';
+    var content = (getUrlParams('story') || getUrlParams('interactive')) ? '&content=' + getUrlParams('story') + getUrlParams('interactive') : '';
     if (platform) {
-        const link = 'https://www.ftacademy.cn/index.php/pay?offerId=' + offerId + '&platform=' + platform + offerType + offerFrom;
+        const link = 'https://www.ftacademy.cn/index.php/pay?offerId=' + offerId + '&platform=' + platform + offerType + offerFrom + content;
         //console.log(link);
         window.open(link, target);
     }
@@ -686,6 +707,15 @@ function updateUI(dataObj) {
         EventObject.addHandler(standardBtn, "click", openExchange);
         EventObject.addHandler(premiumBtn, "click", openExchange);
     } else {
+        if (fromPara === 'ft_intro') {
+            var standardHTML = document.getElementById('standard').outerHTML;
+            var monthlyHTML = document.getElementById('monthly').outerHTML;
+            document.getElementsByClassName('o-member-outer')[0].outerHTML = monthlyHTML;
+            document.getElementsByClassName('o-member-outer')[2].outerHTML = standardHTML;
+            // -- Redefine
+            EventObject.addHandler(document.getElementById('standard-monthly-btn'), "click", openPayment);
+            EventObject.addHandler(document.getElementById('standard-btn'), "click", openPayment);
+        }
         EventObject.addHandler(standardMonthlyBtn, "click", openPayment);
         EventObject.addHandler(standardBtn, "click", openPayment);
         EventObject.addHandler(premiumBtn, "click", openPayment);
@@ -738,7 +768,7 @@ function updateUI(dataObj) {
             //premiumPriceShow = premiumPrice['85%']; // ##[Discount][Premium]
         }
         */
-    } else if (fromPara === 'ft_win_back' || fromPara === 'ft_big_sale' || fromPara === 'uibe' || fromPara === 'bimba' || getUrlParams('ccode') === '2C2021anniversarystage2renewEDM' || sponsorCookie == '2554c6451503936545c625666555c63425658397d4449487d444b6d325c62566' || sponsorCookie == '2554c6451503936545c6256615b6c6e415b66466d4a61497d445145325c62566') {
+    } else if (fromPara === 'ft_win_back' || fromPara === 'ft_big_sale' || fromPara === 'uibe' || fromPara === 'bimba' || ccodePara === '2C2021anniversarystage2renewEDM' || sponsorCookie == '2554c6451503936545c625666555c63425658397d4449487d444b6d325c62566' || sponsorCookie == '2554c6451503936545c6256615b6c6e415b66466d4a61497d445145325c62566') {
         /*
         if ((dataObj.standard === 1 && dataObj.premium === 0)) {
             // ##### Standard -> Premium ##### //
@@ -799,7 +829,6 @@ function updateUI(dataObj) {
 
     if (isInApp) {
         var buyLinks = document.querySelectorAll('a[data-key]');
-        var ccodeValue = getUrlParams('ccode');
         for (var buyLink of buyLinks) {
             var key = buyLink.getAttribute('data-key');
             // Mark: The process of getting the ft_discount is quite convoluted. I can only get the price from its result.
@@ -808,11 +837,8 @@ function updateUI(dataObj) {
             if (priceEle) {
                 price = priceEle.innerHTML.replace(/\.00.*$/g, '').replace(/\D/g, '');
             }
-            var ccodePara = '';
-            if (ccodeValue && ccodeValue !== '') {
-                ccodePara = '?ccode=' + ccodeValue;
-            }
-            var link = 'subscribe://' + key + '/' + price + ccodePara;
+            var ccode = (ccodePara) ? '?ccode=' + ccodePara : '';
+            var link = 'subscribe://' + key + '/' + price + ccode;
             buyLink.setAttribute('href', link);
         }
     }
@@ -924,10 +950,6 @@ function getMemberTypeFromUpdate() {
     }
 }
 
-
-
-
-
 window.onunload = function() {
     DeleteCookie('U');
     DeleteCookie('E');
@@ -1027,9 +1049,9 @@ iosTrack();
 
 // Mark: url参数中带有ccode和utm_code，设置cookie，因为这是从活动中直接链接过来的，所以在此页面设置来源。暂时不使用document.referrer
 function ccodeTrack() {
-    let ccodePara = getUrlParams('ccode') || getUrlParams('utm_code') || getUrlParams('utm_campaign') || getUrlParams('campaign_code');
-    if (ccodePara) {
-        var fromUrl = 'From:' + ccodePara;
+    let ccode = getUrlParams('ccode') || getUrlParams('utm_code') || getUrlParams('utm_campaign') || getUrlParams('campaign_code');
+    if (ccode) {
+        var fromUrl = 'From:' + ccode;
         SetCookie('SELabel', fromUrl, 86400, null, '.ftacademy.cn', false);
         ga('send', 'event', 'Web Privileges', 'Tap', fromUrl, {
             'nonInteraction': 1
