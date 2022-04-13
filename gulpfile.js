@@ -10,6 +10,8 @@ const path = require('path');
 const gulp = require('gulp');
 const $ = require('gulp-load-plugins')();
 
+const sass = require('gulp-dart-sass');
+
 const rollup = require('rollup').rollup;
 const nodeResolve = require('rollup-plugin-node-resolve');
 const buble = require('rollup-plugin-buble');
@@ -87,11 +89,11 @@ gulp.task('styles', function styles() {
         .pipe($.sourcemaps.init({
             loadMaps: true
         }))
-        .pipe($.sass({
+        .pipe(sass.sync({
             outputStyle: 'expanded',
             precision: 10,
-            includePaths: ['bower_components']
-        }).on('error', $.sass.logError))
+            includePaths: ['node_modules']
+        }).on('error', sass.logError))
         .pipe($.postcss([
             cssnext({
                 features: {
@@ -212,7 +214,7 @@ gulp.task('serve', gulp.series('build-page', 'styles', 'scripts', 'api', () => {
             index: 'subscription.html',
             directory: true,
             routes: {
-                '/bower_components': 'bower_components'
+                '/node_modules': 'node_modules'
             }
         }
     });

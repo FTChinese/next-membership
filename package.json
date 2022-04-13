@@ -6,8 +6,10 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "prebuild": "rm -rf dist/* .tmp/*",
-    "postversion": "git push && git push --tags",
-    "postinstall": "bower install"
+    "postversion": "git push && git push --tags"
+  },
+  "engines": {
+    "node": ">=16"
   },
   "repository": {
     "type": "git",
@@ -33,13 +35,13 @@
     "gulp": "github:gulpjs/gulp#4.0",
     "gulp-changed": "^2.0.0",
     "gulp-cssnano": "^2.1.2",
+    "gulp-dart-sass": "^1.0.2",
     "gulp-htmlmin": "^3.0.0",
     "gulp-jshint": "^2.0.4",
     "gulp-load-plugins": "^1.5.0",
     "gulp-plumber": "^1.1.0",
     "gulp-postcss": "^6.3.0",
     "gulp-rename": "^1.2.2",
-    "gulp-sass": "^3.1.0",
     "gulp-sourcemaps": "^2.4.1",
     "gulp-uglify": "^2.0.0",
     "gulp-useref": "^3.1.2",
@@ -57,8 +59,5 @@
     "rollup-plugin-buble": "^0.18.0",
     "rollup-plugin-node-resolve": "^3.0.0",
     "rollup-plugin-uglify": "^2.0.1"
-  },
-  "dependencies": {
-    "bower": "^1.8.2"
   }
 }
