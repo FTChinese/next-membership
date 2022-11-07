@@ -160,6 +160,8 @@ $text-background: #26747a;
     display: none;
 }
 
+/* ---------- payment-shadow (o-overlay-shadow) & payment-box ---------- */
+
 .o-overlay-shadow {
     position: fixed;
     z-index: 1;
@@ -182,7 +184,7 @@ $text-background: #26747a;
     right: 0;
     margin: auto;
     width: 450px;
-    height: 220px;
+    height: 240px;
 
     overflow: visible;
     z-index: 60;
@@ -196,23 +198,43 @@ $text-background: #26747a;
         margin: 20px 0 10px;
     }
 
+    /* ---------- payment-box -> payment-way -> payment-method -> (***)-mode -> (***)-pay ---------- */
+
     .payment-way {
         background-color: $text-highlight;
 
         .payment-name,
         .payment-method {
-            padding: 10px 20px 20px;
+            padding: 10px 20px;
         }
 
         .payment-method {
-            .wxpay-mode {
-                margin-left: -20px;
+
+            .alipay-mode,
+            .wxpay-mode,
+            .stripe-mode {
+                display: inline-block;
+                margin: 0;
+                padding: 5px 10px;
             }
 
-            #pay-alipay,
-            #pay-wxpay {
+            .stripe-mode {
+                margin-left: 80px;
+            }
+
+            #alipay-pay,
+            #wxpay-pay {
                 width: 100px;
                 height: 20px;
+            }
+
+            #stripe-pay {
+                width: auto;
+                margin: 0 0 0 10px;
+
+                img {
+                    height: 30px;
+                }
             }
 
             span,
@@ -249,24 +271,34 @@ $text-background: #26747a;
     }
 }
 
-#pay-alipay {
+/* ---------- payment-method -> (***)-mode -> (***)-pay ---------- */
+
+#alipay-pay {
     display: inline-block;
-    /*width:80px;*/
-    /*height:20px;*/
+    /*width: 80px;*/
+    /*height: 20px;*/
     margin: 0 10px;
     background-size: contain;
     background-repeat: no-repeat;
     background-image: url(data:image/png;base64,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)
 }
 
-#pay-wxpay {
+#wxpay-pay {
     display: inline-block;
-    /*width:80px;*/
-    /*height:20px;*/
+    /*width: 80px;*/
+    /*height: 20px;*/
     margin: 0 10px;
     background-size: contain;
     background-repeat: no-repeat;
     background-image: url(data:image/png;base64,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)
+}
+
+#stripe-pay {
+    display: inline-block;
+    width: auto;
+    height: auto;
+    font-size: .9em;
+    color: #666;
 }
 
 /*
@@ -283,15 +315,7 @@ $text-background: #26747a;
 }
 */
 
-#wxImg {
-    margin-top: 20px;
-    background-image: url(https://www.ftacademy.cn/wxpay/native.php?standard);
-    background-repeat: no-repeat;
-    background-size: contain;
-    height: 200px;
-    width: 100%;
-    background-position: center;
-}
+/* ---------- XL ---------- */
 
 @mixin subscription-XL {
     .width-cls {
@@ -315,7 +339,7 @@ $text-background: #26747a;
     }
 
     .o-member-container {
-        max-width: 1024px;
+        max-width: 1020px;
 
         .o-member-outer {
             float: left;
@@ -331,24 +355,20 @@ $text-background: #26747a;
             margin: auto;
         }
     }
-
-    #payment-box {
-        .payment-method {
-            img {
-                margin: 0 10px;
-            }
-        }
-    }
 }
+
+/* ---------- XL ---------- */
+
+/* ---------- L ---------- */
 
 @mixin subscription-L {
     .width-cls {
-        width: 90%;
+        width: 94%;
     }
 
     .welcome-guide {
         min-height: 300px;
-        background-size: 300px auto;
+        background-size: 320px auto;
 
         .words {
             width: 65%;
@@ -364,6 +384,8 @@ $text-background: #26747a;
     }
 
     .o-member-container {
+        max-width: 960px;
+
         .o-member-outer {
             float: left;
             width: 33%;
@@ -378,16 +400,11 @@ $text-background: #26747a;
             margin: auto;
         }
     }
-
-    #payment-box {
-        .payment-method {
-            img {
-                margin: 0 10px;
-            }
-
-        }
-    }
 }
+
+/* ---------- L ---------- */
+
+/* ---------- M ---------- */
 
 @mixin subscription-M {
     .width-cls {
@@ -434,15 +451,11 @@ $text-background: #26747a;
         }
 
     }
-
-    #payment-box {
-        .payment-method {
-            img {
-                margin: 0 10px;
-            }
-        }
-    }
 }
+
+/* ---------- M ---------- */
+
+/* ---------- S ---------- */
 
 @mixin subscription-S {
     .width-cls {
@@ -499,24 +512,30 @@ $text-background: #26747a;
         left: 10%;
         right: 10%;
         width: 80%;
-        height: 280px;
+        height: fit-content;
 
         .payment-way {
             .payment-method {
+
                 .alipay-mode,
-                .wxpay-mode {
+                .wxpay-mode,
+                .stripe-mode {
                     display: block;
                     margin: 0;
-                    padding: 5px 30px;
+                    padding: 5px 10px;
                 }
 
-                img {
-                    margin: 0 10px;
+                .stripe-mode {
+                    margin: 0;
                 }
             }
         }
     }
 }
+
+/* ---------- S ---------- */
+
+/* ---------- XS ---------- */
 
 @mixin subscription-XS {
     .welcome-guide {
@@ -530,19 +549,31 @@ $text-background: #26747a;
     }
 
     #payment-box {
+        height: fit-content;
+
         .payment-way {
+
             .payment-name,
             .payment-method {
                 padding: 10px;
 
                 .alipay-mode,
-                .wxpay-mode {
+                .wxpay-mode,
+                .stripe-mode {
                     padding: 5px 15px;
+                }
+
+                .stripe-mode {
+                    margin: 0;
                 }
             }
         }
     }
 }
+
+/* ---------- XS ---------- */
+
+/* ---------- @media ---------- */
 
 //XL related styles
 @media only screen and (min-width: 1221px) {
@@ -566,20 +597,35 @@ $text-background: #26747a;
     @include subscription-XS;
 }
 
-.wxScanHint {
-    text-align: center;
-    font-size: 20px;
-    padding: 10px;
-}
+/* ---------- @media ---------- */
 
 // -- Original Price
-#standard_monthly_price_origin, #standard_price_origin, #premium_price_origin {
+#standard_monthly_price_origin,
+#standard_price_origin,
+#premium_price_origin {
     color: transparent;
     font-size: .6em;
     text-decoration: line-through;
 }
 
-// -- Quotes
+// -- WeChat
+#wxQR {
+    margin-top: 20px;
+    background-image: url(https://www.ftacademy.cn/wxpay/native.php?standard);
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 200px;
+    width: 100%;
+    background-position: center;
+}
+
+.wxScan {
+    text-align: center;
+    font-size: 20px;
+    padding: 10px;
+}
+
+// -- Quotes - story=(***) OR interactive=(***)
 .words {
     padding: 1em 0;
     height: 100%;

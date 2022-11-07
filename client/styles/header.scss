@@ -72,18 +72,20 @@
 
 @media only screen and (max-width:490px) {
     .header-side {
-    display: none
+        display: none
     }
+
     .header-container {
         height: 44px
     }
+
     .header-inner {
-    position: fixed;
-    top: 0;
-    height: 44px;
-    z-index: 999999999;
-    width: 100%;
-    background-color: #333
+        position: fixed;
+        top: 0;
+        height: 44px;
+        z-index: 999999999;
+        width: 100%;
+        background-color: #333
     }
 
 }
@@ -101,7 +103,7 @@
     margin: auto;
     height: 57px;
     line-height: 57px;
-    font-size:  1.5em;
+    font-size: 1.5em;
     //width: 336px;
     max-width: 100%;
     font-weight: bold;
@@ -125,10 +127,7 @@
 
 @media only screen and (max-width:490px) {
     .header-title {
-    height: 44px;
-    line-height: 44px
+        height: 44px;
+        line-height: 44px
     }
 }
-
-
-  

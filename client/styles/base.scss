@@ -2,45 +2,57 @@ $defaultPink: #FFF1E5;
 $red: #9E2F50;
 $darkGreen: #27757b;
 $darkGrey: #333333;
+
 * {
-	margin:0;
-	padding:0;
-	box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
+
 body {
-	font-family:"Helvetica Neue","Verdana","Arial","Hiragino Sans GB","WenQuanYi Micro Hei","Heiti SC",STHeiti,"Microsoft Yahei",SimSun,sans-serif;
-	font-size:16px;
-	margin:0 auto;
-	display:block;
-	background: $defaultPink none repeat scroll 0 0;
+    font-family: "Helvetica Neue", "Verdana", "Arial", "Hiragino Sans GB", "WenQuanYi Micro Hei", "Heiti SC", STHeiti, "Microsoft Yahei", SimSun, sans-serif;
+    font-size: 16px;
+    margin: 0 auto;
+    display: block;
+    background: $defaultPink none repeat scroll 0 0;
 }
+
 div {
-	text-align: left;
-	line-height: 140%;
+    text-align: left;
+    line-height: 140%;
 }
+
 img {
-	border:medium none;
-	max-width:100%;
+    border: medium none;
+    max-width: 100%;
 }
+
 a {
     color: $darkGreen;
     text-decoration: none;
-    &:hover, &:active {
-		color: $darkGrey;
-	}
-	&.highlight {
-		color: $red;
-	}
+
+    &:hover,
+    &:active {
+        color: $darkGrey;
+    }
+
+    &.highlight {
+        color: $red;
+    }
 }
-ul,li{
-	list-style-position:outside;
-	list-style-type:none;
-	margin:0;
-	padding:0;
+
+ul,
+li {
+    list-style-position: outside;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
 }
-.clearfloat{
-	clear:both;
+
+.clearfloat {
+    clear: both;
 }
+
 button {
     display: inline-block;
     -webkit-box-sizing: border-box;
@@ -54,8 +66,8 @@ button {
     font-weight: 600;
     border-radius: 3px;
     cursor: pointer;
-    -webkit-transition: .3s background-color,.15s color ease-out,.15s border-color ease-out;
-    transition: .3s background-color,.15s color ease-out,.15s border-color ease-out;
+    -webkit-transition: .3s background-color, .15s color ease-out, .15s border-color ease-out;
+    transition: .3s background-color, .15s color ease-out, .15s border-color ease-out;
     -moz-appearance: none;
     -webkit-appearance: none;
     -webkit-user-select: none;
@@ -73,10 +85,12 @@ button {
     line-height: 26px;
     border-width: 1px;
     color: #27757b;
-    background-color: rgba(255,255,255,.4);
-    border-color: rgba(39,117,123,.15);
-    &:hover, &:active {
-    	background-color: rgba(39,117,123,.08);
-		border-color: rgba(39,117,123,.3);
+    background-color: rgba(255, 255, 255, .4);
+    border-color: rgba(39, 117, 123, .15);
+
+    &:hover,
+    &:active {
+        background-color: rgba(39, 117, 123, .08);
+        border-color: rgba(39, 117, 123, .3);
     }
 }
