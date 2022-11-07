@@ -1,20 +1,18 @@
 <!DOCTYPE html>
 <html class="no-js core" data-next-app="front-page">
-<head>
 
+<head>
+    <title>订阅成功 - FT中文网</title>
+    <meta content="订阅成功" name="description" />
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>订阅成功 - FT中文网</title>
-    <meta http-equiv="Content-Language" content="zh-CN"/>
-    <meta content="订阅成功" name="description"/>
+    <meta http-equiv="Content-Language" content="zh-CN" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-    <link rel="apple-touch-icon-precomposed" href="https://dhgxl8qk9zgzr.cloudfront.net/img/ipad_icon.png" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-<script inline src="scripts/key.js"></script>
-
-<link inline rel="stylesheet" type="text/css" href="styles/status.css">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <link rel="icon" type="image/png" href="./get.php?u=http://static.ftacademy.cn/img/ipad_icon.png" sizes="32x32" />
+    <link rel="apple-touch-icon-precomposed" href="./get.php?u=http://static.ftacademy.cn/img/ipad_icon.png" />
+    <link inline rel="stylesheet" type="text/css" href="styles/status.css" />
+    <script inline src="scripts/key.js"></script>
 </head>
 
 <body id="bodyId">
@@ -24,7 +22,7 @@
         <div class="header-title">会员订阅</div>
         <div class="header-side header-left" style="display: none;">
             <div class="header-brand">
-                <figure class="loading" data-url="https://dhgxl8qk9zgzr.cloudfront.net/images/masthead36.png"></figure>
+                <figure class="loading" data-url="/get.php/u=http://static.ftacademy.cn/images/masthead36.png"></figure>
             </div>
         </div>
     </div>
@@ -56,9 +54,10 @@
             ——iPhone或iPad，请到苹果的App Store搜索并下载“FT中文网”App；<br>
             <!--
             ——安卓手机，请下载并安装付费会员专用的FT中文网安卓应用；<br>
-            -->
             ——安卓手机，请到华为应用市场搜索并下载“FT中文网”App，或联系我们的客服以获取最新版安卓安装程序；<br>
-            ——您也可以在电脑上访问付费会员专用网址：<a id="vip_url" href="http://www.chineseft.com/">www.chineseft.com</a>。使用您购买订阅时登录FT中文网的帐号在电脑端登录后，即可解锁付费资讯。<br>
+            -->
+            ——安卓手机，请搜索微信公众号“小T服务在线”，在公众号底部获取最新安装程序，也可在此公众号内联系客服协助解决；<br>
+            ——您也可以在电脑上访问付费会员专用网址：<a id="vip_url" href="https://www.chineseft.live/">www.chineseft.live</a>。使用您购买订阅时登录FT中文网的帐号在电脑端登录后，即可解锁付费资讯。<br>
             ——客服电话/微信：<a href="tel: 18501972480">18501972480</a><br><br>
         </div>
         <div><a href="subscription.html#faq">常见问题请点击此处</a></div>
@@ -70,7 +69,7 @@
         <div class="product-container {{product.type.replace(' ', '')}}">
             <div class="product-title">{{product.title}}权益：</div>
             <ul>{% for benefit in product.benefits %}
-                <li> {{benefit}}</li>{% endfor %}
+                <li>{{benefit}}</li>{% endfor %}
             </ul>
             <div class="note">{{product.note}}</div>
         </div>{% endfor %}

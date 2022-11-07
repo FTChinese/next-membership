@@ -86,7 +86,6 @@ function getUrlParams(key = '') {
                 }
             }
         }
-
         return value;
     }
     return value;

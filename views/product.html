@@ -2,128 +2,124 @@
 <html class="no-js core" data-next-app="front-page">
 
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>付费内容 - FT中文网</title>
-  <meta http-equiv="Content-Language" content="zh-CN" />
-  <meta content="付费内容" name="description" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-  <link rel="apple-touch-icon-precomposed" href="/get.php/u=http://static.ftacademy.cn/img/ipad_icon.png" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="icon" type="image/png" href="/get.php/u=http://static.ftacademy.cn/img/ipad_icon.png" sizes="32x32">
+    <title>付费内容 - FT中文网</title>
+    <meta content="付费内容" name="description" />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Language" content="zh-CN" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <link rel="icon" type="image/png" href="./get.php?u=http://static.ftacademy.cn/img/ipad_icon.png" sizes="32x32">
+    <link rel="apple-touch-icon-precomposed" href="./get.php?u=http://static.ftacademy.cn/img/ipad_icon.png" />
+    <link inline rel="stylesheet" type="text/css" href="styles/main.css">
+    <script inline src="scripts/key.js"></script>
+    <style type="text/css">
+        .default_price {
+            color: #BBB;
+            font-size: 0.8em;
+        }
 
-  <script inline src="scripts/key.js"></script>
-
-  <link inline rel="stylesheet" type="text/css" href="styles/main.css">
-  <style type="text/css">
-      .default_price {
-        color: #BBB;
-        font-size: 0.8em;
-      }
-      .o-member-container .o-member-outer {
-          <?php
-          if (3 == count($product)) {
-              echo 'width:33%;';
-          } elseif (2 == count($product)) {
-              echo 'width:50%;';
-          } elseif (1 == count($product)) {
-              echo 'width:100%;';
-          }
-          ?>
-      }
-  </style>
+        .o-member-container .o-member-outer {
+            <?php
+            if (3 == count($product)) {
+                echo 'width:33%;';
+            } elseif (2 == count($product)) {
+                echo 'width:50%;';
+            } elseif (1 == count($product)) {
+                echo 'width:100%;';
+            }
+            ?>
+        }
+    </style>
 </head>
 
 <body>
-  {% include "partials/header-product.html" %}
-  <div class="container">
-
-    <div class="welcome-guide width-cls">
-      <!--<div class="show-image"></div>-->
-      <div class="words">
-        <div class="first"><strong class="firstStrong">{{guide.first_product}}</strong></div>
-        <div class="second">{{guide.second_product}}</div>
-      </div>
-
-      <div class="clear-class"></div>
-    </div>
-  </div>
-
-  <div id="payment-page">
-      <div id="payment-shadow" class="o-overlay-shadow fadeIn"></div>
-      <div id="payment-box" class="rightanswer show o-overlay__arrow-top fadeInRight">
-          <div class="payment-title">欢迎订阅FT会员服务</div>
-          <div class="payment-way">
-              <div class="payment-name"><span>会员类型：</span><span class="payment-type"><strong id="memberType"></strong></span></div>
-              <div class="payment-method"><span>支付方式：</span>
-                  <label class="alipay-mode"><input name="pay" type="radio" value="alipay" checked /><span id="pay-alipay"></span> </label>
-                  <label class="wxpay-mode"><input name="pay" type="radio" value="wxpay" /><span id="pay-wxpay"></span></label>
-              </div>
-          </div>
-          <div class="pay-action"><label>支付金额 <label id="price"></label></label><button class="to-pay" id="to-pay">确定支付</button></div>
-      </div>
-  </div>
-
-  <div class="o-member-container">
-      <div class="o-member__heading">
-        <p id="heading-hint">付费内容 <?php echo '《'.$name.'》';?> 包含以下售卖方式<br>请根据您的需求购买</p>
-      </div>
-  </div>
-
-
-  <div id="site-content" class="o-member-container">
-    <div class="o-member-row">
-<?php
-foreach ($product as $p) {
-?>
-      <div class="o-member-outer">
-        <div class="o-member">
-          <div class="o-member_content">
-            <h2 class="o-member__title"><?php echo $p['title'];?></h2>
-            <div class="o-member__border"></div>
-            <ul class="o-member__benefits">
-                <?php echo $p['detail'];?>
-            </ul>
-            <div class="o-member__subscribe">
-              <a href="/index.php/pay?platform=1&offerId=<?php echo $p['button'];?>"><button class="openSub">支付宝支付</button></a>
-              <br>
-              <a href="/index.php/pay?platform=2&offerId=<?php echo $p['button'];?>"><button class="openSub">微信支付</button></a>
+    {% include "partials/header-product.html" %}
+    <div class="container">
+        <div class="welcome-guide width-cls">
+            <!--<div class="show-image"></div>-->
+            <div class="words">
+                <div class="first"><strong class="firstStrong">{{guide.first_product}}</strong></div>
+                <div class="second">{{guide.second_product}}</div>
             </div>
-          </div>
+            <div class="clear-class"></div>
         </div>
-      </div>
-<?php
-}
-?>
     </div>
-  </div>
 
-  {% include "partials/QandA.html" %}
-  {% include "partials/footer.html" %}
+    <div id="payment-page">
+        <div id="payment-shadow" class="o-overlay-shadow fadeIn"></div>
+        <div id="payment-box" class="rightanswer show o-overlay__arrow-top fadeInRight">
+            <div class="payment-title">欢迎订阅FT会员服务</div>
+            <div class="payment-way">
+                <div class="payment-name"><span>会员类型：</span><span class="payment-type"><strong id="memberType"></strong></span></div>
+                <div class="payment-method"><span>支付方式：</span>
+                    <label class="alipay-mode"><input name="pay" type="radio" value="alipay" checked /><span id="alipay-pay"></span> </label>
+                    <label class="wxpay-mode"><input name="pay" type="radio" value="wxpay" /><span id="wxpay-pay"></span></label>
+                </div>
+            </div>
+            <div class="pay-action"><label>支付金额 <label id="price"></label></label><button class="to-pay" id="to-pay">确定支付</button></div>
+        </div>
+    </div>
 
-  <script inline src="scripts/main.js"></script>
+    <div class="o-member-container">
+        <div class="o-member__heading">
+            <p id="heading-hint">付费内容 <?php echo '《'.$name.'》';?> 包含以下售卖方式<br>请根据您的需求购买</p>
+        </div>
+    </div>
 
-  <script>
-    var today = new Date();
-    var y = today.getFullYear();
-    var m = zeroFix(today.getMonth() + 1);
-    var d = zeroFix(today.getDate());
+    <div id="site-content" class="o-member-container">
+        <div class="o-member-row">
+            <?php
+            foreach ($product as $p) {
+            ?>
+            <div class="o-member-outer">
+                <div class="o-member">
+                    <div class="o-member_content">
+                        <h2 class="o-member__title"><?php echo $p['title'];?></h2>
+                        <div class="o-member__border"></div>
+                        <ul class="o-member__benefits">
+                            <?php echo $p['detail'];?>
+                        </ul>
+                        <div class="o-member__subscribe">
+                            <a href="/index.php/pay?platform=1&offerId=<?php echo $p['button'];?>"><button class="openSub">支付宝支付</button></a>
+                            <br>
+                            <a href="/index.php/pay?platform=2&offerId=<?php echo $p['button'];?>"><button class="openSub">微信支付</button></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <?php
+            }
+            ?>
+        </div>
+    </div>
 
-    function zeroFix(n) {
-      return (n < 10) ? '0' + n : n;
-    }
+    {% include "partials/QandA.html" %}
+    {% include "partials/footer.html" %}
 
-    if (window.gAutoStart === undefined) {
-      (function (d, s, u, j, x) {
-        j = d.createElement(s),
-          x = d.getElementsByTagName(s)[0];
-        j.async = true;
-        j.src = u;
-        x.parentNode.insertBefore(j, x);
-      })(document, 'script', 'https://static.ftacademy.cn/js/log.js?' + y + m + d);
-    }
-  </script>
+    <script inline src="scripts/main.js"></script>
+    <!--
+    <script>
+        var today = new Date();
+        var y = today.getFullYear();
+        var m = zeroFix(today.getMonth() + 1);
+        var d = zeroFix(today.getDate());
+        var logDomain = 'https://static.ftacademy.cn';
 
+        function zeroFix(n) {
+            return (n < 10) ? '0' + n : n;
+        }
+
+        if (window.gAutoStart === undefined) {
+            (function(d, s, u, j, x) {
+                j = d.createElement(s), x = d.getElementsByTagName(s)[0];
+                j.async = true;
+                j.src = u;
+                x.parentNode.insertBefore(j, x);
+            })(document, 'script', logDomain + '/js/log.js?' + y + m + d);
+        }
+    </script>
+    -->
 </body>
 
 </html>

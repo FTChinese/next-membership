@@ -1,85 +1,85 @@
 <!DOCTYPE html>
 <html class="no-js core" data-next-app="front-page">
+
 <head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>兑换中心 - FT中文网</title>
-  <meta http-equiv="Content-Language" content="zh-CN"/>
-  <meta content="兑换中心" name="description"/>
-  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-  <link rel="apple-touch-icon-precomposed" href="http://static.ftchinese.com/img/ipad_icon.png" />
-  <meta name ="viewport" content ="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <title>兑换中心 - FT中文网</title>
+    <meta content="兑换中心" name="description" />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Language" content="zh-CN" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <link rel="icon" type="image/png" href="./get.php?u=http://static.ftacademy.cn/img/ipad_icon.png" sizes="32x32">
+    <link rel="apple-touch-icon-precomposed" href="./get.php?u=http://static.ftacademy.cn/img/ipad_icon.png" />
+    <!-- MARK: Important: Need to add Google Analytics load events manually -->
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m);a.onload=function(){if(typeof clearEvents==='function'){clearEvents()}}
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+        ga('create', 'UA-1608715-1', 'auto');
+        try {
+            ga('send', 'pageview', window.location.href);
+        } catch (err) {
 
-<!-- MARK: Important: Need to add Google Analytics load events manually -->
-  <script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m);a.onload=function(){if(typeof clearEvents==='function'){clearEvents()}}
-    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-  ga('create', 'UA-1608715-1', 'auto');
-  try {
-    ga('send', 'pageview',window.location.href);
-  }catch(err){
-  
-  }
- 
-  </script>
-<!-- End Google Analytics -->
-
-
-  <link inline rel="stylesheet" type="text/css" href="styles/exchange.css">
-  
+        }
+    </script>
+    <!-- End Google Analytics -->
+    <link inline rel="stylesheet" type="text/css" href="styles/exchange.css">
 </head>
 
 <body>
-   <HEADER class="header-container">
-    <DIV class="header-inner">
-      <DIV class="header-title">兑换中心</DIV>
-      <DIV class="header-side header-left" style="display: none;">
-        <DIV class="header-brand">
-          <FIGURE class="loading" data-url="http://static.ftchinese.com/images/masthead36.png"></FIGURE>
+    <HEADER class="header-container">
+        <DIV class="header-inner">
+            <DIV class="header-title">兑换中心</DIV>
+            <DIV class="header-side header-left" style="display: none;">
+                <DIV class="header-brand">
+                    <FIGURE class="loading" data-url="/get.php/u=http://static.ftacademy.cn/images/masthead36.png"></FIGURE>
+                </DIV>
+            </DIV>
         </DIV>
-      </DIV>
+    </HEADER>
 
-    </DIV>
-  </HEADER>
+    <div>
+        <div class="exchange-container">
+            <div class="exchange" id="exchange" style="text-align: center;">
+                <span>兑换码：</span>
+                <span class="service-select-btn">
+                    <div class="input-wrap"><input type="text" value="" name="exchange"></div>
+                    <div><button class="confirm" type="submit">确定</button></div>
+                    <input type="text" name="token" id="token" hidden>
+                </span>
+            </div>
 
-<div>
- <div class = "exchange-container">
-    <div class = "exchange" id="exchange">
-      <span>兑换码：</span> 
-      <span class="service-select-btn">
-        <div class="input-wrap"><input type="text" value="" name="exchange"></div>
-        <div><button class="conform" type="submit">确定</button></div>
-        <input type="text"  name="token" id="token" hidden>
-      </span>
+            <div class="exchange-hint">
+                <div class="hint-title">兑换提示：</div>
+                <ul>
+                    <li>1. 您正在为FT中文网账号：<span id="userName">xxxxxx</span><span id="userEmail"></span>，绑定付费订阅权益；</li>
+                    <li>2. 兑换成功后，您即可使用绑定的账户，享受订阅会员权益；</li>
+                    <li>3. 订阅会员年卡权益期限：从兑换成功当日起之后的一年内；</li>
+                    <li>4. 订阅会员月卡权益期限：从兑换成功当日起之后的一个月内；</li>
+                    <li>5. 如果您遇到问题，请联系客服邮箱<br><a href='mailto:subscriber.service@ftchinese.com'>subscriber.service@ftchinese.com</a>；</li>
+                    <li>6. 本卡最终解释权归FT中文网所有。</li>
+                </ul>
+            </div>
+
+            <div class="notice-container" id="notice" style="display: none;">
+                <!-- OLD -->
+                <div class="hint-word hint-time" style="display: none;"><span class="time" id="time">3</span>秒跳转至首页</div>
+                <!-- NEW -->
+                <div class="hint-title">欢迎加入英国《金融时报》百万全球商业精英的行列！</div>
+                <ul>
+                    <li style="margin-top: 1.5em; font-size: large; font-weight: bold;">如何使用您的付费会员权益？</li>
+                    <li>1. 会员专属网站：www.chineseft.live，此网站仅供付费会员使用，为方便访问，您可以将该网址收藏至您的浏览器收藏夹；</li>
+                    <li>2. 移动体验：手机用户请通过苹果App Store、华为应用市场、Google Play 商店下载最新版本App。</li>
+                    <li style="margin-top: 1.5em;"><strong>温馨提示：</strong>首次访问会员专属网站或使用FT中文网App，需重新登录。</li>
+                </ul>
+                <div class="return-btn"><button id="returnTo">返回首页</button></div>
+                <div class="return-btn" style="display: none;"><button id="closeWindow">关闭</button></div>
+            </div>
+        </div>
     </div>
-
-   <div class = "notice-container" id="notice">  
-    <div class="hint-word hint-time"><span class="time" id="time">3</span>秒跳转至首页</div>
-    <div  class="return-btn"><button  id="returnTo">返回首页</button></div>
-  </div>
-    
-
-   
-  <div  class="exchange-hint">
-    <div class="hint-title">兑换提示：</div>
-    <ul>
-      <li>1. 您正在为FT中文网账号：<span id="userName">xxxxxx</span><span id="userEmail"></span>，绑定付费订阅权益；</li>
-      <li>2. 兑换成功后，您即可使用绑定的账户，享受订阅会员权益；</li>
-      <li>3. 订阅会员年卡权益期限：从兑换成功当日起之后的1年内；</li>
-      <li>4. 如果您遇到问题，请联系客服邮箱subscriber.service@ftchinese.com；</li>
-      <li>5. 本卡最终解释权归FT中文网所有。</li>
-    </ul>
-
-  </div>
-</div>
-</div>
-
-
-<script inline src="scripts/exchange.js"></script>
-
-
-
+    <script inline src="scripts/exchange.js"></script>
 </body>
+
 </html>

@@ -21,21 +21,21 @@ let tokenVal = getUrlParams('token');
 let tokenId = document.getElementById('token');
 tokenId.value = tokenVal;
 
-let conform = document.querySelector('.conform');
+let confirm = document.querySelector('.confirm');
 
 let exchangeId = document.getElementById('exchange');
 let notice = document.getElementById('notice');
 
-EventObject.addHandler(conform, "click", function() {
+EventObject.addHandler(confirm, "click", function() {
     let userId = GetCookie('USER_ID') || '';
     let exchange = document.querySelector('[name="exchange"]');
     let exchangeVal = exchange.value;
     let exchangeValNew = exchangeVal.replace(/\s/g, '');
 
     if (exchangeVal === '') {
-        alert('请输入信息！');
+        alert('请输入兑换码');
     } else if (exchangeValNew.length < 16) {
-        alert('您的兑换码有误，请确认后再输入！');
+        alert('您输入的兑换码有误，请重新输入');
     } else {
         if (!!userId) {
             var xhrpw = new XMLHttpRequest();
@@ -60,13 +60,13 @@ EventObject.addHandler(conform, "click", function() {
                         } else if (dataObj.errcode === 100) {
                             alert(dataObj.errmsg);
                         } else {
-                            alert('您的兑换码有误，请确认后再输入!');
+                            alert("兑换失败（" + dataObj.errcode + "）\n您输入的兑换码有误，请重新输入。");
                         }
                     } else {
-                        alert('FT中文网服务器没有返回数据！');
+                        alert("系统问题\n服务器没有返回数据，请稍后重试。");
                     }
                 } else {
-                    alert('FT中文网服务器未能正常相应！');
+                    alert("网络故障\n服务器未能正常响应，请稍后重试。");
                 }
             };
             xhrpw.send(JSON.stringify(exchangeInfo));
@@ -83,18 +83,16 @@ function jump() {
         var time = objTime.innerText; //获得time的值
         time = time - 1;
         objTime.innerText = time; //把新time赋给objTime里面
-        if (time == 0) {
-            window.location.href = 'http://www.ftchinese.com';
+        if (time === 0) {
+            window.location.href = 'https://www.chineseft.live';
             window.clear(s); //清空s，防止再次调用a()。即防止time减为负数
         }
     }, 1000);
 
-
     var returnTo = document.getElementById("returnTo");
     returnTo.onclick = function() {
-        window.open('http://www.ftchinese.com', '_self');
+        window.open('https://www.chineseft.live', '_self');
     }
-
 }
 
 // test section

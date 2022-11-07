@@ -156,7 +156,7 @@ function jump() {
                         jumpUrl = referUrl;
                     }
                 } else {
-                    jumpUrl = 'http://www.ftchinese.com';
+                    jumpUrl = 'https://www.chineseft.live';
                 }
                 jumpUrl = addClientIdPar(clientId, jumpUrl);
                 window.location.href = jumpUrl;
@@ -176,7 +176,7 @@ function returnTo() {
         if (rCookie) {
             jumpUrl = decodeURIComponent(rCookie);
         } else {
-            jumpUrl = "http://user.chineseft.com/?uide=" + paravalue(window.location.href, "uide");
+            jumpUrl = "http://user.chineseft.live/?uide=" + paravalue(window.location.href, "uide");
         }
         jumpUrl = addClientIdPar(clientId, jumpUrl);
         // MARK: Fix the problem brought by ealier bugs which are not related to this page
@@ -218,11 +218,11 @@ if (getCookie('action') === 'buy') {
 let infoConfirmId = document.getElementById("infoConfirm");
 if (infoConfirmId) {
     EventObject.addHandler(infoConfirmId, "click", function() {
-        window.location = 'https://www.chineseft.com/m/corp/preview.html?pageid=subscriptioninfoconfirm&membership=' + membership + '&action=' + action;
+        window.location = 'https://www.chineseft.live/m/corp/preview.html?pageid=subscriptioninfoconfirm&membership=' + membership + '&action=' + action;
     });
 }
 
-document.getElementById('vip_url').href = 'http://user.chineseft.com/?uide=' + paravalue(window.location.href, "uide");
+document.getElementById('vip_url').href = 'http://user.chineseft.live/?uide=' + paravalue(window.location.href, "uide");
 //console.log(paravalue(window.location.href, "uide"));
 
 window.onload = function() {
@@ -236,24 +236,24 @@ window.onload = function() {
 
 // [./js/log.js] -> [Domain + PHP] -> [200] -- [Enabled]
 // [./js/log.js] -> [Only PHP] -> [404] -- [Disable]
-/*
 var today = new Date();
 var y = today.getFullYear();
 var m = zeroFix(today.getMonth() + 1);
 var d = zeroFix(today.getDate());
-var logDomain = 'https://dhgxl8qk9zgzr.cloudfront.net';
+var logDomain = 'https://static.ftacademy.cn';
 
 function zeroFix(n) {
-  return (n < 10) ? '0' + n : n;
+    return (n < 10) ? '0' + n : n;
 }
 
+/*
 if (window.gAutoStart === undefined) {
-  (function (d, s, u, j, x) {
-    j = d.createElement(s), x = d.getElementsByTagName(s)[0];
-    j.async = true;
-    j.src = u;
-    x.parentNode.insertBefore(j, x);
-  })(document, 'script', logDomain + '/js/log.js?' + y + m + d);
+    (function(d, s, u, j, x) {
+        j = d.createElement(s), x = d.getElementsByTagName(s)[0];
+        j.async = true;
+        j.src = u;
+        x.parentNode.insertBefore(j, x);
+    })(document, 'script', logDomain + '/js/log.js?' + y + m + d);
 }
 */
 
@@ -261,5 +261,11 @@ if (window.gAutoStart === undefined) {
 // FIX
 // --------------------------------------------------
 
+var ticketYear;
+if (today.getMonth() >= 8) {
+    ticketYear = today.getFullYear() + 1;
+} else {
+    ticketYear = today.getFullYear();
+}
+document.getElementsByClassName("product-container Premium")[0].children[1].innerHTML += '<li>FT中文网' + ticketYear + '年度论坛门票2张</li>'
 document.getElementsByClassName('note')[0].innerText = '';
-document.getElementsByClassName("product-container Premium")[0].children[1].innerHTML += '<li>FT中文网' + (new Date().getFullYear() + 1) + '年度论坛门票2张</li>'

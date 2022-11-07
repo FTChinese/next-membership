@@ -2,15 +2,15 @@
 <html class="no-js core" data-next-app="front-page">
 
 <head>
+    <title>FT中文网 - 会员订阅</title>
+    <meta content="会员订阅" name="description" />
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>FT中文网 - 会员订阅</title>
     <meta http-equiv="Content-Language" content="zh-CN" />
-    <meta content="会员订阅" name="description" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-    <link rel="apple-touch-icon-precomposed" href="https://static.ftacademy.cn/img/ipad_icon.png" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/png" href="https://static.ftacademy.cn/img/ipad_icon.png" sizes="32x32">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <link rel="icon" type="image/png" href="./get.php?u=http://static.ftacademy.cn/img/ipad_icon.png" sizes="32x32" />
+    <link rel="apple-touch-icon-precomposed" href="./get.php?u=http://static.ftacademy.cn/img/ipad_icon.png" />
     <link inline rel="stylesheet" type="text/css" href="styles/main.css">
 </head>
 
@@ -38,8 +38,9 @@
             <div class="payment-way">
                 <div class="payment-name"><span>会员类型：</span><span class="payment-type"><strong id="memberType"></strong></span></div>
                 <div class="payment-method"><span>支付方式：</span>
-                    <label class="alipay-mode"><input name="pay" type="radio" value="alipay" checked /><span id="pay-alipay"></span></label>
-                    <label class="wxpay-mode"><input name="pay" type="radio" value="wxpay" /><span id="pay-wxpay"></span></label>
+                    <label class="alipay-mode"><input name="pay" type="radio" value="alipay" checked /><span id="alipay-pay"></span></label>
+                    <label class="wxpay-mode"><input name="pay" type="radio" value="wxpay" /><span id="wxpay-pay"></span></label>
+                    <label class="stripe-mode"><input name="pay" type="radio" value="stripe" /><span id="stripe-pay">海外用户<img src="./stripe.svg" />订阅</span></label>
                 </div>
             </div>
             <div class="pay-action"><label>支付金额 <label id="price"></label></label><button class="to-pay" id="to-pay">确定支付</button></div>
@@ -62,10 +63,8 @@
                         <h2 class="o-member__title">{{products[1].title}}</h2>
                         <div class="o-member__border"></div>
                         <ul class="o-member__benefits">
-                            <li id="benefits_standard"></li>
-                            {% for benefit in products[1].benefits %}
-                            <li>{{benefit}}</li>
-                            {% endfor %}
+                            <li id="benefits_standard"></li>{% for benefit in products[1].benefits %}
+                            <li>{{benefit}}</li>{% endfor %}
                         </ul>
                         <p id="note_standard">{{products[1].note}}</p>
                         <div class="o-member__subscribe">
@@ -86,10 +85,8 @@
                         <h2 class="o-member__title">{{products[2].title}}</h2>
                         <div class="o-member__border"></div>
                         <ul class="o-member__benefits">
-                            <li id="benefits_premium"></li>
-                            {% for benefit in products[2].benefits %}
-                            <li>{{benefit}}</li>
-                            {% endfor %}
+                            <li id="benefits_premium"></li>{% for benefit in products[2].benefits %}
+                            <li>{{benefit}}</li>{% endfor %}
                             <li id="ticket">FT中文网<!--year-->年度论坛门票2张</li>
                         </ul>
                         <p id="note_premium">{{products[2].note}}</p>
@@ -111,10 +108,8 @@
                         <h2 class="o-member__title">{{products[0].title}}</h2>
                         <div class="o-member__border"></div>
                         <ul class="o-member__benefits">
-                            <li id="benefits_standard_monthly"></li>
-                            {% for benefit in products[0].benefits %}
-                            <li>{{benefit}}</li>
-                            {% endfor %}
+                            <li id="benefits_standard_monthly"></li>{% for benefit in products[0].benefits %}
+                            <li>{{benefit}}</li>{% endfor %}
                         </ul>
                         <p id="note_standard_monthly">{{products[0].note}}</p>
                         <div class="o-member__subscribe">
