@@ -256,6 +256,7 @@ if (fromPara === '2022cny') {
 //--------------------------------------------------------------------------------
 //--------------------------------------------------------------------------------
 // -- [Parameters -- Promotion -- Date range]
+/*
 rangeStart = new Date('2021-11-08T00:00:00').getTime();
 rangeEnd = new Date('2021-11-16T24:00:00').getTime();
 if (fromPara === 'pbcsf' && (today.getTime() >= rangeStart && today.getTime() <= rangeEnd)) {
@@ -311,8 +312,9 @@ if (fromPara === 'bjnhkbuic' && (today.getTime() >= rangeStart && today.getTime(
     document.getElementById("header-title").innerHTML = "联合国际学院专享会员订阅";
     document.getElementById("header-title").style.fontSize = "1.1em";
 }
+*/
 //----------
-rangeStart = new Date('2022-07-01T00:00:00').getTime();
+//rangeStart = new Date('2022-07-01T00:00:00').getTime();
 rangeStart = new Date('2022-06-29T00:00:00').getTime();
 rangeEnd = new Date('2023-06-30T24:00:00').getTime();
 if (fromPara === 'mastercard2022' && (today.getTime() >= rangeStart && today.getTime() <= rangeEnd)) {
@@ -333,12 +335,20 @@ if (fromPara === 'mastercard2022' && (today.getTime() >= rangeStart && today.get
     }
 }
 //----------
-rangeStart = new Date('2022-05-23T00:00:00').getTime();
-rangeEnd = new Date('2022-06-02T24:00:00').getTime();
-if (today.getTime() >= rangeStart && today.getTime() <= rangeEnd) {
+rangeStart = new Date('2022-12-12T00:00:00').getTime();
+rangeEnd = new Date('2023-05-10T24:00:00').getTime();
+if ((ccodePara === '2cwbhppretrial2022w1' || ccodePara === '2cwbhppretrial2022w2' || ccodePara === '2cwbhppretrial2022w3') && today.getTime() >= rangeStart && today.getTime() <= rangeEnd) {
     SP = 1;
-    PRICE['standard'] = standardPrice['75%'];
-    PRICE['premium'] = premiumPrice['75%'];
+    PRICE['standard'] = standardPrice['50%'];
+    PRICE['premium'] = premiumPrice['50%'];
+}
+//----------
+rangeStart = new Date('2023-03-02T00:00:00').getTime();
+rangeEnd = new Date('2023-03-25T24:00:00').getTime();
+if (fromPara === 'ft_basel' && (today.getTime() >= rangeStart && today.getTime() <= rangeEnd)) {
+    SP = 1;
+    PRICE['standard'] = standardPrice['50%'];
+    PRICE['premium'] = premiumPrice['50%'];
 }
 //--------------------------------------------------------------------------------
 //--------------------------------------------------------------------------------
@@ -349,6 +359,11 @@ if (fromPara === 'alphalink' || fromPara === 'whartonbj' || fromPara === 'bjnhkb
 //--------------------------------------------------------------------------------
 //--------------------------------------------------------------------------------
 // -- [Parameters -- Special]
+if (ccodePara.indexOf('2023marwinb') >= 0) {
+    PRICE['standard'] = standardPrice['50%'];
+    PRICE['premium'] = premiumPrice['50%'];
+}
+/*
 if (ccodePara === '2C2021anniversarystage2renewEDM') {
     PRICE['standard'] = standardPrice['50%'];
     PRICE['premium'] = premiumPrice['50%'];
@@ -359,13 +374,13 @@ if (sponsorCookie === '2554c6451503936545c625666555c63425658397d4449487d444b6d32
     PRICE['standard'] = standardPrice['50%'];
     PRICE['premium'] = premiumPrice['50%'];
 }
-/*
 // ########## PRICE -- [Old] ########## //
 var switchtTime = new Date('2021-02-18T00:00:00');
 if (today.getTime() < switchtTime.getTime()) {
     var PRICE = {'standard': 258, 'premium': 1998, 'monthly': 28};
 }
 */
+
 //console.log(PRICE);
 
 // @@@@@@@@@@
@@ -401,11 +416,26 @@ promoName = {'name': 'JinHuHeSui'};
 promoDate = {'start': '2022-01-10T00:00:00','end': '2022-01-16T24:00:00'};
 promoPrice = {'standard': standardPrice['85%'],'premium': premiumPrice['85%'],'monthly': monthlyPrice['100%']};
 PROMO.push(Object.assign(promoName, promoDate, promoPrice));
-*/
+
+promoName = {'name': ''};
+promoDate = {'start': '2022-05-23T00:00:00', 'end': '2022-06-02T24:00:00'};
+promoPrice = {'standard': standardPrice['75%'], 'premium': premiumPrice['75%'], 'monthly': monthlyPrice['100%']};
+PROMO.push(Object.assign(promoName, promoDate, promoPrice));
 
 promoName = {'name': '2022-08-31'};
 promoDate = {'start': '2022-08-15T00:00:00', 'end': '2022-09-04T24:00:00'};
 promoPrice = {'standard': standardPrice['50%'], 'premium': premiumPrice['50%'], 'monthly': monthlyPrice['100%']};
+PROMO.push(Object.assign(promoName, promoDate, promoPrice));
+
+promoName = {'name': 'Thanksgiving'};
+promoDate = {'start': '2022-11-16T00:00:00', 'end': '2022-11-30T24:00:00'};
+promoPrice = {'standard': standardPrice['50%'], 'premium': premiumPrice['50%'], 'monthly': monthlyPrice['100%']};
+PROMO.push(Object.assign(promoName, promoDate, promoPrice));
+*/
+
+promoName = {'name': 'KaiGongNaJi'};
+promoDate = {'start': '2023-02-06T00:00:00', 'end': '2023-02-19T24:00:00'};
+promoPrice = {'standard': standardPrice['75%'], 'premium': premiumPrice['75%'], 'monthly': monthlyPrice['100%']};
 PROMO.push(Object.assign(promoName, promoDate, promoPrice));
 
 var promoStart = 0;
@@ -415,9 +445,9 @@ for (var x = 0; x < PROMO.length; x++) {
     promoEnd = new Date(PROMO[x]['end']).getTime();
     if (today.getTime() >= promoStart && today.getTime() <= promoEnd && !SP) {
         PRICE = {
-            'standard': PROMO[x]['standard'],
-            'premium': PROMO[x]['premium'],
-            'monthly': PROMO[x]['monthly']
+            'standard': Math.min(PROMO[x]['standard'], PRICE['standard']),
+            'premium': Math.min(PROMO[x]['premium'], PRICE['premium']),
+            'monthly': Math.min(PROMO[x]['monthly'], PRICE['monthly'])
         };
         //console.log('['+ PRICE['monthly'] +'][' + PRICE['standard'] + ']['+ PRICE['premium'] +']');
         var Status = 'Promo';
