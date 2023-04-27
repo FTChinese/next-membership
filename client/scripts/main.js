@@ -350,6 +350,59 @@ if (fromPara === 'ft_basel' && (today.getTime() >= rangeStart && today.getTime()
     PRICE['standard'] = standardPrice['50%'];
     PRICE['premium'] = premiumPrice['50%'];
 }
+//----------
+rangeStart = new Date('2023-04-01T00:00:00').getTime();
+//rangeStart = new Date('2023-04-07T00:00:00').getTime();
+rangeEnd = new Date('2023-04-07T24:00:00').getTime();
+if (fromPara === 'ft_salon' && (today.getTime() >= rangeStart && today.getTime() <= rangeEnd)) {
+    SP = 1;
+    PRICE['standard'] = standardPrice['50%'];
+    PRICE['premium'] = premiumPrice['50%'];
+}
+//----------
+rangeStart = new Date('2023-04-01T00:00:00').getTime();
+//rangeStart = new Date('2023-04-16T00:00:00').getTime();
+rangeEnd = new Date('2023-04-17T24:00:00').getTime();
+if (fromPara === 'ft_hsbc_202304' && (today.getTime() >= rangeStart && today.getTime() <= rangeEnd)) {
+    SP = 1;
+    PRICE['monthly'] = monthlyPrice['intro'];
+}
+//----------
+rangeStart = new Date('2023-04-07T00:00:00').getTime();
+//rangeStart = new Date('2023-04-17T00:00:00').getTime();
+rangeEnd = new Date('2023-04-17T24:00:00').getTime();
+if (fromPara === 'ft_hkbu' && (today.getTime() >= rangeStart && today.getTime() <= rangeEnd)) {
+    SP = 1;
+    PRICE['standard'] = standardPrice['50%'];
+    PRICE['premium'] = premiumPrice['50%'];
+}
+//----------
+rangeStart = new Date('2023-04-01T00:00:00').getTime();
+//rangeStart = new Date('2023-04-20T00:00:00').getTime();
+rangeEnd = new Date('2023-04-20T24:00:00').getTime();
+if (fromPara === 'ft_intro_20230420' && (today.getTime() >= rangeStart && today.getTime() <= rangeEnd)) {
+    SP = 1;
+    PRICE['monthly'] = monthlyPrice['intro'];
+}
+//----------
+rangeStart = new Date('2023-04-19T00:00:00').getTime();
+//rangeStart = new Date('2023-04-29T00:00:00').getTime();
+rangeEnd = new Date('2023-05-03T24:00:00').getTime();
+if (fromPara === 'ft_dxsz' && (today.getTime() >= rangeStart && today.getTime() <= rangeEnd)) {
+    SP = 1;
+    PRICE['standard'] = standardPrice['50%'];
+    PRICE['premium'] = premiumPrice['50%'];
+}
+//----------
+// WTCF -- World Tourism Cities Federation
+rangeStart = new Date('2023-04-06T00:00:00').getTime();
+//rangeStart = new Date('2023-05-10T00:00:00').getTime();
+rangeEnd = new Date('2023-05-10T24:00:00').getTime();
+if (fromPara === 'ft_wtcf' && (today.getTime() >= rangeStart && today.getTime() <= rangeEnd)) {
+    SP = 1;
+    PRICE['standard'] = standardPrice['50%'];
+    PRICE['premium'] = premiumPrice['50%'];
+}
 //--------------------------------------------------------------------------------
 //--------------------------------------------------------------------------------
 // #### Hide Stripe
@@ -514,7 +567,7 @@ if (today.getMonth() >= 8) {
 
 // ElementsType ==-- [0] - Default | [1] - Intro | [2] - Trial
 var ElementsType = 0;
-if (fromPara === 'ft_intro') {
+if (fromPara === 'ft_intro' || fromPara === 'ft_hsbc_202304' || fromPara === 'ft_intro_20230420') {
     ElementsType = 1;
     document.getElementsByClassName('o-member__benefits')[0].children[1].outerHTML = '<li>精选深度分析</li><li>每日一词</li>';
     document.getElementsByClassName('o-member__benefits')[2].children[1].outerHTML = '<li>精选深度分析</li><li>每日一词</li>';
@@ -556,6 +609,14 @@ if (fromPara === 'pbcsf' && SP) {
 // ftcEncrypt('THU') - 65548665
 if (fromPara === 'tsinghua' && SP) {
     SetCookie('SP', '65548665', 3600, null, null, false);
+}
+// ftcEncrypt('HSBC') - 1577d3d33564e434
+if (fromPara === 'ft_hsbc_202304' && SP) {
+    SetCookie('SP', '1577d3d33564e434', 3600, null, null, false);
+}
+// ftcEncrypt('INTRO') - 55b683d335555355
+if (fromPara === 'ft_intro_20230420' && SP) {
+    SetCookie('SP', '55b683d335555355', 3600, null, null, false);
 }
 
 // -- Cookie - Source [Campaign] - (Monthly = 1)
@@ -841,7 +902,7 @@ function updateUI(dataObj) {
         EventObject.addHandler(standardBtn, "click", openExchange);
         EventObject.addHandler(premiumBtn, "click", openExchange);
     } else {
-        if (fromPara === 'ft_intro') {
+        if (fromPara === 'ft_intro' || fromPara === 'ft_hsbc_202304' || fromPara === 'ft_intro_20230420') {
             var standardHTML = document.getElementById('standard').outerHTML;
             var monthlyHTML = document.getElementById('monthly').outerHTML;
             document.getElementsByClassName('o-member-outer')[0].outerHTML = monthlyHTML;
@@ -924,7 +985,7 @@ function updateUI(dataObj) {
             //premiumPriceShow = premiumPrice['85%']; // ##[Win Back][Premium]
         }
         */
-    } else if (fromPara === 'ft_intro' || fromPara === 'pbcsf') {
+    } else if (fromPara === 'ft_intro' || fromPara === 'pbcsf' || fromPara === 'ft_hsbc_202304' || fromPara === 'ft_intro_20230420') {
         if (dataObj.standard === 1 || dataObj.premium === 1) {
             // [Member]
             monthlyElements(0);
@@ -1049,7 +1110,7 @@ function fromUpdate() {
         } else if (tapPara === 'monthly') {
             // ##[Tap] Monthly -- Pop-up [FINAL]
             //console.log('fromUpdate - relevantDataInPayment - monthly');
-            memberType = (fromPara === 'ft_intro') ? introType : standardMonthlyType;
+            memberType = (fromPara === 'ft_intro'  || fromPara === 'ft_hsbc_202304' || fromPara === 'ft_intro_20230420') ? introType : standardMonthlyType;
             if (fromPara === 'pbcsf' && SP === 2) {
                 memberType = trialType;
             }
