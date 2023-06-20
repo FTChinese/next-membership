@@ -6,110 +6,167 @@ let category = 'membership';
 // 生成交易号，交易号为全局的，这样display和
 // 放入订阅页面
 function productImpression(id, name) {
-    ga('ec:addImpression', { // Provide product details in an impressionFieldObject
-        'id': 'Standard', // Product ID (string).
-        'name': 'Standard', // Product name (string)
-        'category': category, // Product category (string)
-        'brand': 'FTC', // Product brand (string)
-        'list': listName, // Product list (string)
-        'position': 1
-    });
-
-    ga('ec:addImpression', {
-        'id': 'Premium',
-        'name': 'Premium',
-        'category': category,
-        'brand': 'FTC',
-        'list': listName,
-        'position': 2
+    gtag('event', 'view_item_list', {
+        'items': [
+            {
+                'item_id': 'Standard',
+                'item_name': 'Standard',
+                'item_category': category,
+                'brand': 'FTC',
+                'index': 1
+            },
+            {
+                'item_id': 'Premium',
+                'item_name': 'Premium',
+                'item_category': category,
+                'brand': 'FTC',
+                'index': 2
+            }
+        ]
     });
 
     addProduct();
-    ga('send', 'pageview'); // Send product impressions with initial pageview.
-
+    gtag('config', 'G-CGZ5MQE66Z');
 }
 
 function addProduct() {
-    ga('ec:addProduct', { // Provide product details in a productFieldObject.
-        'id': 'Standard', // Product ID (string).
-        'name': 'Standard', // Product name (string).
-        'category': listName, // Product category (string).
-        'brand': 'FTC', // Product brand (string).
-        'position': 1 // Product position (number).
-    });
-    ga('ec:addProduct', { // Provide product details in a productFieldObject.
-        'id': 'Premium', // Product ID (string).
-        'name': 'Premium', // Product name (string).
-        'category': listName, // Product category (string).
-        'brand': 'FTC', // Product brand (string).
-        'position': 2 // Product position (number).
+    gtag('event', 'view_item', {
+        'items': [
+            {
+                'item_id': 'Standard',
+                'item_name': 'Standard',
+                'item_category': listName,
+                'brand': 'FTC',
+                'index': 1
+            },
+            {
+                'item_id': 'Premium',
+                'item_name': 'Premium',
+                'item_category': listName,
+                'brand': 'FTC',
+                'index': 2
+            }
+        ]
     });
 
-    ga('ec:setAction', 'detail');
+    // 设置 action 为 'detail'
+    gtag('event', 'select_item', {
+        'items': [
+            {
+                'item_id': 'Standard',
+                'item_name': 'Standard',
+                'item_category': listName,
+                'brand': 'FTC',
+                'index': 1
+            },
+            {
+                'item_id': 'Premium',
+                'item_name': 'Premium',
+                'item_category': listName,
+                'brand': 'FTC',
+                'index': 2
+            }
+        ]
+    });
+
+    gtag('config', 'G-CGZ5MQE66Z');
 }
 
 
 // 出来订阅页面，可以addPromotion，放入订阅页面
 function addPromotion(id, name) {
-    ga('ec:addPromo', { // Promo details provided in a promoFieldObject.
-        'id': id, // Promotion ID. Required (string).
-        'name': name, // Promotion name (string).
-        'creative': category, // Creative (string).
-        'position': 'web side' // Position  (string).
+    gtag('event', 'view_promotion', {
+        'items': [
+            {
+                'item_id': id,
+                'item_name': name,
+                'creative_name': category,
+                'creative_slot': 'web side'
+            }
+        ]
     });
+
+    gtag('config', 'G-CGZ5MQE66Z');
 }
 
 function onProductClick(name, position) {
-    ga('ec:addProduct', {
-        'id': name,
-        'name': name,
-        'category': listName,
-        'brand': 'FTC',
-        'position': position
+    gtag('event', 'select_item', {
+        'items': [
+            {
+                'item_id': name,
+                'item_name': name,
+                'item_category': listName,
+                'brand': 'FTC',
+                'index': position
+            }
+        ]
     });
-    ga('ec:setAction', 'click', {
-        list: listName
-    });
-    ga('send', 'event', 'UX', 'click', 'Results');
 
+    // 设置 action 为 'click'
+    gtag('event', 'select_content', {
+        'content_type': 'product',
+        'items': [
+            {
+                'item_id': name,
+                'item_name': name,
+                'item_category': listName,
+                'brand': 'FTC',
+                'index': position
+            }
+        ]
+    });
+
+    gtag('config', 'G-CGZ5MQE66Z');
 }
+
 
 
 // 当点击立即订阅时，调用此
 function onPromoClick(id, name) {
-    ga('ec:addPromo', {
-        'id': id,
-        'name': name,
-        'creative': category,
-        'position': 'web side'
+    gtag('event', 'view_promotion', {
+        'items': [
+            {
+                'item_id': id,
+                'item_name': name,
+                'creative_name': category,
+                'creative_slot': 'web side'
+            }
+        ]
     });
 
-    // Send the promo_click action with an event.
-    ga('ec:setAction', 'promo_click');
-    ga('send', 'event', 'Internal Promotions', 'click', name);
+    // 设置 action 为 'promo_click'
+    gtag('event', 'select_content', {
+        'items': [
+            {
+                'item_id': id,
+                'item_name': name,
+                'item_category': category
+            }
+        ]
+    });
+
+    gtag('config', 'G-CGZ5MQE66Z');
 }
 
 function addTransaction(tradeId, name, price, affiliation) {
-    ga('set', 'currencyCode', 'CNY'); // Set tracker currency to Euros.
-    ga('ec:addProduct', {
-        'id': name,
-        'name': name,
-        'category': category,
-        'brand': 'FTC',
-        'price': price,
-        'quantity': 1
-    });
-
-    // Transaction level information is provided via an actionFieldObject.
-    ga('ec:setAction', 'purchase', {
-        'id': tradeId,
+    gtag('event', 'purchase', {
+        'transaction_id': tradeId,
         'affiliation': affiliation,
-        'revenue': price,
-        'tax': 0,
-        'shipping': 0
+        'value': price,
+        'currency': 'CNY',
+        'items': [
+            {
+                'item_id': name,
+                'item_name': name,
+                'item_category': category,
+                'brand': 'FTC',
+                'quantity': 1,
+                'price': price,
+            }
+        ]
     });
 
-    ga('send', 'pageview'); // Send transaction data with initial pageview.
+    gtag('config', 'G-CGZ5MQE66Z');
 }
 
 export {

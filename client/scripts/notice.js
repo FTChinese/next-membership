@@ -44,8 +44,11 @@ var eventAction = memberType;
 var SELabel = GetCookie('SELabel') || 'other from web';
 if (SELabel.indexOf('/IOSCL/') > -1) {
     var clParaArr = SELabel.split('/IOSCL/');
-    ga('send', 'event', clParaArr[0], 'Buy Success:' + eventAction, clParaArr[1], {
-        'nonInteraction': 1
+    gtag('event', 'buy_success', {
+        'content_name': clParaArr[1],
+        'event_category': clParaArr[0],
+        'event_label': eventAction,
+        'non_interaction': true
     });
 } else {
     // var ccode = SELabel.replace(/From:/g,'').replace(/\/.*$/g,'');
@@ -55,8 +58,11 @@ if (SELabel.indexOf('/IOSCL/') > -1) {
     //     ga('set', 'campaignSource', 'marketing');
     //     ga('set', 'campaignMedium', 'campaign');
     // }
-    ga('send', 'event', 'Web Privileges', 'Buy Success:' + eventAction, SELabel, {
-        'nonInteraction': 1
+    gtag('event', 'buy_success', {
+        'content_name': SELabel,
+        'event_category': 'Web Privileges',
+        'event_label': eventAction,
+        'non_interaction': true
     });
 }
 
@@ -170,7 +176,7 @@ function jump() {
 function returnTo() {
     var jumpUrl = '';
     var rCookie = GetCookie('R');
-    ga(function(tracker) {
+    ga(function (tracker) {
         var clientId = tracker.get('clientId');
         var clientIdPar = '';
         if (rCookie) {
@@ -185,10 +191,27 @@ function returnTo() {
     });
 }
 
+function returnTo() {
+    var jumpUrl = '';
+    var rCookie = GetCookie('R');
+    // gtag('event', 'screen_view', { 'send_to': 'GA4_MEASUREMENT_ID', 'user_id': 'ANONYMOUS_ID' });
+    gtag('get', 'G-CGZ5MQE66Z', function (tracker) {
+        var clientId = tracker['client_id'];
+        if (rCookie) {
+            jumpUrl = decodeURIComponent(rCookie);
+        } else {
+            jumpUrl = "http://user.chineseft.live/?uide=" + paravalue(window.location.href, "uide");
+        }
+        jumpUrl = addClientIdPar(clientId, jumpUrl);
+        // MARK: Fix the problem brought by ealier bugs which are not related to this page
+        jumpUrl = jumpUrl.replace(/(&)(.*)(\?)/g, '$3$2$1');
+        window.open(jumpUrl, '_self');
+    });
+}
 // 【返回】按钮
 let returnToId = document.getElementById("returnTo");
 if (returnToId) {
-    EventObject.addHandler(returnToId, "click", function() {
+    EventObject.addHandler(returnToId, "click", function () {
         returnTo();
     });
 }
@@ -217,7 +240,7 @@ if (getCookie('action') === 'buy') {
 // 【确认信息】按钮
 let infoConfirmId = document.getElementById("infoConfirm");
 if (infoConfirmId) {
-    EventObject.addHandler(infoConfirmId, "click", function() {
+    EventObject.addHandler(infoConfirmId, "click", function () {
         window.location = 'https://www.chineseft.live/m/corp/preview.html?pageid=subscriptioninfoconfirm&membership=' + membership + '&action=' + action;
     });
 }
@@ -225,7 +248,7 @@ if (infoConfirmId) {
 document.getElementById('vip_url').href = 'http://user.chineseft.live/?uide=' + paravalue(window.location.href, "uide");
 //console.log(paravalue(window.location.href, "uide"));
 
-window.onload = function() {
+window.onload = function () {
     jump();
 }
 // ##################################################

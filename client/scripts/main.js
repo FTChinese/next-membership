@@ -77,7 +77,7 @@ const getData = (url, f = '', retry = 0) => {
     if (!isReqSuccess && retry < 3) {
         let xmlHttp = new XMLHttpRequest();
         xmlHttp.open('get', url);
-        xmlHttp.onload = function() {
+        xmlHttp.onload = function () {
             if (xmlHttp.status == 200) {
                 isReqSuccess = true;
                 var data = xmlHttp.responseText;
@@ -97,7 +97,7 @@ const getData = (url, f = '', retry = 0) => {
             } else {
                 isReqSuccess = false;
                 retry++;
-                setTimeout(function() {
+                setTimeout(function () {
                     getData(url, f, retry);
                 }, 500);
             }
@@ -114,7 +114,7 @@ const postData = (url, f = '', retry = 0) => {
     if (!isReqSuccess && retry < 3) {
         let xmlHttp = new XMLHttpRequest();
         xmlHttp.open('post', url);
-        xmlHttp.onload = function() {
+        xmlHttp.onload = function () {
             if (xmlHttp.status == 200) {
                 isReqSuccess = true;
                 var data = xmlHttp.responseText;
@@ -133,7 +133,7 @@ const postData = (url, f = '', retry = 0) => {
             } else {
                 isReqSuccess = false;
                 retry++;
-                setTimeout(function() {
+                setTimeout(function () {
                     postData(url, f, retry);
                 }, 500);
             }
@@ -486,9 +486,9 @@ promoPrice = {'standard': standardPrice['50%'], 'premium': premiumPrice['50%'], 
 PROMO.push(Object.assign(promoName, promoDate, promoPrice));
 */
 
-promoName = {'name': 'KaiGongNaJi'};
-promoDate = {'start': '2023-02-06T00:00:00', 'end': '2023-02-19T24:00:00'};
-promoPrice = {'standard': standardPrice['75%'], 'premium': premiumPrice['75%'], 'monthly': monthlyPrice['100%']};
+promoName = { 'name': 'KaiGongNaJi' };
+promoDate = { 'start': '2023-02-06T00:00:00', 'end': '2023-02-19T24:00:00' };
+promoPrice = { 'standard': standardPrice['75%'], 'premium': premiumPrice['75%'], 'monthly': monthlyPrice['100%'] };
 PROMO.push(Object.assign(promoName, promoDate, promoPrice));
 
 var promoStart = 0;
@@ -655,7 +655,7 @@ if (new Date().getTime() >= switchtTime.getTime()) {
 // ####################
 
 let paymentPage = document.getElementById('payment-page');
-const closePayment = function() {
+const closePayment = function () {
     paymentPage.style.display = 'none';
 };
 let paymentShadow = document.getElementById('payment-shadow');
@@ -696,7 +696,7 @@ function wxPayAction(memberType) {
 }
 
 var isInApp = (window.location.href.indexOf('webview=ftcapp') >= 0);
-var openPayment = function() {
+var openPayment = function () {
     if (isInApp) {
         //console.log('Let the native app handle click!');
         return true;
@@ -767,22 +767,45 @@ var openPayment = function() {
     if (cPara) {
         if (SELabel.indexOf('/IOSCL/') > -1) {
             let clParaArr = SELabel.split('/IOSCL/');
-            ga('send', 'event', cPara, eventAction, clParaArr[1]);
+            gtag('event', eventAction, {
+                'event_category': cPara,
+                'event_label': clParaArr[1],
+                'value': 1,
+                'items': [
+                    {
+                        'item_name': newAttribute,
+                        'quantity': 1
+                    }
+                ]
+            });
         }
         //console.log('isFromIos:'+SELabel);
     } else {
         //console.log('isFromWeb');
-        ga('send', 'event', 'Web Privileges', eventAction, SELabel);
+        gtag('event', eventAction, {
+            'event_category': 'Web Privileges',
+            'event_label': SELabel,
+            'value': 1,
+            'item': [
+                {
+                    'item_name': newAttribute,
+                    'quantity': 1
+                }
+            ],
+            'event_callback': function () {
+                // 在发送成功后添加其他操作
+            }
+        });
     }
 
     onProductClick(newAttribute, position);
 };
 
-const openExchange = function() {
+const openExchange = function () {
     window.open('https://user.chineseft.live/?offerId=992374d8e2e24f17bebc50a6e57becd6&platform=8', '_self');
 }
 
-const toPayAction = function() {
+const toPayAction = function () {
     getMemberTypeFromUpdate();
 
     let payWay = '';
@@ -840,10 +863,18 @@ const toPayAction = function() {
     if (cPara) {
         if (SELabel.indexOf('/IOSCL/') > -1) {
             let clParaArr = SELabel.split('/IOSCL/');
-            ga('send', 'event', cPara, eventAction, clParaArr[1]);
+            gtag('event', eventAction, {
+                'event_category': cPara,
+                'event_label': clParaArr[1],
+                'value': 1
+            });
         }
     } else {
-        ga('send', 'event', 'Web Privileges', eventAction, SELabel);
+        gtag('event', eventAction, {
+            'event_category': 'Web Privileges',
+            'event_label': SELabel,
+            'value': 1
+        });
     }
 
     memberType = '';
@@ -856,7 +887,7 @@ if (toPay) {
 }
 
 // 打开微信
-const openWXCode = function() {
+const openWXCode = function () {
     var paymentBox = document.getElementById('payment-box');
     var wxQR = '<div id="wxQR"></div><div class="wxScan">微信扫码支付</div>';
     paymentBox.innerHTML = wxQR;
@@ -989,7 +1020,7 @@ function updateUI(dataObj) {
         if (dataObj.standard === 1 || dataObj.premium === 1) {
             // [Member]
             monthlyElements(0);
-        } else if (typeof(dataObj.standard) !== 'undefined' || typeof(dataObj.premium) !== 'undefined') {
+        } else if (typeof (dataObj.standard) !== 'undefined' || typeof (dataObj.premium) !== 'undefined') {
             // [New User]
             monthlyElements(ElementsType);
         }
@@ -1110,7 +1141,7 @@ function fromUpdate() {
         } else if (tapPara === 'monthly') {
             // ##[Tap] Monthly -- Pop-up [FINAL]
             //console.log('fromUpdate - relevantDataInPayment - monthly');
-            memberType = (fromPara === 'ft_intro'  || fromPara === 'ft_hsbc_202304' || fromPara === 'ft_intro_20230420') ? introType : standardMonthlyType;
+            memberType = (fromPara === 'ft_intro' || fromPara === 'ft_hsbc_202304' || fromPara === 'ft_intro_20230420') ? introType : standardMonthlyType;
             if (fromPara === 'pbcsf' && SP === 2) {
                 memberType = trialType;
             }
@@ -1147,7 +1178,7 @@ function getMemberTypeFromUpdate() {
     }
 }
 
-window.onunload = function() {
+window.onunload = function () {
     DeleteCookie('U');
     DeleteCookie('E');
     DeleteCookie('R');
@@ -1239,7 +1270,11 @@ function iosTrack() {
             elabel = 'no l value';
         }
         SetCookie('SELabel', eLabelCookie, 86400, null, '.ftacademy.cn', false);
-        ga('send', 'event', cPara, 'Display', elabel);
+        gtag('event', 'Display', {
+            'event_category': cPara,
+            'event_label': elabel,
+            'value': 1,
+        });
     }
 }
 iosTrack();
@@ -1250,8 +1285,11 @@ function ccodeTrack() {
     if (ccode) {
         var fromUrl = 'From:' + ccode;
         SetCookie('SELabel', fromUrl, 86400, null, '.ftacademy.cn', false);
-        ga('send', 'event', 'Web Privileges', 'Tap', fromUrl, {
-            'nonInteraction': 1
+        gtag('event', 'Tap', {
+            'event_category': 'Web Privileges',
+            'event_label': fromUrl,
+            'value': 1,
+            'non_interaction': true,
         });
     }
 }
@@ -1281,8 +1319,8 @@ const trackEC = () => {
 }
 trackEC();
 
-ga(function(tracker) {
-    var clientId = tracker.get('clientId');
+gtag('get', 'G-CGZ5MQE66Z', function (tracker) {
+    var clientId = tracker['client_id'];
 });
 
 // --------------------------------------------------
