@@ -28,10 +28,10 @@ import {
 } from './track';
 
 import {
-    productImpression,
-    addPromotion,
-    onPromoClick,
-    onProductClick
+    productImpressionGA4,
+    addPromotionGA4,
+    onPromoClickGA4,
+    onProductClickGA4
 } from './track_ga4';
 
 import './QandA';
@@ -799,6 +799,7 @@ var openPayment = function () {
     }
 
     onProductClick(newAttribute, position);
+    onProductClickGA4(newAttribute, position);
 };
 
 const openExchange = function () {
@@ -1325,6 +1326,7 @@ setCookieVal();
 const trackEC = () => {
     let SELabel = GetCookie('SELabel') || 'Other';
     productImpression();
+    productImpressionGA4();
 }
 trackEC();
 

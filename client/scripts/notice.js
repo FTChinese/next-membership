@@ -15,7 +15,7 @@ import {
 } from './track';
 
 import {
-    addTransaction
+    addTransactionGA4
 } from './track_ga4';
 import {
     getData,
@@ -113,7 +113,8 @@ if (contentId) {
 }
 
 // 放入交易成功页面
-addTransaction(tradeNo, eventAction, price, affiliation, coupon);
+addTransaction(tradeNo, eventAction, price, affiliation);
+addTransactionGA4(tradeNo, eventAction, price, affiliation, coupon);
 
 function paravalue(theurl, thep) {
     var k, thev;

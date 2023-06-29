@@ -5,7 +5,7 @@ let category = 'membership';
 // 把交易号放在cookie里，这样buy success能获取到此交易号，把成功页面现有的代码暂时隐藏
 // 生成交易号，交易号为全局的，这样display和
 // 放入订阅页面
-function productImpression(id, name) {
+function productImpressionGA4(id, name) {
   gtag('event', 'view_item_list', {
     send_to: 'G-2MCQJHGE8J',
     items: [
@@ -55,7 +55,7 @@ function addProduct() {
 
 
 // 出来订阅页面，可以addPromotion，放入订阅页面
-function addPromotion(id, name) {
+function addPromotionGA4(id, name) {
   gtag('event', 'view_promotion', {
     send_to: "G-2MCQJHGE8J",
     promotions: [
@@ -69,7 +69,7 @@ function addPromotion(id, name) {
   });
 }
 
-function onProductClick(name, position) {
+function onProductClickGA4(name, position) {
   gtag('event', 'select_item', {
     send_to: "G-2MCQJHGE8J",
     items: [
@@ -87,7 +87,7 @@ function onProductClick(name, position) {
 
 
 // 当点击立即订阅时，调用此
-function onPromoClick(id, name) {
+function onPromoClickGA4(id, name) {
   gtag('event', 'view_promotion', {
     send_to: "G-2MCQJHGE8J",
     promotions: [
@@ -101,7 +101,7 @@ function onPromoClick(id, name) {
   });
 }
 
-function addTransaction(tradeId, name, price, affiliation, coupon) {
+function addTransactionGA4(tradeId, name, price, affiliation, coupon) {
   gtag('event', 'purchase', {
     send_to: "G-2MCQJHGE8J",
     transaction_id: tradeId,
@@ -124,9 +124,9 @@ function addTransaction(tradeId, name, price, affiliation, coupon) {
 }
 
 export {
-  productImpression,
-  addPromotion,
-  onPromoClick,
-  addTransaction,
-  onProductClick
+  productImpressionGA4,
+  addPromotionGA4,
+  onPromoClickGA4,
+  addTransactionGA4,
+  onProductClickGA4
 };
