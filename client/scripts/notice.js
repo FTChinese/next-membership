@@ -216,12 +216,13 @@ if (getCookie('action') === 'buy') {
 
 // 【确认信息】按钮
 let infoConfirmId = document.getElementById("infoConfirm");
+// TODO: - If a user comes from a site such "ftchinese.com", no need to redirect to "chineseft.live". You should only use "chineseft.live" when you can't be sure where the user come from. 
 if (infoConfirmId) {
     EventObject.addHandler(infoConfirmId, "click", function() {
         window.location = 'https://www.chineseft.live/m/corp/preview.html?pageid=subscriptioninfoconfirm&membership=' + membership + '&action=' + action;
     });
 }
-
+// TODO: - Please think about the use of domain name here as well, referring to the TODO above. 
 document.getElementById('vip_url').href = 'http://user.chineseft.live/?uide=' + paravalue(window.location.href, "uide");
 //console.log(paravalue(window.location.href, "uide"));
 
