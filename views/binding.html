@@ -8,14 +8,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta http-equiv="Content-Language" content="zh-CN" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
     <link rel="icon" type="image/png" href="./get.php?u=http://static.ftacademy.cn/img/ipad_icon.png" sizes="32x32">
     <link rel="apple-touch-icon-precomposed" href="./get.php?u=http://static.ftacademy.cn/img/ipad_icon.png" />
-    <!-- MARK: Important: Need to add Google Analytics load events manually -->
+    <!-- MARK: Important: Need to add Google Analytics load events manually  UA-1608715-1-->
     <script>
-        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m);a.onload=function(){if(typeof clearEvents==='function'){clearEvents()}}
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date(); a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m); a.onload = function () { if (typeof clearEvents === 'function') { clearEvents() } }
         })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
         ga('create', 'UA-1608715-1', 'auto');
         try {
@@ -23,6 +26,22 @@
         } catch (err) {
 
         }
+    </script>
+    <!-- End Google Analytics -->
+    <!-- MARK: Important: Need to add Google Analytics load events manually GA4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-2MCQJHGE8J"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        if (window.gAutoStart === undefined) {
+            try {
+                trackerNew();
+            } catch (err) {
+                gtag('config', 'G-2MCQJHGE8J');
+            }
+        }
+        gtag('event', 'page_view', { 'send_to': 'G-2MCQJHGE8J', 'page_location': window.location.href });
     </script>
     <!-- End Google Analytics -->
     <link inline rel="stylesheet" type="text/css" href="styles/exchange.css">
@@ -34,7 +53,8 @@
             <DIV class="header-title">兑换中心</DIV>
             <DIV class="header-side header-left" style="display: none;">
                 <DIV class="header-brand">
-                    <FIGURE class="loading" data-url="/get.php/u=http://static.ftacademy.cn/images/masthead36.png"></FIGURE>
+                    <FIGURE class="loading" data-url="/get.php/u=http://static.ftacademy.cn/images/masthead36.png">
+                    </FIGURE>
                 </DIV>
             </DIV>
         </DIV>
@@ -58,14 +78,16 @@
                     <li>2. 兑换成功后，您即可使用绑定的账户，享受订阅会员权益；</li>
                     <li>3. 订阅会员年卡权益期限：从兑换成功当日起之后的一年内；</li>
                     <li>4. 订阅会员月卡权益期限：从兑换成功当日起之后的一个月内；</li>
-                    <li>5. 如果您遇到问题，请联系客服邮箱<br><a href='mailto:subscriber.service@ftchinese.com'>subscriber.service@ftchinese.com</a>；</li>
+                    <li>5. 如果您遇到问题，请联系客服邮箱<br><a
+                            href='mailto:subscriber.service@ftchinese.com'>subscriber.service@ftchinese.com</a>；</li>
                     <li>6. 本卡最终解释权归FT中文网所有。</li>
                 </ul>
             </div>
 
             <div class="notice-container" id="notice" style="display: none;">
                 <!-- OLD -->
-                <div class="hint-word hint-time" style="display: none;"><span class="time" id="time">3</span>秒跳转至首页</div>
+                <div class="hint-word hint-time" style="display: none;"><span class="time" id="time">3</span>秒跳转至首页
+                </div>
                 <!-- NEW -->
                 <div class="hint-title">欢迎加入英国《金融时报》百万全球商业精英的行列！</div>
                 <ul>

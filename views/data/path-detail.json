@@ -4,7 +4,7 @@
             "name": "subscription",
             "data": "views/data/data.json",
             "template": "subscription.html",
-            "js":["main.js","key.js"]
+            "js":["main.js","key.js","key_ga4.js"]
         },
         {
             "name": "subscribenotice",
@@ -28,7 +28,7 @@
             "name": "product",
             "data": "views/data/data.json",
             "template": "product.html",
-            "js":["main.js","key.js"]
+            "js":["main.js","key.js","key_ga4.js"]
         }
      ]
 }

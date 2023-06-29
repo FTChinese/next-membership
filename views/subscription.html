@@ -8,10 +8,27 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta http-equiv="Content-Language" content="zh-CN" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
     <link rel="icon" type="image/png" href="./get.php?u=http://static.ftacademy.cn/img/ipad_icon.png" sizes="32x32" />
     <link rel="apple-touch-icon-precomposed" href="./get.php?u=http://static.ftacademy.cn/img/ipad_icon.png" />
     <link inline rel="stylesheet" type="text/css" href="styles/main.css">
+    <!-- MARK: Important: Need to add Google Analytics load events manually GA4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-2MCQJHGE8J"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        if (window.gAutoStart === undefined) {
+            try {
+                trackerNew();
+            } catch (err) {
+                gtag('config', 'G-2MCQJHGE8J');
+            }
+        }
+        gtag('event', 'page_view', { 'send_to': 'G-2MCQJHGE8J', 'page_location': window.location.href });
+    </script>
+    <!-- End Google Analytics -->
 </head>
 
 <body>
@@ -36,14 +53,19 @@
         <div id="payment-box" class="rightanswer show o-overlay__arrow-top fadeInRight">
             <div class="payment-title">欢迎订阅FT中文网会员</div>
             <div class="payment-way">
-                <div class="payment-name"><span>会员类型：</span><span class="payment-type"><strong id="memberType"></strong></span></div>
+                <div class="payment-name"><span>会员类型：</span><span class="payment-type"><strong
+                            id="memberType"></strong></span></div>
                 <div class="payment-method"><span>支付方式：</span>
-                    <label class="alipay-mode"><input name="pay" type="radio" value="alipay" checked /><span id="alipay-pay"></span></label>
-                    <label class="wxpay-mode"><input name="pay" type="radio" value="wxpay" /><span id="wxpay-pay"></span></label>
-                    <label class="stripe-mode"><input name="pay" type="radio" value="stripe" /><span id="stripe-pay">海外用户<img src="./stripe.svg" />订阅</span></label>
+                    <label class="alipay-mode"><input name="pay" type="radio" value="alipay" checked /><span
+                            id="alipay-pay"></span></label>
+                    <label class="wxpay-mode"><input name="pay" type="radio" value="wxpay" /><span
+                            id="wxpay-pay"></span></label>
+                    <label class="stripe-mode"><input name="pay" type="radio" value="stripe" /><span
+                            id="stripe-pay">海外用户<img src="./stripe.svg" />订阅</span></label>
                 </div>
             </div>
-            <div class="pay-action"><label>支付金额 <label id="price"></label></label><button class="to-pay" id="to-pay">确定支付</button></div>
+            <div class="pay-action"><label>支付金额 <label id="price"></label></label><button class="to-pay"
+                    id="to-pay">确定支付</button></div>
         </div>
     </div>
 
@@ -68,7 +90,8 @@
                         </ul>
                         <p id="note_standard">{{products[1].note}}</p>
                         <div class="o-member__subscribe">
-                            <a data-key="{{products[1].key}}"><button class="openSub" id="standard-btn">{{products[1].openBtn}}</button></a>
+                            <a data-key="{{products[1].key}}"><button class="openSub"
+                                    id="standard-btn">{{products[1].openBtn}}</button></a>
                             <p class="data-price" id="standard_price">{{products[1].price}}</p>
                             <span id="standard_price_origin">{{products[1].price}}</span>
                             <input type="text" value="" hidden id="price_standard">
@@ -91,7 +114,8 @@
                         </ul>
                         <p id="note_premium">{{products[2].note}}</p>
                         <div class="o-member__subscribe">
-                            <a data-key="{{products[2].key}}"><button class="openSub" id="premium-btn">{{products[2].openBtn}}</button></a>
+                            <a data-key="{{products[2].key}}"><button class="openSub"
+                                    id="premium-btn">{{products[2].openBtn}}</button></a>
                             <p class="data-price" id="premium_price">{{products[2].price}}</p>
                             <span id="premium_price_origin">{{products[2].price}}</span>
                             <input type="text" value="" hidden id="price_premium">
@@ -113,7 +137,8 @@
                         </ul>
                         <p id="note_standard_monthly">{{products[0].note}}</p>
                         <div class="o-member__subscribe">
-                            <a data-key="{{products[0].key}}"><button class="openSub" id="standard-monthly-btn">{{products[0].openBtn}}</button></a>
+                            <a data-key="{{products[0].key}}"><button class="openSub"
+                                    id="standard-monthly-btn">{{products[0].openBtn}}</button></a>
                             <p class="data-price" id="standard_monthly_price">{{products[0].price}}</p>
                             <span id="standard_monthly_price_origin">{{products[0].price}}</span>
                             <input type="text" value="" hidden id="price_standard_monthly">
@@ -130,6 +155,7 @@
     {% include "partials/footer.html" %}
 
     <script inline src="scripts/key.js"></script>
+    <script inline src="scripts/key_ga4.js"></script>
     <script inline src="scripts/main.js"></script>
 </body>
 

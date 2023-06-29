@@ -7,11 +7,20 @@ import {
     EventObject,
     GetCookie,
     SetCookie,
-    parseUrlSearch
+    parseUrlSearch,
+    getUrlParams
 } from './subscribe_api';
 import {
     addTransaction
 } from './track';
+
+import {
+    addTransaction
+} from './track_ga4';
+import {
+    getData,
+    postData
+} from './main'
 // ##################################################
 
 // ------ (tradeNo)
@@ -47,6 +56,13 @@ if (SELabel.indexOf('/IOSCL/') > -1) {
     ga('send', 'event', clParaArr[0], 'Buy Success:' + eventAction, clParaArr[1], {
         'nonInteraction': 1
     });
+    gtag("event", "buy_success", {
+        send_to: "G-2MCQJHGE8J",
+        event_category: clParaArr[0],
+        event_label: clParaArr[1],
+        event_action: "Buy Success:" + eventAction,
+        non_interaction: true
+    });
 } else {
     // var ccode = SELabel.replace(/From:/g,'').replace(/\/.*$/g,'');
     // if (SELabel.indexOf('From:') === 0 && ccode !== '') {
@@ -58,6 +74,13 @@ if (SELabel.indexOf('/IOSCL/') > -1) {
     ga('send', 'event', 'Web Privileges', 'Buy Success:' + eventAction, SELabel, {
         'nonInteraction': 1
     });
+    gtag("event", "buy_success", {
+        send_to: "G-2MCQJHGE8J",
+        event_category: "Web Privileges",
+        event_label: SELabel,
+        event_action: "Buy Success:" + eventAction,
+        non_interaction: true
+    });
 }
 
 // ------ (price)
@@ -67,10 +90,30 @@ if (price === '') {
     price = (eventAction === 'Premium') ? '1998' : '298';
 }
 
-// 放入交易成功页面
+
 // -------- (affiliation)
 let affiliation = SELabel;
-addTransaction(tradeNo, eventAction, price, affiliation);
+
+//-------coupon
+// -- Content Title
+let coupon, domain = '';
+const storyId = getUrlParams('story');
+const interactiveId = getUrlParams('interactive');
+const contentId = (storyId) ? storyId : ((interactiveId) ? interactiveId : '');
+if (contentId) {
+    if (window.location.hostname === 'localhost' || window.location.hostname.indexOf('127.0') === 0 || window.location.hostname.indexOf('192.168') === 0) {
+        domain = 'https://www.ftacademy.cn/';
+    }
+    // 使用导入的 getData 函数
+    getData(domain + 'index.php/jsapi/headline/' + contentId, function (data) {
+        var br = (data.cHeadline && data.eHeadline) ? '<br>' : '';
+        coupon = data.cHeadline + br + data.eHeadline
+        // console.log(coupon)
+    });
+}
+
+// 放入交易成功页面
+addTransaction(tradeNo, eventAction, price, affiliation, coupon);
 
 function paravalue(theurl, thep) {
     var k, thev;
@@ -170,7 +213,7 @@ function jump() {
 function returnTo() {
     var jumpUrl = '';
     var rCookie = GetCookie('R');
-    ga(function(tracker) {
+    ga(function (tracker) {
         var clientId = tracker.get('clientId');
         var clientIdPar = '';
         if (rCookie) {
@@ -183,12 +226,32 @@ function returnTo() {
         jumpUrl = jumpUrl.replace(/(&)(.*)(\?)/g, '$3$2$1');
         window.open(jumpUrl, '_self');
     });
+    gtag('config', 'G-CGZ5MQE66Z', { send_to: 'G-2MCQJHGE8J' }).then(function () {
+        var clientId = gtag('get', 'G-2MCQJHGE8J', 'user_properties.client_id');
+        var jumpUrl = '';
+        var rCookie = GetCookie('R');
+        if (rCookie) {
+            jumpUrl = decodeURIComponent(rCookie);
+        } else {
+            jumpUrl = "http://user.chineseft.live/?uide=" + paravalue(window.location.href, "uide");
+        }
+        jumpUrl = addClientIdPar(clientId, jumpUrl);
+        // MARK: Fix the problem brought by ealier bugs which are not related to this page
+        jumpUrl = jumpUrl.replace(/(&)(.*)(\?)/g, '$3$2$1');
+        gtag('event', 'page_view', {
+            send_to: 'G-2MCQJHGE8J',
+            page_title: 'Return',
+            page_location: jumpUrl,
+            page_path: '/return',
+        });
+        window.open(jumpUrl, '_self');
+    });
 }
 
 // 【返回】按钮
 let returnToId = document.getElementById("returnTo");
 if (returnToId) {
-    EventObject.addHandler(returnToId, "click", function() {
+    EventObject.addHandler(returnToId, "click", function () {
         returnTo();
     });
 }
@@ -218,7 +281,7 @@ if (getCookie('action') === 'buy') {
 let infoConfirmId = document.getElementById("infoConfirm");
 // TODO: - If a user comes from a site such "ftchinese.com", no need to redirect to "chineseft.live". You should only use "chineseft.live" when you can't be sure where the user come from. 
 if (infoConfirmId) {
-    EventObject.addHandler(infoConfirmId, "click", function() {
+    EventObject.addHandler(infoConfirmId, "click", function () {
         window.location = 'https://www.chineseft.live/m/corp/preview.html?pageid=subscriptioninfoconfirm&membership=' + membership + '&action=' + action;
     });
 }
@@ -226,7 +289,7 @@ if (infoConfirmId) {
 document.getElementById('vip_url').href = 'http://user.chineseft.live/?uide=' + paravalue(window.location.href, "uide");
 //console.log(paravalue(window.location.href, "uide"));
 
-window.onload = function() {
+window.onload = function () {
     jump();
 }
 // ##################################################
