@@ -106,6 +106,7 @@ function addTransaction(tradeId, name, price, affiliation, coupon) {
     send_to: "G-2MCQJHGE8J",
     transaction_id: tradeId,
     transaction_affiliation: affiliation,
+    purchase_attribution: affiliation,
     value: price,
     currency: 'CNY',
     coupon: coupon,
