@@ -1,14 +1,14 @@
 var EventObject = {
-    addHandler: function(element, type, handler) {
-        if (element.addEventListener) {
+    addHandler: function (element, type, handler) {
+        if (element && element.addEventListener) {
             element.addEventListener(type, handler, false);
-        } else if (element.attachEvent) {
+        } else if (element && element.attachEvent) {
             element.attachEvent("on" + type, handler);
-        } else {
+        } else if (element) {
             element["on" + type] = handler;
         }
     },
-    removeHandler: function(element, type, handler) {
+    removeHandler: function (element, type, handler) {
         if (element.removeEventListener) {
             element.removeEventListener(type, handler, false);
         } else if (element.attachEvent) {
