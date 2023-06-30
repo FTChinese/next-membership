@@ -22,6 +22,14 @@ import {
     postData
 } from './main'
 // ##################################################
+// Update tracking ID with your own
+window.dataLayer = window.dataLayer || [];
+function gtag() { dataLayer.push(arguments); }
+gtag('js', new Date());
+gtag('config', 'G-2MCQJHGE8J', {
+    send_page_view: false
+});
+
 
 // ------ (tradeNo)
 let randomVal = Math.round(Math.random() * 89999) + 10000;
