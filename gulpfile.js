@@ -70,6 +70,7 @@ gulp.task('scripts', async () => {
             await bundle.write({
                 file: `.tmp/scripts/${js}`,
                 format: 'iife',
+                name: 'myModule', // 给模块添加名称
                 sourcemap: true
             });
         } catch (error) {
@@ -129,12 +130,12 @@ gulp.task('build-page', () => {
     const pathDetail = loadJsonFile('views/data/path-detail.json');
     // detail返回promise
     return pathDetail.then(data => {
-            const demos = data.demos;
-            //  此运行完之后再返回promise，进行循环返回promise
-            return Promise.all(demos.map((demo) => {
-                return renderPerView(demo);
-            }))
-        })
+        const demos = data.demos;
+        //  此运行完之后再返回promise，进行循环返回promise
+        return Promise.all(demos.map((demo) => {
+            return renderPerView(demo);
+        }))
+    })
         .then(() => {
             //console.log('inline--'+process.env.NODE_ENV)
             browserSync.reload('*.html');
