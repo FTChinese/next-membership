@@ -110,6 +110,7 @@ function addTransaction(tradeId, name, price, affiliation) {
     });
 
     ga('send', 'pageview'); // Send transaction data with initial pageview.
+    console.log(affiliation)
 }
 
 export {
