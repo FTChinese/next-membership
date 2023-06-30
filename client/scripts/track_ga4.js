@@ -34,7 +34,7 @@ function productImpressionGA4(id, name) {
       }
     ]
   });
-
+  console.log(productImpressionGA4)
   addProduct();
 }
 
@@ -58,6 +58,7 @@ function addProduct() {
       }
     ]
   });
+  console.log(addProduct)
 }
 
 
@@ -74,6 +75,7 @@ function addPromotionGA4(id, name) {
       }
     ]
   });
+  console.log(addPromotionGA4)
 }
 
 function onProductClickGA4(name, position) {
@@ -89,6 +91,7 @@ function onProductClickGA4(name, position) {
       }
     ]
   });
+  console.log(onProductClickGA4)
 }
 
 
@@ -106,6 +109,7 @@ function onPromoClickGA4(id, name) {
       }
     ]
   });
+  console.log(onPromoClickGA4)
 }
 
 function addTransactionGA4(tradeId, name, price, affiliation, coupon) {
@@ -128,6 +132,7 @@ function addTransactionGA4(tradeId, name, price, affiliation, coupon) {
       }
     ]
   });
+  console.log(addTransactionGA4)
 }
 
 export {
