@@ -227,8 +227,8 @@ function returnTo() {
         jumpUrl = jumpUrl.replace(/(&)(.*)(\?)/g, '$3$2$1');
         window.open(jumpUrl, '_self');
     });
-    gtag('config', 'G-CGZ5MQE66Z', { send_to: 'G-2MCQJHGE8J' }).then(function () {
-        var clientId = gtag('get', 'G-2MCQJHGE8J', 'user_properties.client_id');
+    gtag('config', 'G-2MCQJHGE8J', function () {
+        var clientId = gtag('get', 'G-2MCQJHGE8J', 'client_id');
         var jumpUrl = '';
         var rCookie = GetCookie('R');
         if (rCookie) {
@@ -243,7 +243,7 @@ function returnTo() {
             send_to: 'G-2MCQJHGE8J',
             page_title: 'Return',
             page_location: jumpUrl,
-            page_path: '/return',
+            page_path: '/return'
         });
         window.open(jumpUrl, '_self');
     });

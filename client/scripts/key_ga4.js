@@ -1,5 +1,14 @@
 import { GetCookie, getUrlParams } from './subscribe_api';
 
+// Update tracking ID with your own
+window.dataLayer = window.dataLayer || [];
+function gtag() { dataLayer.push(arguments); }
+gtag('js', new Date());
+gtag('config', 'G-2MCQJHGE8J', {
+  send_page_view: false
+});
+
+
 var userIdForGA = GetCookie('U') || GetCookie('USER_ID') || '';
 var clientId;
 try {

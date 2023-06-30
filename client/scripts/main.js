@@ -1333,10 +1333,9 @@ trackEC();
 ga(function (tracker) {
     var clientId = tracker.get('clientId');
 });
-gtag('config', 'G-2MCQJHGE8J', {
-    send_to: 'G-2MCQJHGE8J',
-}).then(function () {
-    var clientId = gtag('get', 'G-2MCQJHGE8J', 'user_properties.client_id');
+
+gtag('config', 'G-2MCQJHGE8J', function () {
+    var clientId = gtag('get', 'G-2MCQJHGE8J', 'client_id');
     console.log(clientId);
 });
 // --------------------------------------------------
