@@ -111,23 +111,22 @@ function addTransactionGA4(tradeId, name, price, affiliation, coupon) {
   gtag('event', 'purchase', {
     send_to: "G-2MCQJHGE8J",
     transaction_id: tradeId,
-    transaction_affiliation: affiliation,
-    purchase_attribution: affiliation,
     value: price,
     currency: 'CNY',
     coupon: coupon,
     items: [
       {
-        item_id: name,
+        item_id: tradeId,
         item_name: name,
         item_category: category,
         brand: 'FTC',
         quantity: 1,
         price: price,
+        affiliation: affiliation
       }
     ]
   });
-  console.log("GA4" + affiliation)
+  console.log("GA4" + affiliation);
 }
 
 export {
