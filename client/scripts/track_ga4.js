@@ -107,13 +107,12 @@ function onPromoClickGA4(id, name) {
   });
 }
 
-function addTransactionGA4(tradeId, name, price, affiliation, coupon) {
+function addTransactionGA4(tradeId, name, price, affiliation, ccode) {
   gtag('event', 'purchase', {
     send_to: "G-2MCQJHGE8J",
     transaction_id: tradeId,
     value: price,
     currency: 'CNY',
-    coupon: coupon,
     items: [
       {
         item_id: tradeId,
@@ -122,7 +121,8 @@ function addTransactionGA4(tradeId, name, price, affiliation, coupon) {
         brand: 'FTC',
         quantity: 1,
         price: price,
-        affiliation: affiliation
+        affiliation: affiliation,
+        promotion_id: ccode
       }
     ]
   });

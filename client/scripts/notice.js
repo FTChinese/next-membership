@@ -121,8 +121,14 @@ if (contentId) {
 }
 
 // 放入交易成功页面
+var ccode = getUrlParams('ccode') ||
+    getUrlParams('utm_code') ||
+    getUrlParams('utm_campaign') ||
+    getUrlParams('campaign_code') ||
+    GetCookie('ccode') ||
+    '';
 addTransaction(tradeNo, eventAction, price, affiliation);
-addTransactionGA4(tradeNo, eventAction, price, affiliation, coupon);
+addTransactionGA4(tradeNo, eventAction, price, affiliation, ccode);
 
 function paravalue(theurl, thep) {
     var k, thev;
