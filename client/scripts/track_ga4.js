@@ -69,7 +69,7 @@ function addPromotionGA4(id, name) {
         promotion_id: id,
         promotion_name: name,
         creative_name: category,
-        position: 'web side'
+        position: 'web site'
       }
     ]
   });
@@ -101,7 +101,7 @@ function onPromoClickGA4(id, name) {
         promotion_id: id,
         promotion_name: name,
         creative_name: category,
-        position: 'web side'
+        position: 'web site'
       }
     ]
   });
