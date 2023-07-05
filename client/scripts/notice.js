@@ -18,13 +18,6 @@ import {
     addTransactionGA4
 } from './track_ga4';
 // ##################################################
-// Update tracking ID with your own
-window.dataLayer = window.dataLayer || [];
-function gtag() { dataLayer.push(arguments); }
-gtag('js', new Date());
-gtag('config', 'G-2MCQJHGE8J', {
-    send_page_view: false
-});
 
 
 // ------ (tradeNo)

@@ -15,6 +15,22 @@
     <link inline rel="stylesheet" type="text/css" href="styles/status.css" />
     <script inline src="scripts/key.js"></script>
     <script inline src="scripts/key_ga4.js"></script>
+    <!-- MARK: Important: Need to add Google Analytics load events manually GA4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-2MCQJHGE8J"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        if (window.gAutoStart === undefined) {
+            try {
+                trackerNew();
+            } catch (err) {
+                gtag('config', 'G-2MCQJHGE8J');
+            }
+        }
+        gtag('event', 'page_view', { 'send_to': 'G-2MCQJHGE8J', 'page_location': window.location.href });
+    </script>
+    <!-- End Google Analytics -->
     <style type="text/css">
         .product-note {
             background-color: #f2e0d3;

@@ -1,14 +1,6 @@
 let listName = 'webMembership';
 let category = 'membership';
 
-// Update tracking ID with your own
-window.dataLayer = window.dataLayer || [];
-function gtag() { dataLayer.push(arguments); }
-gtag('js', new Date());
-gtag('config', 'G-2MCQJHGE8J', {
-  send_page_view: false
-});
-
 // 把交易号放在cookie里，这样buy success能获取到此交易号，把成功页面现有的代码暂时隐藏
 // 生成交易号，交易号为全局的，这样display和
 // 放入订阅页面
