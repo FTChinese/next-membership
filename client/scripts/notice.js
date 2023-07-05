@@ -17,10 +17,6 @@ import {
 import {
     addTransactionGA4
 } from './track_ga4';
-import {
-    getData,
-    postData
-} from './main'
 // ##################################################
 // Update tracking ID with your own
 window.dataLayer = window.dataLayer || [];
@@ -102,23 +98,7 @@ if (price === '') {
 // -------- (affiliation)
 let affiliation = SELabel;
 
-//-------coupon
-// -- Content Title
-let coupon, domain = '';
-const storyId = getUrlParams('story');
-const interactiveId = getUrlParams('interactive');
-const contentId = (storyId) ? storyId : ((interactiveId) ? interactiveId : '');
-if (contentId) {
-    if (window.location.hostname === 'localhost' || window.location.hostname.indexOf('127.0') === 0 || window.location.hostname.indexOf('192.168') === 0) {
-        domain = 'https://www.ftacademy.cn/';
-    }
-    // 使用导入的 getData 函数
-    getData(domain + 'index.php/jsapi/headline/' + contentId, function (data) {
-        var br = (data.cHeadline && data.eHeadline) ? '<br>' : '';
-        coupon = data.cHeadline + br + data.eHeadline
-        // console.log(coupon)
-    });
-}
+
 
 // 放入交易成功页面
 var ccode = getUrlParams('ccode') ||
