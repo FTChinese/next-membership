@@ -31,7 +31,7 @@ if (Object.keys(gaMore).length > 0) {
   gtag('config', 'G-2MCQJHGE8J');
 }
 
-gtag('config', 'G-2MCQJHGE8J', { "send_page_view": true });
+// gtag('config', 'G-2MCQJHGE8J', { "send_page_view": true });
 gtag('config', 'G-2MCQJHGE8J', { "enhanced_conversions": true });
 
 try {
