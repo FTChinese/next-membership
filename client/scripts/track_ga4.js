@@ -52,21 +52,22 @@ function addProduct() {
 }
 
 
-// 出来订阅页面，可以addPromotion，放入订阅页面
-function addPromotionGA4(id, name) {
-  gtag('event', 'view_promotion', {
-    send_to: "G-2MCQJHGE8J",
-    promotions: [
-      {
-        promotion_id: id,
-        promotion_name: name,
-        creative_name: category,
-        position: 'web site'
-      }
-    ]
-  });
-}
+// // 出来订阅页面，可以addPromotion，放入订阅页面
+// function addPromotionGA4(id, name) {
+//   gtag('event', 'view_promotion', {
+//     send_to: "G-2MCQJHGE8J",
+//     promotions: [
+//       {
+//         promotion_id: id,
+//         promotion_name: name,
+//         creative_name: category,
+//         position: 'web site'
+//       }
+//     ]
+//   });
+// }
 
+// 当点击立即订阅时，调用此
 function onProductClickGA4(name, position) {
   gtag('event', 'select_item', {
     send_to: "G-2MCQJHGE8J",
@@ -84,20 +85,19 @@ function onProductClickGA4(name, position) {
 
 
 
-// 当点击立即订阅时，调用此
-function onPromoClickGA4(id, name) {
-  gtag('event', 'view_promotion', {
-    send_to: "G-2MCQJHGE8J",
-    promotions: [
-      {
-        promotion_id: id,
-        promotion_name: name,
-        creative_name: category,
-        position: 'web site'
-      }
-    ]
-  });
-}
+// function onPromoClickGA4(id, name) {
+//   gtag('event', 'view_promotion', {
+//     send_to: "G-2MCQJHGE8J",
+//     promotions: [
+//       {
+//         promotion_id: id,
+//         promotion_name: name,
+//         creative_name: category,
+//         position: 'web site'
+//       }
+//     ]
+//   });
+// }
 
 function addTransactionGA4(tradeId, name, price, affiliation, ccode) {
   gtag('event', 'purchase', {
@@ -123,8 +123,6 @@ function addTransactionGA4(tradeId, name, price, affiliation, ccode) {
 
 export {
   productImpressionGA4,
-  addPromotionGA4,
-  onPromoClickGA4,
   addTransactionGA4,
   onProductClickGA4
 };

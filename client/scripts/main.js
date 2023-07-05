@@ -29,8 +29,8 @@ import {
 
 import {
     productImpressionGA4,
-    addPromotionGA4,
-    onPromoClickGA4,
+    // addPromotionGA4,
+    // onPromoClickGA4,
     onProductClickGA4
 } from './track_ga4';
 
