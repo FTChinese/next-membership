@@ -64,7 +64,7 @@ if (SELabel.indexOf('/IOSCL/') > -1) {
         send_to: "G-2MCQJHGE8J",
         event_category: clParaArr[0],
         event_label: clParaArr[1],
-        event_action: "Buy Success:" + eventAction,
+        buy_item: "Buy Success:" + eventAction,
         non_interaction: true
     });
 } else {
@@ -82,7 +82,7 @@ if (SELabel.indexOf('/IOSCL/') > -1) {
         send_to: "G-2MCQJHGE8J",
         event_category: "Web Privileges",
         event_label: SELabel,
-        event_action: "Buy Success:" + eventAction,
+        buy_item: "Buy Success:" + eventAction,
         non_interaction: true
     });
 }
