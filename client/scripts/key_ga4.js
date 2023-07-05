@@ -31,18 +31,6 @@ if (Object.keys(gaMore).length > 0) {
   gtag('config', 'G-2MCQJHGE8J');
 }
 
-// gtag('config', 'G-2MCQJHGE8J', { "send_page_view": true });
-gtag('config', 'G-2MCQJHGE8J', { "enhanced_conversions": true });
-
-try {
-  gtag('event', 'page_view', {
-    send_to: 'G-2MCQJHGE8J',
-    page_title: document.title,
-    page_location: window.location.href,
-    page_path: window.location.pathname
-  });
-} catch (err) { }
-
 try {
   var ccode =
     getUrlParams('ccode') ||
