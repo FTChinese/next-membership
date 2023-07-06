@@ -201,7 +201,7 @@ function jump() {
 function returnTo() {
     var jumpUrl = '';
     var rCookie = GetCookie('R');
-    ga(function (tracker) {
+    ga(function(tracker) {
         var clientId = tracker.get('clientId');
         var clientIdPar = '';
         if (rCookie) {
@@ -214,7 +214,7 @@ function returnTo() {
         jumpUrl = jumpUrl.replace(/(&)(.*)(\?)/g, '$3$2$1');
         window.open(jumpUrl, '_self');
     });
-    gtag('config', 'G-2MCQJHGE8J', function () {
+    gtag('config', 'G-2MCQJHGE8J', function() {
         var clientId = gtag('get', 'G-2MCQJHGE8J', 'client_id');
         var jumpUrl = '';
         var rCookie = GetCookie('R');
@@ -239,7 +239,7 @@ function returnTo() {
 // 【返回】按钮
 let returnToId = document.getElementById("returnTo");
 if (returnToId) {
-    EventObject.addHandler(returnToId, "click", function () {
+    EventObject.addHandler(returnToId, "click", function() {
         returnTo();
     });
 }
@@ -267,17 +267,17 @@ if (getCookie('action') === 'buy') {
 
 // 【确认信息】按钮
 let infoConfirmId = document.getElementById("infoConfirm");
-// TODO: - If a user comes from a site such "ftchinese.com", no need to redirect to "chineseft.live". You should only use "chineseft.live" when you can't be sure where the user come from. 
+// TODO: - If a user comes from a site such "ftchinese.com", no need to redirect to "chineseft.live". You should only use "chineseft.live" when you can't be sure where the user come from.
 if (infoConfirmId) {
-    EventObject.addHandler(infoConfirmId, "click", function () {
+    EventObject.addHandler(infoConfirmId, "click", function() {
         window.location = 'https://www.chineseft.live/m/corp/preview.html?pageid=subscriptioninfoconfirm&membership=' + membership + '&action=' + action;
     });
 }
-// TODO: - Please think about the use of domain name here as well, referring to the TODO above. 
+// TODO: - Please think about the use of domain name here as well, referring to the TODO above.
 document.getElementById('vip_url').href = 'http://user.chineseft.live/?uide=' + paravalue(window.location.href, "uide");
 //console.log(paravalue(window.location.href, "uide"));
 
-window.onload = function () {
+window.onload = function() {
     jump();
 }
 // ##################################################

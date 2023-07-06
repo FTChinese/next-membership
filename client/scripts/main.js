@@ -38,7 +38,10 @@ import './QandA';
 // ##################################################
 // Update tracking ID with your own
 window.dataLayer = window.dataLayer || [];
-function gtag() { dataLayer.push(arguments); }
+
+function gtag() {
+    dataLayer.push(arguments);
+}
 gtag('js', new Date());
 gtag('config', 'G-2MCQJHGE8J', {
     send_page_view: false
@@ -66,7 +69,7 @@ if (todayCookie) {
 }
 
 const ShowHeadline = (data) => {
-    // console.log(data);
+    //console.log(data);
     var headline = document.getElementsByClassName('content_headline')[0];
     var br = (data.cHeadline && data.eHeadline) ? '<br>' : '';
     headline.children[1].innerHTML = data.cHeadline + br + data.eHeadline;
@@ -90,7 +93,7 @@ const getData = (url, f = '', retry = 0) => {
     if (!isReqSuccess && retry < 3) {
         let xmlHttp = new XMLHttpRequest();
         xmlHttp.open('get', url);
-        xmlHttp.onload = function () {
+        xmlHttp.onload = function() {
             if (xmlHttp.status == 200) {
                 isReqSuccess = true;
                 var data = xmlHttp.responseText;
@@ -110,7 +113,7 @@ const getData = (url, f = '', retry = 0) => {
             } else {
                 isReqSuccess = false;
                 retry++;
-                setTimeout(function () {
+                setTimeout(function() {
                     getData(url, f, retry);
                 }, 500);
             }
@@ -127,7 +130,7 @@ const postData = (url, f = '', retry = 0) => {
     if (!isReqSuccess && retry < 3) {
         let xmlHttp = new XMLHttpRequest();
         xmlHttp.open('post', url);
-        xmlHttp.onload = function () {
+        xmlHttp.onload = function() {
             if (xmlHttp.status == 200) {
                 isReqSuccess = true;
                 var data = xmlHttp.responseText;
@@ -146,7 +149,7 @@ const postData = (url, f = '', retry = 0) => {
             } else {
                 isReqSuccess = false;
                 retry++;
-                setTimeout(function () {
+                setTimeout(function() {
                     postData(url, f, retry);
                 }, 500);
             }
@@ -411,11 +414,55 @@ if (fromPara === 'ft_dxsz' && (today.getTime() >= rangeStart && today.getTime() 
     PRICE['premium'] = premiumPrice['50%'];
 }
 //----------
+rangeStart = new Date('2023-05-04T00:00:00').getTime();
+//rangeStart = new Date('2023-05-06T00:00:00').getTime();
+rangeEnd = new Date('2023-05-06T24:00:00').getTime();
+if (fromPara === 'ft_uibe' && (today.getTime() >= rangeStart && today.getTime() <= rangeEnd)) {
+    SP = 1;
+    PRICE['standard'] = standardPrice['50%'];
+    PRICE['premium'] = premiumPrice['50%'];
+}
+//----------
 // WTCF -- World Tourism Cities Federation
 rangeStart = new Date('2023-04-06T00:00:00').getTime();
 //rangeStart = new Date('2023-05-10T00:00:00').getTime();
 rangeEnd = new Date('2023-05-10T24:00:00').getTime();
 if (fromPara === 'ft_wtcf' && (today.getTime() >= rangeStart && today.getTime() <= rangeEnd)) {
+    SP = 1;
+    PRICE['standard'] = standardPrice['50%'];
+    PRICE['premium'] = premiumPrice['50%'];
+}
+//----------
+rangeStart = new Date('2023-05-10T00:00:00').getTime();
+//rangeStart = new Date('2023-05-15T00:00:00').getTime();
+rangeEnd = new Date('2023-05-15T24:00:00').getTime();
+if (fromPara === 'ft_thfl' && (today.getTime() >= rangeStart && today.getTime() <= rangeEnd)) {
+    SP = 1;
+    PRICE['standard'] = standardPrice['50%'];
+    PRICE['premium'] = premiumPrice['50%'];
+}
+//----------
+rangeStart = new Date('2023-05-10T00:00:00').getTime();
+//rangeStart = new Date('2023-05-15T00:00:00').getTime();
+rangeEnd = new Date('2023-05-28T24:00:00').getTime();
+if (fromPara === '2023may' && (today.getTime() >= rangeStart && today.getTime() <= rangeEnd)) {
+    SP = 1;
+    PRICE['standard'] = standardPrice['85%'];
+    PRICE['premium'] = premiumPrice['85%'];
+}
+//----------
+rangeStart = new Date('2023-05-24T00:00:00').getTime();
+//rangeStart = new Date('2023-05-29T00:00:00').getTime();
+rangeEnd = new Date('2023-12-31T24:00:00').getTime();
+if (fromPara === 'ft_launch_space' && (today.getTime() >= rangeStart && today.getTime() <= rangeEnd)) {
+    SP = 1;
+    PRICE['monthly'] = monthlyPrice['intro'];
+}
+//----------
+rangeStart = new Date('2023-06-02T00:00:00').getTime();
+//rangeStart = new Date('2023-06-08T00:00:00').getTime();
+rangeEnd = new Date('2023-06-08T24:00:00').getTime();
+if (fromPara === 'ft_ecnu' && (today.getTime() >= rangeStart && today.getTime() <= rangeEnd)) {
     SP = 1;
     PRICE['standard'] = standardPrice['50%'];
     PRICE['premium'] = premiumPrice['50%'];
@@ -501,11 +548,26 @@ promoName = {'name': 'Thanksgiving'};
 promoDate = {'start': '2022-11-16T00:00:00', 'end': '2022-11-30T24:00:00'};
 promoPrice = {'standard': standardPrice['50%'], 'premium': premiumPrice['50%'], 'monthly': monthlyPrice['100%']};
 PROMO.push(Object.assign(promoName, promoDate, promoPrice));
+
+
+promoName = {'name': 'KaiGongNaJi'};
+promoDate = {'start': '2023-02-06T00:00:00', 'end': '2023-02-19T24:00:00'};
+promoPrice = {'standard': standardPrice['75%'], 'premium': premiumPrice['75%'], 'monthly': monthlyPrice['100%']};
+PROMO.push(Object.assign(promoName, promoDate, promoPrice));
 */
 
-promoName = { 'name': 'KaiGongNaJi' };
-promoDate = { 'start': '2023-02-06T00:00:00', 'end': '2023-02-19T24:00:00' };
-promoPrice = { 'standard': standardPrice['75%'], 'premium': premiumPrice['75%'], 'monthly': monthlyPrice['100%'] };
+promoName = {
+    'name': '2023May'
+};
+promoDate = {
+    'start': '2023-05-15T00:00:00',
+    'end': '2023-05-28T24:00:00'
+};
+promoPrice = {
+    'standard': standardPrice['85%'],
+    'premium': premiumPrice['85%'],
+    'monthly': monthlyPrice['100%']
+};
 PROMO.push(Object.assign(promoName, promoDate, promoPrice));
 
 var promoStart = 0;
@@ -555,8 +617,6 @@ if (premium_price !== null) {
 if (standard_monthly_price !== null) {
     standard_monthly_price.innerHTML = PriceShow(PRICE['monthly']) + promoDesc;
 }
-
-
 
 // -- Input Price (Hidden)
 let standardInput = document.getElementById('price_standard');
@@ -613,7 +673,8 @@ if (ticket !== null) {
 
 // ElementsType ==-- [0] - Default | [1] - Intro | [2] - Trial
 var ElementsType = 0;
-if (fromPara === 'ft_intro' || fromPara === 'ft_hsbc_202304' || fromPara === 'ft_intro_20230420') {
+if (fromPara === 'ft_intro' || fromPara === 'ft_launch_space') {
+    // -- ft_hsbc_202304 -- ft_intro_20230420 -- ft_launch_space
     ElementsType = 1;
     document.getElementsByClassName('o-member__benefits')[0].children[1].outerHTML = '<li>精选深度分析</li><li>每日一词</li>';
     document.getElementsByClassName('o-member__benefits')[2].children[1].outerHTML = '<li>精选深度分析</li><li>每日一词</li>';
@@ -689,6 +750,10 @@ if (fromPara === 'ft_hsbc_202304' && SP) {
 if (fromPara === 'ft_intro_20230420' && SP) {
     SetCookie('SP', '55b683d335555355', 3600, null, null, false);
 }
+// ftcEncrypt('LAUNCH') - 45b6e49445546465
+if (fromPara === 'ft_launch_space' && SP) {
+    SetCookie('SP', '45b6e49445546465', 3600, null, null, false);
+}
 
 // -- Cookie - Source [Campaign] - (Monthly = 1)
 // ftcEncrypt('ft_intro') - 1675530336d683d3a5e62566
@@ -726,7 +791,7 @@ if (new Date().getTime() >= switchtTime.getTime()) {
 // ####################
 
 let paymentPage = document.getElementById('payment-page');
-const closePayment = function () {
+const closePayment = function() {
     paymentPage.style.display = 'none';
 };
 let paymentShadow = document.getElementById('payment-shadow');
@@ -767,7 +832,7 @@ function wxPayAction(memberType) {
 }
 
 var isInApp = (window.location.href.indexOf('webview=ftcapp') >= 0);
-var openPayment = function () {
+var openPayment = function() {
     if (isInApp) {
         //console.log('Let the native app handle click!');
         return true;
@@ -839,7 +904,6 @@ var openPayment = function () {
         if (SELabel.indexOf('/IOSCL/') > -1) {
             let clParaArr = SELabel.split('/IOSCL/');
             ga('send', 'event', cPara, eventAction, clParaArr[1]);
-
             gtag('event', eventAction, {
                 send_to: "G-2MCQJHGE8J",
                 event_category: cPara,
@@ -850,7 +914,6 @@ var openPayment = function () {
     } else {
         //console.log('isFromWeb');
         ga('send', 'event', 'Web Privileges', eventAction, SELabel);
-
         gtag("event", eventAction, {
             send_to: "G-2MCQJHGE8J",
             event_category: "Web Privileges",
@@ -862,11 +925,11 @@ var openPayment = function () {
     onProductClickGA4(newAttribute, position);
 };
 
-const openExchange = function () {
+const openExchange = function() {
     window.open('https://user.chineseft.live/?offerId=992374d8e2e24f17bebc50a6e57becd6&platform=8', '_self');
 }
 
-const toPayAction = function () {
+const toPayAction = function() {
     getMemberTypeFromUpdate();
 
     let payWay = '';
@@ -925,7 +988,6 @@ const toPayAction = function () {
         if (SELabel.indexOf('/IOSCL/') > -1) {
             let clParaArr = SELabel.split('/IOSCL/');
             ga('send', 'event', cPara, eventAction, clParaArr[1]);
-
             gtag('event', eventAction, {
                 send_to: "G-2MCQJHGE8J",
                 event_category: cPara,
@@ -934,7 +996,6 @@ const toPayAction = function () {
         }
     } else {
         ga('send', 'event', 'Web Privileges', eventAction, SELabel);
-
         gtag('event', eventAction, {
             send_to: "G-2MCQJHGE8J",
             event_category: "Web Privileges",
@@ -952,7 +1013,7 @@ if (toPay) {
 }
 
 // 打开微信
-const openWXCode = function () {
+const openWXCode = function() {
     var paymentBox = document.getElementById('payment-box');
     var wxQR = '<div id="wxQR"></div><div class="wxScan">微信扫码支付</div>';
     paymentBox.innerHTML = wxQR;
@@ -970,7 +1031,7 @@ let isPremium = false;
 
 function updateUI(dataObj) {
     let fromPara = getUrlParams('from');
-    let sponsorCookie = GetCookie('sponsor');
+    //let sponsorCookie = GetCookie('sponsor');
 
     let standardMonthlyBtnInnerText = '';
     let standardBtnInnerText = '';
@@ -998,7 +1059,9 @@ function updateUI(dataObj) {
         EventObject.addHandler(standardBtn, "click", openExchange);
         EventObject.addHandler(premiumBtn, "click", openExchange);
     } else {
-        if (fromPara === 'ft_intro' || fromPara === 'ft_hsbc_202304' || fromPara === 'ft_intro_20230420') {
+        // Exchange of standard and monthly subscription positions.
+        if (fromPara === 'ft_intro' || fromPara === 'ft_launch_space') {
+            // -- ft_hsbc_202304 -- ft_intro_20230420 -- ft_launch_space
             var standardHTML = document.getElementById('standard').outerHTML;
             var monthlyHTML = document.getElementById('monthly').outerHTML;
             document.getElementsByClassName('o-member-outer')[0].outerHTML = monthlyHTML;
@@ -1081,11 +1144,13 @@ function updateUI(dataObj) {
             //premiumPriceShow = premiumPrice['85%']; // ##[Win Back][Premium]
         }
         */
-    } else if (fromPara === 'ft_intro' || fromPara === 'pbcsf' || fromPara === 'ft_hsbc_202304' || fromPara === 'ft_intro_20230420') {
+    } else if (fromPara === 'ft_intro' || fromPara === 'ft_launch_space') {
+        // -- ft_hsbc_202304 -- ft_intro_20230420 -- ft_launch_space
+        // -- pbcsf
         if (dataObj.standard === 1 || dataObj.premium === 1) {
             // [Member]
             monthlyElements(0);
-        } else if (typeof (dataObj.standard) !== 'undefined' || typeof (dataObj.premium) !== 'undefined') {
+        } else if (typeof(dataObj.standard) !== 'undefined' || typeof(dataObj.premium) !== 'undefined') {
             // [New User]
             monthlyElements(ElementsType);
         }
@@ -1242,7 +1307,8 @@ function fromUpdate() {
         } else if (tapPara === 'monthly') {
             // ##[Tap] Monthly -- Pop-up [FINAL]
             //console.log('fromUpdate - relevantDataInPayment - monthly');
-            memberType = (fromPara === 'ft_intro' || fromPara === 'ft_hsbc_202304' || fromPara === 'ft_intro_20230420') ? introType : standardMonthlyType;
+            // -- ft_hsbc_202304 -- ft_intro_20230420 -- ft_launch_space
+            memberType = (fromPara === 'ft_intro' || fromPara === 'ft_launch_space') ? introType : standardMonthlyType;
             if (fromPara === 'pbcsf' && SP === 2) {
                 memberType = trialType;
             }
@@ -1279,7 +1345,7 @@ function getMemberTypeFromUpdate() {
     }
 }
 
-window.onunload = function () {
+window.onunload = function() {
     DeleteCookie('U');
     DeleteCookie('E');
     DeleteCookie('R');
@@ -1372,7 +1438,6 @@ function iosTrack() {
         }
         SetCookie('SELabel', eLabelCookie, 86400, null, '.ftacademy.cn', false);
         ga('send', 'event', cPara, 'Display', elabel);
-
         gtag('event', 'Display', {
             send_to: "G-2MCQJHGE8J",
             event_category: cPara,
@@ -1426,11 +1491,10 @@ const trackEC = () => {
 }
 trackEC();
 
-ga(function (tracker) {
+ga(function(tracker) {
     var clientId = tracker.get('clientId');
 });
-
-gtag('config', 'G-2MCQJHGE8J', function () {
+gtag('config', 'G-2MCQJHGE8J', function() {
     var clientId = gtag('get', 'G-2MCQJHGE8J', 'client_id');
     console.log(clientId);
 });
