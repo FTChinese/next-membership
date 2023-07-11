@@ -13,16 +13,14 @@ import {
 import {
     addTransaction
 } from './track';
-
 import {
     addTransactionGA4
 } from './track_ga4';
 // ##################################################
 
-
 // ------ (tradeNo)
 let randomVal = Math.round(Math.random() * 89999) + 10000;
-let tradeNo = GetCookie('trade_no') || randomVal;
+let tradeNo = GetCookie('trade_no') || paravalue(window.location.href, 'trade') || randomVal;
 
 var memberType = paravalue(window.location.href, 'memberType');
 memberType = decodeURIComponent(memberType);
@@ -87,11 +85,8 @@ if (price === '') {
     price = (eventAction === 'Premium') ? '1998' : '298';
 }
 
-
 // -------- (affiliation)
 let affiliation = SELabel;
-
-
 
 // 放入交易成功页面
 var ccode = getUrlParams('ccode') ||
@@ -102,6 +97,7 @@ var ccode = getUrlParams('ccode') ||
     '';
 addTransaction(tradeNo, eventAction, price, affiliation);
 addTransactionGA4(tradeNo, eventAction, price, affiliation, ccode);
+//console.log(tradeNo);
 
 function paravalue(theurl, thep) {
     var k, thev;

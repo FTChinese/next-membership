@@ -1,9 +1,6 @@
 let listName = 'webMembership';
 let category = 'membership';
 
-// 把交易号放在cookie里，这样buy success能获取到此交易号，把成功页面现有的代码暂时隐藏
-// 生成交易号，交易号为全局的，这样display和
-// 放入订阅页面
 function productImpressionGA4(id, name) {
     gtag('event', 'view_item_list', {
         send_to: 'G-2MCQJHGE8J',
@@ -25,23 +22,23 @@ function productImpressionGA4(id, name) {
             }
         ]
     });
-    addProduct();
+    addProductGA4();
 }
 
-function addProduct() {
+function addProductGA4() {
     gtag('event', 'view_item', {
         send_to: "G-2MCQJHGE8J",
         items: [{
                 item_id: 'Standard',
                 item_name: 'Standard',
-                item_category: listName,
+                item_category: category,
                 item_brand: 'FTC',
                 index: 1
             },
             {
                 item_id: 'Premium',
                 item_name: 'Premium',
-                item_category: listName,
+                item_category: category,
                 item_brand: 'FTC',
                 index: 2
             }
@@ -49,7 +46,19 @@ function addProduct() {
     });
 }
 
-// // 出来订阅页面，可以addPromotion，放入订阅页面
+function onProductClickGA4(name, position) {
+    gtag('event', 'select_item', {
+        send_to: "G-2MCQJHGE8J",
+        items: [{
+            item_id: name,
+            item_name: name,
+            item_category: category,
+            brand: 'FTC',
+            index: position
+        }]
+    });
+}
+
 // function addPromotionGA4(id, name) {
 //   gtag('event', 'view_promotion', {
 //     send_to: "G-2MCQJHGE8J",
@@ -63,20 +72,6 @@ function addProduct() {
 //     ]
 //   });
 // }
-
-// 当点击立即订阅时，调用此
-function onProductClickGA4(name, position) {
-    gtag('event', 'select_item', {
-        send_to: "G-2MCQJHGE8J",
-        items: [{
-            item_id: name,
-            item_name: name,
-            item_category: listName,
-            brand: 'FTC',
-            index: position
-        }]
-    });
-}
 
 // function onPromoClickGA4(id, name) {
 //   gtag('event', 'view_promotion', {
@@ -109,11 +104,20 @@ function addTransactionGA4(tradeId, name, price, affiliation, ccode) {
             promotion_id: ccode
         }]
     });
-    console.log("GA4" + affiliation);
+    /*
+    console.log('[addTransactionGA4] -- tradeId -- ' + tradeId);
+    console.log('[addTransactionGA4] -- name -- ' + name);
+    console.log('[addTransactionGA4] -- category -- ' + category);
+    console.log('[addTransactionGA4] -- price -- ' + price);
+    console.log('[addTransactionGA4] -- affiliation -- ' + affiliation);
+    console.log('[addTransactionGA4] -- ccode -- ' + ccode);
+    */
 }
 
 export {
     productImpressionGA4,
-    addTransactionGA4,
-    onProductClickGA4
+    onProductClickGA4,
+    //addPromotionGA4,
+    //onPromoClickGA4,
+    addTransactionGA4
 };

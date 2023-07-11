@@ -21,16 +21,16 @@ import {
 } from './subscribe_api';
 
 import {
+    //addPromotion,
+    //onPromoClick,
     productImpression,
-    addPromotion,
-    onPromoClick,
     onProductClick
 } from './track';
 
 import {
+    //addPromotionGA4,
+    //onPromoClickGA4,
     productImpressionGA4,
-    // addPromotionGA4,
-    // onPromoClickGA4,
     onProductClickGA4
 } from './track_ga4';
 
@@ -970,7 +970,7 @@ const toPayAction = function() {
     var offerType = (memberType === standardMonthlyType || memberType === introType || memberType === trialType) ? '&offerType=monthly' : '';
     var offerFrom = (fromPara) ? '&from=' + fromPara : '';
     var content = (getUrlParams('story') || getUrlParams('interactive')) ? '&content=' + getUrlParams('story') + getUrlParams('interactive') : '';
-    console.log(platform);
+    //console.log(platform);
     if (platform) {
         link = 'https://www.ftacademy.cn/index.php/pay?offerId=' + offerId + '&platform=' + platform + offerType + offerFrom + content;
         //console.log(link);
@@ -1496,7 +1496,7 @@ ga(function(tracker) {
 });
 gtag('config', 'G-2MCQJHGE8J', function() {
     var clientId = gtag('get', 'G-2MCQJHGE8J', 'client_id');
-    console.log(clientId);
+    //console.log(clientId);
 });
 // --------------------------------------------------
 // LOG

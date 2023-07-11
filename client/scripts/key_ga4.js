@@ -14,7 +14,6 @@ gtag('config', 'G-2MCQJHGE8J', {
     send_page_view: false
 });
 
-
 var userIdForGA = GetCookie('U') || GetCookie('USER_ID') || '';
 var clientId;
 try {

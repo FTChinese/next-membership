@@ -1,10 +1,6 @@
 let listName = 'webMembership';
 let category = 'membership';
 
-
-// 把交易号放在cookie里，这样buy success能获取到此交易号，把成功页面现有的代码暂时隐藏
-// 生成交易号，交易号为全局的，这样display和
-// 放入订阅页面
 function productImpression(id, name) {
     ga('ec:addImpression', { // Provide product details in an impressionFieldObject
         'id': 'Standard', // Product ID (string).
@@ -48,17 +44,6 @@ function addProduct() {
     ga('ec:setAction', 'detail');
 }
 
-
-// 出来订阅页面，可以addPromotion，放入订阅页面
-function addPromotion(id, name) {
-    ga('ec:addPromo', { // Promo details provided in a promoFieldObject.
-        'id': id, // Promotion ID. Required (string).
-        'name': name, // Promotion name (string).
-        'creative': category, // Creative (string).
-        'position': 'web side' // Position  (string).
-    });
-}
-
 function onProductClick(name, position) {
     ga('ec:addProduct', {
         'id': name,
@@ -74,8 +59,15 @@ function onProductClick(name, position) {
 
 }
 
+function addPromotion(id, name) {
+    ga('ec:addPromo', { // Promo details provided in a promoFieldObject.
+        'id': id, // Promotion ID. Required (string).
+        'name': name, // Promotion name (string).
+        'creative': category, // Creative (string).
+        'position': 'web side' // Position  (string).
+    });
+}
 
-// 当点击立即订阅时，调用此
 function onPromoClick(id, name) {
     ga('ec:addPromo', {
         'id': id,
@@ -92,14 +84,13 @@ function onPromoClick(id, name) {
 function addTransaction(tradeId, name, price, affiliation) {
     ga('set', 'currencyCode', 'CNY'); // Set tracker currency to Euros.
     ga('ec:addProduct', {
-        'id': name,
+        'id': tradeId,
         'name': name,
         'category': category,
         'brand': 'FTC',
         'price': price,
         'quantity': 1
     });
-
     // Transaction level information is provided via an actionFieldObject.
     ga('ec:setAction', 'purchase', {
         'id': tradeId,
@@ -108,15 +99,20 @@ function addTransaction(tradeId, name, price, affiliation) {
         'tax': 0,
         'shipping': 0
     });
-
     ga('send', 'pageview'); // Send transaction data with initial pageview.
-    console.log(affiliation)
+    /*
+    console.log('[addTransaction] -- tradeId -- ' + tradeId);
+    console.log('[addTransaction] -- name -- ' + name);
+    console.log('[addTransaction] -- category -- ' + category);
+    console.log('[addTransaction] -- price -- ' + price);
+    console.log('[addTransaction] -- affiliation -- ' + affiliation);
+    */
 }
 
 export {
     productImpression,
+    onProductClick,
     addPromotion,
     onPromoClick,
-    addTransaction,
-    onProductClick
+    addTransaction
 };
