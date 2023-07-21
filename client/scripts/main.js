@@ -218,6 +218,10 @@ var PRICE = [];
 PRICE['standard'] = standardPrice['100%'];
 PRICE['premium'] = premiumPrice['100%'];
 PRICE['monthly'] = monthlyPrice['100%'];
+var PRICE_CUR = []
+PRICE_CUR['standard'] = standardPrice['75%'];
+PRICE_CUR['premium'] = premiumPrice['75%'];
+PRICE_CUR['monthly'] = monthlyPrice['100%'];
 
 // ########## PRICE -- [Range] ########## //
 var rangeStart = 0;
@@ -505,7 +509,7 @@ if (today.getTime() < switchtTime.getTime()) {
 // @@@@@@@@@@
 
 // ########## Promo Data ########## //
-var promoName, promoDate, promoPrice;
+var promoName, promoDate, promoPrice, promoType;
 var PROMO = [];
 /*
 promoName = {'name': 'FuNiuYingChun'};
@@ -554,33 +558,70 @@ promoName = {'name': 'KaiGongNaJi'};
 promoDate = {'start': '2023-02-06T00:00:00', 'end': '2023-02-19T24:00:00'};
 promoPrice = {'standard': standardPrice['75%'], 'premium': premiumPrice['75%'], 'monthly': monthlyPrice['100%']};
 PROMO.push(Object.assign(promoName, promoDate, promoPrice));
+
+promoName = {'name': '2023May'};
+promoDate = {'start': '2023-05-15T00:00:00', 'end': '2023-05-28T24:00:00'};
+promoPrice = {'standard': standardPrice['85%'], 'premium': premiumPrice['85%'], 'monthly': monthlyPrice['100%']};
+PROMO.push(Object.assign(promoName, promoDate, promoPrice));
 */
 
+// [promoType] -- 1: CUR -- 2: NEW + EXP -- 3: ALL
+
 promoName = {
-    'name': '2023May'
+    'name': '2023-08-31_Preview'
 };
 promoDate = {
-    'start': '2023-05-15T00:00:00',
-    'end': '2023-05-28T24:00:00'
+    'start': '2023-08-14T00:00:00',
+    'end': '2023-08-27T24:00:00'
 };
 promoPrice = {
-    'standard': standardPrice['85%'],
-    'premium': premiumPrice['85%'],
+    'standard': standardPrice['75%'],
+    'premium': premiumPrice['75%'],
     'monthly': monthlyPrice['100%']
 };
-PROMO.push(Object.assign(promoName, promoDate, promoPrice));
+promoType = {
+    'type': 3
+};
+PROMO.push(Object.assign(promoName, promoDate, promoPrice, promoType));
+
+promoName = {
+    'name': '2023-08-31'
+};
+promoDate = {
+    'start': '2023-08-28T00:00:00',
+    'end': '2023-09-03T24:00:00'
+};
+promoPrice = {
+    'standard': standardPrice['50%'],
+    'premium': premiumPrice['50%'],
+    'monthly': monthlyPrice['100%']
+};
+promoType = {
+    'type': 1
+};
+PROMO.push(Object.assign(promoName, promoDate, promoPrice, promoType));
 
 var promoStart = 0;
 var promoEnd = 0;
+var promoScope = 0;
 for (var x = 0; x < PROMO.length; x++) {
     promoStart = new Date(PROMO[x]['start']).getTime();
     promoEnd = new Date(PROMO[x]['end']).getTime();
+    promoScope = PROMO[x]['type'];
     if (today.getTime() >= promoStart && today.getTime() <= promoEnd && !SP) {
-        PRICE = {
-            'standard': Math.min(PROMO[x]['standard'], PRICE['standard']),
-            'premium': Math.min(PROMO[x]['premium'], PRICE['premium']),
-            'monthly': Math.min(PROMO[x]['monthly'], PRICE['monthly'])
-        };
+        if (promoScope === 1) {
+            PRICE_CUR = {
+                'standard': Math.min(PROMO[x]['standard'], PRICE['standard']),
+                'premium': Math.min(PROMO[x]['premium'], PRICE['premium']),
+                'monthly': Math.min(PROMO[x]['monthly'], PRICE['monthly'])
+            };
+        } else {
+            PRICE = {
+                'standard': Math.min(PROMO[x]['standard'], PRICE['standard']),
+                'premium': Math.min(PROMO[x]['premium'], PRICE['premium']),
+                'monthly': Math.min(PROMO[x]['monthly'], PRICE['monthly'])
+            };
+        }
         //console.log('['+ PRICE['monthly'] +'][' + PRICE['standard'] + ']['+ PRICE['premium'] +']');
         var Status = 'Promo';
         break;
@@ -899,8 +940,9 @@ var openPayment = function() {
     var eventAction = 'Buy: ' + newAttribute;
 
     // Mark: ios付费跟踪
-    let cPara = isFromIos();
+    let cPara = isFromIOS();
     if (cPara) {
+        //console.log('isFromIOS: ' + SELabel);
         if (SELabel.indexOf('/IOSCL/') > -1) {
             let clParaArr = SELabel.split('/IOSCL/');
             ga('send', 'event', cPara, eventAction, clParaArr[1]);
@@ -910,9 +952,8 @@ var openPayment = function() {
                 event_label: clParaArr[1]
             });
         }
-        //console.log('isFromIos:'+SELabel);
     } else {
-        //console.log('isFromWeb');
+        //console.log('isFromWEB');
         ga('send', 'event', 'Web Privileges', eventAction, SELabel);
         gtag("event", eventAction, {
             send_to: "G-2MCQJHGE8J",
@@ -982,7 +1023,7 @@ const toPayAction = function() {
     // ##### TRACK ##### //
     let SELabel = GetCookie('SELabel');
     let eventAction = 'Buy way: ' + payWay;
-    let cPara = isFromIos();
+    let cPara = isFromIOS();
 
     if (cPara) {
         if (SELabel.indexOf('/IOSCL/') > -1) {
@@ -1053,6 +1094,12 @@ function updateUI(dataObj) {
         standardBtnInnerText = '立即订阅';
         premiumBtnInnerText = '立即订阅';
         standardMonthlyBtnInnerText = '立即订阅';
+    }
+    // -- Login + Promo
+    if ((dataObj.standard === 1 || dataObj.premium === 1)) {
+        standard_price.innerHTML = PriceShow(PRICE_CUR['standard']);
+        premium_price.innerHTML = PriceShow(PRICE_CUR['premium']);
+        standard_monthly_price.innerHTML = PriceShow(PRICE_CUR['monthly']);
     }
     if (fromPara === 'ft_exchange') {
         EventObject.addHandler(standardMonthlyBtn, "click", openExchange);
@@ -1377,7 +1424,7 @@ function hasUtmCampaign() {
 }
 hasUtmCampaign();
 
-function isFromIos() {
+function isFromIOS() {
     let c = getUrlParams('c');
     if (!!c) {
         return c;
@@ -1422,7 +1469,7 @@ function hasLpara() {
  */
 
 function iosTrack() {
-    let cPara = isFromIos();
+    let cPara = isFromIOS();
     let lPara = getUrlParams('l');
 
     if (cPara) {
