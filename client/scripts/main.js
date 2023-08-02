@@ -1249,7 +1249,8 @@ function updateUI(dataObj) {
             }
             //var ccode = (ccodePara) ? '?ccode=' + ccodePara : '';
             //var link = 'subscribe://' + key + '/' + price + ccode;
-            var link = "https://www.ftacademy.cn/subscription.html?price=" + price + (ccodePara ? ("&ccode=" + ccodePara) : "") + "&tap=" + key;
+            const from = getUrlParams('from');
+            var link = "https://www.ftacademy.cn/subscription.html?price=" + price + (ccodePara ? ("&ccode=" + ccodePara) : "") + (from ? ("&from=" + from) : "") + "&tap=" + key;
             buyLink.setAttribute('href', link);
         }
     }
