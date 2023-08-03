@@ -63,7 +63,7 @@ if (end === -1) {
 var todayCookie = (start && end) ? decodeURIComponent(document.cookie.substring(start + 'today='.length, end)) : null;
 */
 if (todayCookie) {
-    var t = Date.parse(todayCookie);
+    var t = Date.parse(todayCookie + ' 00:00:10');
     today = new Date(t);
     //console.log(today);
 }
@@ -1249,8 +1249,7 @@ function updateUI(dataObj) {
             }
             //var ccode = (ccodePara) ? '?ccode=' + ccodePara : '';
             //var link = 'subscribe://' + key + '/' + price + ccode;
-            const from = getUrlParams('from');
-            var link = "https://www.ftacademy.cn/subscription.html?price=" + price + (ccodePara ? ("&ccode=" + ccodePara) : "") + (from ? ("&from=" + from) : "") + "&tap=" + key;
+            var link = "https://www.ftacademy.cn/subscription.html?price=" + price + (ccodePara ? ("&ccode=" + ccodePara) : "") + (fromPara ? ("&from=" + fromPara) : "") + "&tap=" + key;
             buyLink.setAttribute('href', link);
         }
     }
