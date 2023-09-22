@@ -471,6 +471,14 @@ if (fromPara === 'ft_ecnu' && (today.getTime() >= rangeStart && today.getTime() 
     PRICE['standard'] = standardPrice['50%'];
     PRICE['premium'] = premiumPrice['50%'];
 }
+//----------
+rangeStart = new Date('2023-08-28T00:00:00').getTime();
+rangeEnd = new Date('2023-09-03T24:00:00').getTime();
+if ((ccodePara.indexOf('18annivreten') >= 0 || fromPara.indexOf('18annivreten') >= 0) && (today.getTime() >= rangeStart && today.getTime() <= rangeEnd)) {
+    SP = 1;
+    PRICE['standard'] = standardPrice['50%'];
+    PRICE['premium'] = premiumPrice['50%'];
+}
 //--------------------------------------------------------------------------------
 //--------------------------------------------------------------------------------
 // #### Hide Stripe
@@ -878,10 +886,10 @@ var openPayment = function() {
     if (isWeiXin()) {
         try {
             document.querySelector('.hint').classList.add('on');
-            setTimeout(function(){
+            setTimeout(function() {
                 document.querySelector('.hint').classList.add('show');
             }, 0);
-        } catch(err) {
+        } catch (err) {
             alert('购买FT中文网订阅，点击右上角使用手机自带浏览器打开');
         }
         return;
@@ -978,16 +986,11 @@ var openPayment = function() {
     onProductClickGA4(newAttribute, position);
 };
 
-
-
-
 const openExchange = function() {
     window.open('https://user.chineseft.live/?offerId=992374d8e2e24f17bebc50a6e57becd6&platform=8', '_self');
 }
 
 const toPayAction = function() {
-    
-
     getMemberTypeFromUpdate();
 
     let payWay = '';
