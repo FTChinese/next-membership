@@ -874,6 +874,18 @@ function wxPayAction(memberType) {
 
 var isInApp = (window.location.href.indexOf('webview=ftcapp') >= 0);
 var openPayment = function() {
+    // MARK: - WeChat don't allow opening our web site, prompt users to open it in default browser
+    if (isWeiXin()) {
+        try {
+            document.querySelector('.hint').classList.add('on');
+            setTimeout(function(){
+                document.querySelector('.hint').classList.add('show');
+            }, 0);
+        } catch(err) {
+            alert('购买FT中文网订阅，点击右上角使用手机自带浏览器打开');
+        }
+        return;
+    }
     if (isInApp) {
         //console.log('Let the native app handle click!');
         return true;
@@ -966,11 +978,16 @@ var openPayment = function() {
     onProductClickGA4(newAttribute, position);
 };
 
+
+
+
 const openExchange = function() {
     window.open('https://user.chineseft.live/?offerId=992374d8e2e24f17bebc50a6e57becd6&platform=8', '_self');
 }
 
 const toPayAction = function() {
+    
+
     getMemberTypeFromUpdate();
 
     let payWay = '';

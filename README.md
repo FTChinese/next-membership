@@ -1,5 +1,5 @@
 ## 升级说明
-- 使用Node 16及以上的版本
+- 使用Node 18及以上的版本
 - gulp-sass已经不能在新版的Node中使用，改为gulp-dart-sass，需要在gulpfile.js中进行相应修改
 - 去掉所有的bower依赖
 
