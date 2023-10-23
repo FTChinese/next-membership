@@ -479,6 +479,24 @@ if ((ccodePara.indexOf('18annivreten') >= 0 || fromPara.indexOf('18annivreten') 
     PRICE['standard'] = standardPrice['50%'];
     PRICE['premium'] = premiumPrice['50%'];
 }
+//----------
+rangeStart = new Date('2023-10-23T00:00:00').getTime();
+//rangeStart = new Date('2023-10-28T00:00:00').getTime();
+rangeEnd = new Date('2023-10-28T24:00:00').getTime();
+if (fromPara === 'hk_linkweb30' && (today.getTime() >= rangeStart && today.getTime() <= rangeEnd)) {
+    SP = 1;
+    PRICE['standard'] = standardPrice['75%'];
+    PRICE['premium'] = premiumPrice['75%'];
+}
+//----------
+rangeStart = new Date('2023-10-23T00:00:00').getTime();
+//rangeStart = new Date('2023-11-10T00:00:00').getTime();
+rangeEnd = new Date('2023-11-10T24:00:00').getTime();
+if (fromPara === 'mc_airexpo' && (today.getTime() >= rangeStart && today.getTime() <= rangeEnd)) {
+    SP = 1;
+    PRICE['standard'] = standardPrice['75%'];
+    PRICE['premium'] = premiumPrice['75%'];
+}
 //--------------------------------------------------------------------------------
 //--------------------------------------------------------------------------------
 // #### Hide Stripe
@@ -561,7 +579,6 @@ promoDate = {'start': '2022-11-16T00:00:00', 'end': '2022-11-30T24:00:00'};
 promoPrice = {'standard': standardPrice['50%'], 'premium': premiumPrice['50%'], 'monthly': monthlyPrice['100%']};
 PROMO.push(Object.assign(promoName, promoDate, promoPrice));
 
-
 promoName = {'name': 'KaiGongNaJi'};
 promoDate = {'start': '2023-02-06T00:00:00', 'end': '2023-02-19T24:00:00'};
 promoPrice = {'standard': standardPrice['75%'], 'premium': premiumPrice['75%'], 'monthly': monthlyPrice['100%']};
@@ -572,6 +589,11 @@ promoDate = {'start': '2023-05-15T00:00:00', 'end': '2023-05-28T24:00:00'};
 promoPrice = {'standard': standardPrice['85%'], 'premium': premiumPrice['85%'], 'monthly': monthlyPrice['100%']};
 PROMO.push(Object.assign(promoName, promoDate, promoPrice));
 */
+
+promoName = {'name': '2023D11'};
+promoDate = {'start': '2023-10-30T00:00:00','end': '2023-11-12T24:00:00'};
+promoPrice = {'standard': standardPrice['75%'],'premium': premiumPrice['75%'],'monthly': monthlyPrice['100%']};
+PROMO.push(Object.assign(promoName, promoDate, promoPrice));
 
 // [promoType] -- 1: CUR -- 2: NEW + EXP -- 3: ALL
 
