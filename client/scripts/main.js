@@ -49,6 +49,8 @@ gtag('config', 'G-2MCQJHGE8J', {
 // --------------------------------------------------
 // BASIC
 // --------------------------------------------------
+const WEBSITE_USER = 'https://user.chineseft.net';
+
 var today = new Date();
 
 // -- today -- Get Cookie [Function]
@@ -491,8 +493,18 @@ if (fromPara === 'hk_linkweb30' && (today.getTime() >= rangeStart && today.getTi
 //----------
 rangeStart = new Date('2023-10-23T00:00:00').getTime();
 //rangeStart = new Date('2023-11-10T00:00:00').getTime();
-rangeEnd = new Date('2023-11-10T24:00:00').getTime();
+//rangeEnd = new Date('2023-11-10T24:00:00').getTime();
+rangeEnd = new Date('2023-11-12T24:00:00').getTime();
 if (fromPara === 'mc_airexpo' && (today.getTime() >= rangeStart && today.getTime() <= rangeEnd)) {
+    SP = 1;
+    PRICE['standard'] = standardPrice['75%'];
+    PRICE['premium'] = premiumPrice['75%'];
+}
+//----------
+rangeStart = new Date('2023-11-06T00:00:00').getTime();
+//rangeStart = new Date('2023-11-22T00:00:00').getTime();
+rangeEnd = new Date('2023-11-22T24:00:00').getTime();
+if (fromPara === 'sh_swire' && (today.getTime() >= rangeStart && today.getTime() <= rangeEnd)) {
     SP = 1;
     PRICE['standard'] = standardPrice['75%'];
     PRICE['premium'] = premiumPrice['75%'];
@@ -588,10 +600,15 @@ promoName = {'name': '2023May'};
 promoDate = {'start': '2023-05-15T00:00:00', 'end': '2023-05-28T24:00:00'};
 promoPrice = {'standard': standardPrice['85%'], 'premium': premiumPrice['85%'], 'monthly': monthlyPrice['100%']};
 PROMO.push(Object.assign(promoName, promoDate, promoPrice));
-*/
 
 promoName = {'name': '2023D11'};
 promoDate = {'start': '2023-10-30T00:00:00','end': '2023-11-12T24:00:00'};
+promoPrice = {'standard': standardPrice['75%'],'premium': premiumPrice['75%'],'monthly': monthlyPrice['100%']};
+PROMO.push(Object.assign(promoName, promoDate, promoPrice));
+*/
+
+promoName = {'name': 'LongNianDaJi'};
+promoDate = {'start': '2024-01-15T00:00:00','end': '2024-01-28T24:00:00'};
 promoPrice = {'standard': standardPrice['75%'],'premium': premiumPrice['75%'],'monthly': monthlyPrice['100%']};
 PROMO.push(Object.assign(promoName, promoDate, promoPrice));
 
@@ -628,6 +645,23 @@ promoPrice = {
 };
 promoType = {
     'type': 1
+};
+PROMO.push(Object.assign(promoName, promoDate, promoPrice, promoType));
+
+promoName = {
+    'name': 'Spring Festival 2024'
+};
+promoDate = {
+    'start': '2024-01-15T00:00:00',
+    'end': '2024-01-28T24:00:00'
+};
+promoPrice = {
+    'standard': standardPrice['75%'],
+    'premium': premiumPrice['75%'],
+    'monthly': monthlyPrice['100%']
+};
+promoType = {
+    'type': 2
 };
 PROMO.push(Object.assign(promoName, promoDate, promoPrice, promoType));
 
@@ -1009,7 +1043,7 @@ var openPayment = function() {
 };
 
 const openExchange = function() {
-    window.open('https://user.chineseft.live/?offerId=992374d8e2e24f17bebc50a6e57becd6&platform=8', '_self');
+    window.open(WEBSITE_USER + '/?offerId=992374d8e2e24f17bebc50a6e57becd6&platform=8', '_self');
 }
 
 const toPayAction = function() {

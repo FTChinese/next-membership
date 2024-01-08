@@ -18,6 +18,9 @@ import {
 } from './track_ga4';
 // ##################################################
 
+const WEBSITE_MAIN = 'https://www.chineseft.net';
+const WEBSITE_USER = 'https://user.chineseft.net';
+
 // ------ (tradeNo)
 let randomVal = Math.round(Math.random() * 89999) + 10000;
 let tradeNo = GetCookie('trade_no') || paravalue(window.location.href, 'trade') || randomVal;
@@ -183,12 +186,12 @@ function jump() {
                         jumpUrl = referUrl;
                     }
                 } else {
-                    jumpUrl = 'https://www.chineseft.live';
+                    jumpUrl = WEBSITE_MAIN;
                 }
                 jumpUrl = addClientIdPar(clientId, jumpUrl);
                 window.location.href = jumpUrl;
             });
-            window.clear(s);//清空s，防止再次调用a()。即防止time减为负数
+            window.clearInterval(s);//清空s，防止再次调用a()。即防止time减为负数
         }
      },1000);
      */
@@ -203,7 +206,7 @@ function returnTo() {
         if (rCookie) {
             jumpUrl = decodeURIComponent(rCookie);
         } else {
-            jumpUrl = "http://user.chineseft.live/?uide=" + paravalue(window.location.href, "uide");
+            jumpUrl = WEBSITE_USER + "/?uide=" + paravalue(window.location.href, "uide");
         }
         jumpUrl = addClientIdPar(clientId, jumpUrl);
         // MARK: Fix the problem brought by ealier bugs which are not related to this page
@@ -217,7 +220,7 @@ function returnTo() {
         if (rCookie) {
             jumpUrl = decodeURIComponent(rCookie);
         } else {
-            jumpUrl = "http://user.chineseft.live/?uide=" + paravalue(window.location.href, "uide");
+            jumpUrl = WEBSITE_USER + "/?uide=" + paravalue(window.location.href, "uide");
         }
         jumpUrl = addClientIdPar(clientId, jumpUrl);
         // MARK: Fix the problem brought by ealier bugs which are not related to this page
@@ -263,14 +266,14 @@ if (getCookie('action') === 'buy') {
 
 // 【确认信息】按钮
 let infoConfirmId = document.getElementById("infoConfirm");
-// TODO: - If a user comes from a site such "ftchinese.com", no need to redirect to "chineseft.live". You should only use "chineseft.live" when you can't be sure where the user come from.
+// TODO: - If a user comes from a site such "ftchinese.com", no need to redirect to "chineseft.net". You should only use "chineseft.net" when you can't be sure where the user come from.
 if (infoConfirmId) {
     EventObject.addHandler(infoConfirmId, "click", function() {
-        window.location = 'https://www.chineseft.live/m/corp/preview.html?pageid=subscriptioninfoconfirm&membership=' + membership + '&action=' + action;
+        window.location = WEBSITE_MAIN + '/m/corp/preview.html?pageid=subscriptioninfoconfirm&membership=' + membership + '&action=' + action;
     });
 }
 // TODO: - Please think about the use of domain name here as well, referring to the TODO above.
-document.getElementById('vip_url').href = 'http://user.chineseft.live/?uide=' + paravalue(window.location.href, "uide");
+document.getElementById('vip_url').href = WEBSITE_USER + '/?uide=' + paravalue(window.location.href, "uide");
 //console.log(paravalue(window.location.href, "uide"));
 
 window.onload = function() {

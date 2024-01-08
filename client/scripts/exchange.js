@@ -5,6 +5,8 @@ import {
     isEmptyObj
 } from './subscribe_api.js';
 
+const WEBSITE_MAIN = 'https://www.chineseft.net';
+
 let userName = GetCookie('USER_NAME');
 let userNameId = document.getElementById('userName');
 if (userName) {
@@ -84,14 +86,14 @@ function jump() {
         time = time - 1;
         objTime.innerText = time; //把新time赋给objTime里面
         if (time === 0) {
-            window.location.href = 'https://www.chineseft.live';
-            window.clear(s); //清空s，防止再次调用a()。即防止time减为负数
+            window.location.href = WEBSITE_MAIN;
+            window.clearInterval(s); //清空s，防止再次调用a()。即防止time减为负数
         }
     }, 1000);
 
     var returnTo = document.getElementById("returnTo");
     returnTo.onclick = function() {
-        window.open('https://www.chineseft.live', '_self');
+        window.open(WEBSITE_MAIN, '_self');
     }
 }
 
