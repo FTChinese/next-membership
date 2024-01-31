@@ -30,7 +30,7 @@ nunjucks.configure('views', {
 });
 const render = pify(nunjucks.render);
 
-process.env.NODE_ENV = "development"
+process.env.NODE_ENV = "development";
 
 gulp.task('prod', () => {
     return Promise.resolve(process.env.NODE_ENV = 'production');
@@ -63,7 +63,7 @@ gulp.task('scripts', async () => {
                         exclude: 'node_modules/**'
                     }),
                     nodeResolve({
-                        jsnext: true,
+                        jsnext: true
                     })
                 ]
             });
@@ -134,16 +134,16 @@ gulp.task('build-page', () => {
         //  此运行完之后再返回promise，进行循环返回promise
         return Promise.all(demos.map((demo) => {
             return renderPerView(demo);
-        }))
+        }));
     })
-        .then(() => {
-            //console.log('inline--'+process.env.NODE_ENV)
-            browserSync.reload('*.html');
-            //return Promise.resolve();
-        })
-        .catch(err => {
-            console.log(err);
-        });
+    .then(() => {
+        //console.log('inline--'+process.env.NODE_ENV)
+        browserSync.reload('*.html');
+        //return Promise.resolve();
+    })
+    .catch(err => {
+        console.log(err);
+    });
 
     async function renderPerView(demo) {
         const env = {
@@ -186,7 +186,7 @@ gulp.task('build-page', () => {
             .then(html => {
                 const destFile = path.resolve(destDir, `${name}.html`);
                 return fs.writeAsync(destFile, html);
-            })
+            });
 
     }
 

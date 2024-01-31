@@ -70,6 +70,13 @@ if (todayCookie) {
     //console.log(today);
 }
 
+// -- Change Origin Price Before New Policy Start
+var newPolicyStart = new Date('2024-02-19T00:00:00').getTime();
+if (today.getTime() < newPolicyStart) {
+    document.getElementById('standard_price_origin').innerText = '¥298/年';
+    document.getElementById('standard_monthly_price_origin').innerText = '¥35/月';
+}
+
 const ShowHeadline = (data) => {
     //console.log(data);
     var headline = document.getElementsByClassName('content_headline')[0];
@@ -190,22 +197,41 @@ if (contentId) {
 // @@@@@@@@@@
 
 var PricePolicy = [];
-PricePolicy["monthly"] = {
-    "100%": 35,
-    "intro": 1,
-};
-PricePolicy["standard"] = {
-    "100%": 298,
-    "85%": 258,
-    "75%": 218,
-    "50%": 148,
-};
-PricePolicy["premium"] = {
-    "100%": 1998,
-    "85%": 1698,
-    "75%": 1498,
-    "50%": 998,
-};
+if (today.getTime() >= newPolicyStart) {
+    PricePolicy["monthly"] = {
+        "100%": 45,
+        "intro": 1
+    };
+    PricePolicy["standard"] = {
+        "100%": 358,
+        "85%": 298,
+        "75%": 268,
+        "50%": 168
+    };
+    PricePolicy["premium"] = {
+        "100%": 1998,
+        "85%": 1698,
+        "75%": 1498,
+        "50%": 998
+    };
+} else {
+    PricePolicy["monthly"] = {
+        "100%": 35,
+        "intro": 1
+    };
+    PricePolicy["standard"] = {
+        "100%": 298,
+        "85%": 258,
+        "75%": 218,
+        "50%": 148
+    };
+    PricePolicy["premium"] = {
+        "100%": 1998,
+        "85%": 1698,
+        "75%": 1498,
+        "50%": 998
+    };
+}
 
 // @@@@@@@@@@
 // PRICE
@@ -795,7 +821,7 @@ function monthlyElements(ElementsType = 0) {
     if (monthlyElem.length > 0) {
         if (ElementsType) {
             monthlyElem[0].childNodes[1].childNodes[1].innerText = (ElementsType === 1) ? introType : trialType;
-            document.getElementById('benefits_standard_monthly').innerHTML = (ElementsType === 1) ? '新会员首月仅¥1元，原价续订¥35元' : '新会员试读仅¥1元，原价续订¥35元';
+            document.getElementById('benefits_standard_monthly').innerHTML = (ElementsType === 1) ? '新会员首月仅¥1元，原价续订¥' + PRICE['monthly'] + '元' : '新会员试读仅¥1元，原价续订¥' + PRICE['monthly'] + '元';
             document.getElementById('note_standard_monthly').style.display = 'block';
             document.getElementById('note_more_standard_monthly').style.display = 'block';
             document.getElementById('note_more_standard_monthly').innerHTML = '注意事项：<br>1、新会员即未曾购买过FT中文网订阅产品的用户；<br>2、登录后，如发现支付金额与促销金额不符，请确认您的登录账号是否正确或与客服联系；<br>3、本次活动的最终解释权归FT中文网所有。';
@@ -1361,26 +1387,28 @@ function OriginPrice() {
     }
 }
 
-// function OriginPrice() {
-//     if (document.getElementById('standard_monthly_price_origin').innerText !== document.getElementById('standard_monthly_price').innerText) {
-//         document.getElementById('standard_monthly_price_origin').innerText = '原价' + document.getElementById('standard_monthly_price_origin').innerText;
-//         document.getElementById('standard_monthly_price_origin').style.color = '#CCC';
-//     } else {
-//         document.getElementById('standard_monthly_price_origin').style.color = 'transparent';
-//     }
-//     if (document.getElementById('standard_price_origin').innerText !== document.getElementById('standard_price').innerText) {
-//         document.getElementById('standard_price_origin').innerText = '原价' + document.getElementById('standard_price_origin').innerText;
-//         document.getElementById('standard_price_origin').style.color = '#CCC';
-//     } else {
-//         document.getElementById('standard_price_origin').style.color = 'transparent';
-//     }
-//     if (document.getElementById('premium_price_origin').innerText !== document.getElementById('premium_price').innerText) {
-//         document.getElementById('premium_price_origin').innerText = '原价' + document.getElementById('premium_price_origin').innerText;
-//         document.getElementById('premium_price_origin').style.color = '#CCC';
-//     } else {
-//         document.getElementById('premium_price_origin').style.color = 'transparent';
-//     }
-// }
+/*
+ function OriginPrice() {
+     if (document.getElementById('standard_monthly_price_origin').innerText !== document.getElementById('standard_monthly_price').innerText) {
+         document.getElementById('standard_monthly_price_origin').innerText = '原价' + document.getElementById('standard_monthly_price_origin').innerText;
+         document.getElementById('standard_monthly_price_origin').style.color = '#CCC';
+     } else {
+         document.getElementById('standard_monthly_price_origin').style.color = 'transparent';
+     }
+     if (document.getElementById('standard_price_origin').innerText !== document.getElementById('standard_price').innerText) {
+         document.getElementById('standard_price_origin').innerText = '原价' + document.getElementById('standard_price_origin').innerText;
+         document.getElementById('standard_price_origin').style.color = '#CCC';
+     } else {
+         document.getElementById('standard_price_origin').style.color = 'transparent';
+     }
+     if (document.getElementById('premium_price_origin').innerText !== document.getElementById('premium_price').innerText) {
+         document.getElementById('premium_price_origin').innerText = '原价' + document.getElementById('premium_price_origin').innerText;
+         document.getElementById('premium_price_origin').style.color = '#CCC';
+     } else {
+         document.getElementById('premium_price_origin').style.color = 'transparent';
+     }
+ }
+*/
 
 function PriceShow(p) {
     var price = (isNaN(p)) ? 0 : parseInt(p);
