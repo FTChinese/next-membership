@@ -71,11 +71,13 @@ if (todayCookie) {
 }
 
 // -- Change Origin Price Before New Policy Start
+/*
 var newPolicyStart = new Date('2024-02-19T00:00:00').getTime();
 if (today.getTime() < newPolicyStart) {
     document.getElementById('standard_price_origin').innerText = '¥298/年';
     document.getElementById('standard_monthly_price_origin').innerText = '¥35/月';
 }
+*/
 
 const ShowHeadline = (data) => {
     //console.log(data);
@@ -197,6 +199,23 @@ if (contentId) {
 // @@@@@@@@@@
 
 var PricePolicy = [];
+PricePolicy["monthly"] = {
+    "100%": 45,
+    "intro": 1
+};
+PricePolicy["standard"] = {
+    "100%": 358,
+    "85%": 298,
+    "75%": 268,
+    "50%": 168
+};
+PricePolicy["premium"] = {
+    "100%": 1998,
+    "85%": 1698,
+    "75%": 1498,
+    "50%": 998
+};
+/*
 if (today.getTime() >= newPolicyStart) {
     PricePolicy["monthly"] = {
         "100%": 45,
@@ -232,6 +251,7 @@ if (today.getTime() >= newPolicyStart) {
         "50%": 998
     };
 }
+*/
 
 // @@@@@@@@@@
 // PRICE
@@ -395,9 +415,13 @@ if ((ccodePara === '2cwbhppretrial2022w1' || ccodePara === '2cwbhppretrial2022w2
     PRICE['premium'] = premiumPrice['50%'];
 }
 //----------
-rangeStart = new Date('2023-03-02T00:00:00').getTime();
-rangeEnd = new Date('2023-03-25T24:00:00').getTime();
-if (fromPara === 'ft_basel' && (today.getTime() >= rangeStart && today.getTime() <= rangeEnd)) {
+// 2023-03-02T00:00:00 ~ 2023-03-25T24:00:00 -- 50% -- ft_basel
+// 2024-03-26T00:00:00 ~ 2024-03-30T24:00:00 -- 75% -- hk_basel
+// 2024-04-09T00:00:00 ~ 2024-04-11T24:00:00 -- 75% -- hk_basel
+// 2024-04-17T00:00:00 ~ 2024-04-30T24:00:00 -- 50% -- hk_basel
+rangeStart = new Date('2024-04-17T00:00:00').getTime();
+rangeEnd = new Date('2024-04-30T24:00:00').getTime();
+if (fromPara === 'hk_basel' && (today.getTime() >= rangeStart && today.getTime() <= rangeEnd)) {
     SP = 1;
     PRICE['standard'] = standardPrice['50%'];
     PRICE['premium'] = premiumPrice['50%'];
@@ -535,6 +559,14 @@ if (fromPara === 'sh_swire' && (today.getTime() >= rangeStart && today.getTime()
     PRICE['standard'] = standardPrice['75%'];
     PRICE['premium'] = premiumPrice['75%'];
 }
+//----------
+rangeStart = new Date('2024-03-11T00:00:00').getTime();
+rangeEnd = new Date('2024-12-31T24:00:00').getTime();
+if (fromPara === 'saif_202403' && (today.getTime() >= rangeStart && today.getTime() <= rangeEnd)) {
+    SP = 1;
+    PRICE['standard'] = standardPrice['75%'];
+    PRICE['premium'] = premiumPrice['75%'];
+}
 //--------------------------------------------------------------------------------
 //--------------------------------------------------------------------------------
 // #### Hide Stripe
@@ -631,14 +663,27 @@ promoName = {'name': '2023D11'};
 promoDate = {'start': '2023-10-30T00:00:00','end': '2023-11-12T24:00:00'};
 promoPrice = {'standard': standardPrice['75%'],'premium': premiumPrice['75%'],'monthly': monthlyPrice['100%']};
 PROMO.push(Object.assign(promoName, promoDate, promoPrice));
-*/
 
 promoName = {'name': 'LongNianDaJi'};
 promoDate = {'start': '2024-01-15T00:00:00','end': '2024-01-28T24:00:00'};
 promoPrice = {'standard': standardPrice['75%'],'premium': premiumPrice['75%'],'monthly': monthlyPrice['100%']};
 PROMO.push(Object.assign(promoName, promoDate, promoPrice));
 
+promoName = {'name': '2024March'};
+promoDate = {'start': '2024-03-18T00:00:00','end': '2024-03-31T24:00:00'};
+promoPrice = {'standard': standardPrice['75%'],'premium': premiumPrice['75%'],'monthly': monthlyPrice['100%']};
+PROMO.push(Object.assign(promoName, promoDate, promoPrice));
+
+promoName = {'name': '2024June'};
+promoDate = {'start': '2024-06-11T00:00:00','end': '2024-06-24T24:00:00'};
+promoPrice = {'standard': standardPrice['75%'],'premium': premiumPrice['75%'],'monthly': monthlyPrice['100%']};
+PROMO.push(Object.assign(promoName, promoDate, promoPrice));
+
+*/
+
 // [promoType] -- 1: CUR -- 2: NEW + EXP -- 3: ALL
+
+//--------------------
 
 promoName = {
     'name': '2023-08-31_Preview'
@@ -657,6 +702,8 @@ promoType = {
 };
 PROMO.push(Object.assign(promoName, promoDate, promoPrice, promoType));
 
+//--------------------
+
 promoName = {
     'name': '2023-08-31'
 };
@@ -674,6 +721,8 @@ promoType = {
 };
 PROMO.push(Object.assign(promoName, promoDate, promoPrice, promoType));
 
+//--------------------
+
 promoName = {
     'name': 'Spring Festival 2024'
 };
@@ -688,6 +737,63 @@ promoPrice = {
 };
 promoType = {
     'type': 2
+};
+PROMO.push(Object.assign(promoName, promoDate, promoPrice, promoType));
+
+//--------------------
+
+promoName = {
+    'name': 'March 2024'
+};
+promoDate = {
+    'start': '2024-03-18T00:00:00',
+    'end': '2024-03-31T24:00:00'
+};
+promoPrice = {
+    'standard': standardPrice['75%'],
+    'premium': premiumPrice['75%'],
+    'monthly': monthlyPrice['100%']
+};
+promoType = {
+    'type': 3
+};
+PROMO.push(Object.assign(promoName, promoDate, promoPrice, promoType));
+
+//--------------------
+
+promoName = {
+    'name': 'June 2024'
+};
+promoDate = {
+    'start': '2024-06-11T00:00:00',
+    'end': '2024-06-24T24:00:00'
+};
+promoPrice = {
+    'standard': standardPrice['75%'],
+    'premium': premiumPrice['75%'],
+    'monthly': monthlyPrice['100%']
+};
+promoType = {
+    'type': 3
+};
+PROMO.push(Object.assign(promoName, promoDate, promoPrice, promoType));
+
+//--------------------
+
+promoName = {
+    'name': '2024-08-31'
+};
+promoDate = {
+    'start': '2024-08-19T00:00:00',
+    'end': '2024-09-01T24:00:00'
+};
+promoPrice = {
+    'standard': standardPrice['50%'],
+    'premium': premiumPrice['50%'],
+    'monthly': monthlyPrice['100%']
+};
+promoType = {
+    'type': 3
 };
 PROMO.push(Object.assign(promoName, promoDate, promoPrice, promoType));
 

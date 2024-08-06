@@ -264,17 +264,55 @@ if (getCookie('action') === 'buy') {
     action = '';
 }
 
+let e = (new URL(window.location.href)).searchParams.get('e') || '';
+
+function isWechatBrowser() {
+    return /micromessenger/i.test(navigator.userAgent);
+}
+
 // 【确认信息】按钮
 let infoConfirmId = document.getElementById("infoConfirm");
 // TODO: - If a user comes from a site such "ftchinese.com", no need to redirect to "chineseft.net". You should only use "chineseft.net" when you can't be sure where the user come from.
 if (infoConfirmId) {
     EventObject.addHandler(infoConfirmId, "click", function() {
-        window.location = WEBSITE_MAIN + '/m/corp/preview.html?pageid=subscriptioninfoconfirm&membership=' + membership + '&action=' + action;
+        window.location = WEBSITE_MAIN + '/m/corp/preview.html?pageid=subscriptioninfoconfirm&membership=' + membership + '&action=' + action + '&e=' + e;
     });
 }
 // TODO: - Please think about the use of domain name here as well, referring to the TODO above.
 document.getElementById('vip_url').href = WEBSITE_USER + '/?uide=' + paravalue(window.location.href, "uide");
 //console.log(paravalue(window.location.href, "uide"));
+
+window.alert = function(name) {
+    var iframe = document.createElement("IFRAME");
+    iframe.style.display = "none";
+    iframe.setAttribute("src", 'data:text/plain,');
+    document.documentElement.appendChild(iframe);
+    window.frames[0].window.alert(name);
+    iframe.parentNode.removeChild(iframe);
+};
+
+document.addEventListener('DOMContentLoaded', function() {
+    var url = document.getElementById('vip_url');
+    url.addEventListener('click', function(event) {
+        event.preventDefault();
+        if (isWechatBrowser()) {
+            window.alert('请使用手机默认浏览器访问');
+        } else {
+            window.location.href = this.href;
+        }
+    });
+});
+
+let wechatTip = document.getElementById('wechat-tip');
+if (isWechatBrowser()) {
+    infoConfirmId.style.display = 'none';
+    wechatTip.style.display = "block";
+    document.querySelector('.header-container').style.display = 'none';
+    document.querySelector('.hint-word').style.height = '120px';
+} else {
+    infoConfirmId.style.display = "block";
+    wechatTip.style.display = "none";
+}
 
 window.onload = function() {
     jump();
